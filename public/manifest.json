@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Livelance",
+  "name": "An online marketplace for jobs",
   "icons": [
     {
       "src": "favicon.ico",
