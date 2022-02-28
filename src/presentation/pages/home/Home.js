@@ -264,6 +264,9 @@ function Home() {
                                             <JobCard />
                                             <JobCard />
                                             <JobCard />
+                                            {/* {listofdata.map((data) => <>
+                                                <JobCard data={data} />
+                                            </>)} */}
                                         </li>
 
                                     </ul>

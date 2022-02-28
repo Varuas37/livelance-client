@@ -1,18 +1,5 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import {
-    CalendarIcon,
-    CogIcon,
-    HomeIcon,
-    MapIcon,
-    MenuIcon,
-    SearchCircleIcon,
-    SpeakerphoneIcon,
-    UserGroupIcon,
-    ViewGridAddIcon,
-    XIcon,
-} from '@heroicons/react/outline'
-import { ChevronLeftIcon, FilterIcon, MailIcon, PhoneIcon, SearchIcon } from '@heroicons/react/solid'
+
+import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
 import Reviews from './Reviews'
 
 
@@ -37,7 +24,6 @@ const profile = {
         ZipCode: '75701',
         PayRange: '$34/hr',
         Skills: 'Java , Python, Web Development',
-
     },
 }
 
