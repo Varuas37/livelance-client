@@ -16,6 +16,8 @@ import UserProfile from "./presentation/pages/profile/UserProfile";
 import JobDetail from "./presentation/pages/jobDetail/JobDetail";
 import Sidebar from "./presentation/components/Sidebar";
 import StaticSidebar from "./presentation/components/StaticSidebar";
+import GetSidebar from "./presentation/utils/GetSidebar";
+
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -34,6 +36,7 @@ const App = () => {
 						{/* <StaticSidebar /> */}
 
 						{/* <Sidebar/> */}
+						<GetSidebar/>
 						<Routes>
 							<Route exact path="/" element={<LandingPage />} />
 							<Route exact path="/signup" element={<SignUp />} />

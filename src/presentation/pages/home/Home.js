@@ -222,9 +222,9 @@ function Home() {
 									{/* Start putting items*/}
 									<ul role="list" className="space-y-3 mt-10">
 										{/* For the list of Jobs Map the JobCard Here */}
-										<li className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
+										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
-											<Modal />
+											{/* <Modal /> */}
 											<JobCard />
 											<JobCard />
 											<JobCard />
@@ -239,7 +239,7 @@ function Home() {
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
-										</li>
+										</div>
 									</ul>
 
 									{/* /End replace */}
