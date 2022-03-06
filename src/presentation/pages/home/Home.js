@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
 	BellIcon,
@@ -13,6 +13,11 @@ import JobCard from "../../components/core/JobCard";
 import Modal from "../../components/core/modal";
 import CategoryGrid from "../../components/core/CategoryGrid";
 import CategoryDetails from "../categories/CategoryDetails";
+import { useDispatch } from "react-redux";
+import { fetchFreelanceList } from "../../../application/redux/action/freelanceActions";
+import { useSelector } from "react-redux";
+import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
+import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 
 const navigation = [
 	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
@@ -33,6 +38,17 @@ function classNames(...classes) {
 
 function Home() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const freelanceList = useSelector(
+		(state) => state.freelanceReducer.freelanceList
+	);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchFreelanceList());
+	}, []);
+
+	// console.log(freelanceList);
 
 	return (
 		<>
@@ -225,17 +241,16 @@ function Home() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
-											<JobCard />
+											{freelanceList &&
+												freelanceList.map((eachFreelance) => {
+													return (
+														<JobCard
+															key={eachFreelance.id}
+															data={eachFreelance}
+														/>
+													);
+												})}
+
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
