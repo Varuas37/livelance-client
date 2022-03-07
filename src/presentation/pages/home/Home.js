@@ -14,7 +14,10 @@ import Modal from "../../components/core/modal";
 import CategoryGrid from "../../components/core/CategoryGrid";
 import CategoryDetails from "../categories/CategoryDetails";
 import { useDispatch } from "react-redux";
-import { fetchFreelanceById, fetchFreelanceList } from "../../../application/redux/action/freelanceActions";
+import {
+	fetchFreelanceById,
+	fetchFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
 import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
 import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
@@ -46,12 +49,7 @@ function Home() {
 
 	useEffect(() => {
 		dispatch(fetchFreelanceList());
-		// dispatch(fetchFreelanceById("1"))
-
-		// console.log("shivam")
 	}, []);
-
-	// console.log(freelanceList);
 
 	return (
 		<>

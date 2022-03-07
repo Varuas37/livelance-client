@@ -7,36 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchFreelanceById } from "../../../application/redux/action/freelanceActions";
 
 function Modal() {
-	let {id} = useParams();
 	const [open, setOpen] = useState(true);
-	let navigate = useNavigate();
+
 	const cancelButtonRef = useRef(null);
-
-	const modalClick = () => {
-		setOpen(!open);
-		navigate(`/home`);
-	};
-
-	const selectedFreelance = useSelector(
-		(state) => state.freelanceReducer.selectedFreelance
-	);
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		// dispatch(fetchFreelanceList());
-		dispatch(fetchFreelanceById(id))
-
-		// console.log("shivam")
-	}, []);
 
 	return (
 		<div>
-			<Transition.Root onClick={modalClick} show={open} as={Fragment}>
+			<Transition.Root show={open} as={Fragment}>
 				<Dialog
 					as="div"
 					className="fixed z-10 inset-0 overflow-y-auto"
 					initialFocus={cancelButtonRef}
-					onClose={modalClick}
+					onClose={setOpen}
 				>
 					<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 						<Transition.Child
@@ -74,7 +56,7 @@ function Modal() {
 											as="h3"
 											className="text-lg text-center leading-6 font-medium text-gray-900"
 										>
-											{selectedFreelance && selectedFreelance.jobTitle}
+											Apply
 										</Dialog.Title>
 										<div className="mt-10">
 											<div className="mt-1 ">
@@ -102,14 +84,14 @@ function Modal() {
 									<button
 										type="button"
 										className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-										onClick={() => modalClick()}
+										onClick={() => setOpen(false)}
 									>
 										Apply
 									</button>
 									<button
 										type="button"
 										className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
-										onClick={() => modalClick()}
+										onClick={() => setOpen(false)}
 										ref={cancelButtonRef}
 									>
 										Cancel

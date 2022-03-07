@@ -1,14 +1,15 @@
-import { fetchDummyFreelanceById, fetchDummyFreelanceList } from "../../../repository/dummyFreelanceList";
+import {
+	fetchDummyFreelanceById,
+	fetchDummyFreelanceList,
+} from "../../../repository/dummyFreelanceList";
 import { SET_FREELANCE_LIST, SET_FREELANCE_BY_ID } from "./types";
 
-export const fetchFreelanceList = () => {
+export const fetchFreelanceList = () => async (dispatch) => {
 	const response = fetchDummyFreelanceList();
-
-	return { type: SET_FREELANCE_LIST, payload: response.data };
+	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
 };
 
-export const fetchFreelanceById = (id) => {
+export const fetchFreelanceById = (id) => async (dispatch) => {
 	const response = fetchDummyFreelanceById(id);
-		
-	return { type: SET_FREELANCE_BY_ID, payload: response.data };
+	dispatch({ type: SET_FREELANCE_BY_ID, payload: response.data });
 };

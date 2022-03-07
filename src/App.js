@@ -19,6 +19,7 @@ import GetSidebar from "./presentation/utils/GetSidebar";
 import Modal from "./presentation/components/core/modal";
 import JobDetailModal from "./presentation/pages/jobDetail/JobDetailModal";
 import Onboarding from "./presentation/pages/onboarding/Onboarding";
+import EditProfileModal from "./presentation/pages/profile/EditProfileModal";
 
 
 if (localStorage.token) {
@@ -48,6 +49,7 @@ const App = () => {
 							<Route exact path="/profile" element={<UserProfile />} />
 							<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
 							<Route exact path="/onboarding" element={<Onboarding />} />
+							<Route exact path="/profile/edit" element={<EditProfileModal />} />
 						</Routes>
 					</Fragment>
 				</PersistGate>
