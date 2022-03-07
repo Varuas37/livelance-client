@@ -13,10 +13,11 @@ import Home from "./presentation/pages/home/Home";
 import CategoryGrid from "./presentation/components/core/CategoryGrid";
 import CategoryDetails from "./presentation/pages/categories/CategoryDetails";
 import UserProfile from "./presentation/pages/profile/UserProfile";
-import JobDetail from "./presentation/pages/jobDetail/JobDetail";
 import Sidebar from "./presentation/components/Sidebar";
 import StaticSidebar from "./presentation/components/StaticSidebar";
 import GetSidebar from "./presentation/utils/GetSidebar";
+import Modal from "./presentation/components/core/modal";
+import JobDetailModal from "./presentation/pages/jobDetail/JobDetailModal";
 
 
 if (localStorage.token) {
@@ -44,7 +45,7 @@ const App = () => {
 							<Route exact path="/home" element={<Home />} />
 							<Route exact path="/categories" element={<CategoryDetails />} />
 							<Route exact path="/profile" element={<UserProfile />} />
-							<Route exact path="/jobdetail/:id" element={<JobDetail />} />
+							<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
 						</Routes>
 					</Fragment>
 				</PersistGate>

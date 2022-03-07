@@ -6,8 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFreelanceById } from "../../../application/redux/action/freelanceActions";
 
-function Modal() {
-	let {id} = useParams();
+function JobDetailModal() {
+	let { id } = useParams();
 	const [open, setOpen] = useState(true);
 	let navigate = useNavigate();
 	const cancelButtonRef = useRef(null);
@@ -24,7 +24,7 @@ function Modal() {
 
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
-		dispatch(fetchFreelanceById(id))
+		dispatch(fetchFreelanceById(id));
 
 		// console.log("shivam")
 	}, []);
@@ -74,12 +74,110 @@ function Modal() {
 											as="h3"
 											className="text-lg text-center leading-6 font-medium text-gray-900"
 										>
-											{selectedFreelance && selectedFreelance.jobTitle}
+											{selectedFreelance.jobTitle && selectedFreelance.jobTitle}
 										</Dialog.Title>
-										<div className="mt-10">
+
+										<div className="mt-2">
+											<p className="mt-2 text-gray-600">
+												{selectedFreelance.jobDescription &&
+													selectedFreelance.jobDescription}
+											</p>
+										</div>
+										<div className="py-5">
+											<h3 className="font-bold text-xs">Skills</h3>
+											{/* <!-- This is the tags / Skills container --> */}
+											<div className="my-1 flex flex-wrap -m-1">
+												{selectedFreelance.skills &&
+													selectedFreelance.skills.map((skill, idx) => (
+														<div key={idx}>
+															<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+																{skill}
+															</span>
+														</div>
+													))}
+											</div>
+										</div>
+
+										<div className="flex flex-row  space-x-5 ">
+											<div className="font-light text-gray-600 flex flex-row space-x-1">
+												<svg
+													className="w-6 h-6"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														fillRule="evenodd"
+														d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+														clipRule="evenodd"
+													/>
+												</svg>
+												<span>
+													{selectedFreelance.postedBy &&
+														selectedFreelance.postedBy}
+												</span>
+											</div>
+											<div className="font-light text-gray-600 flex flex-row space-x-1">
+												<svg
+													className="w-6 h-6"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														fillRule="evenodd"
+														d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+														clipRule="evenodd"
+													/>
+												</svg>
+												<span>
+													{selectedFreelance.duration &&
+														selectedFreelance.duration}
+												</span>
+											</div>
+											<div className="font-light text-gray-600 flex flex-row space-x-1">
+												<svg
+													className="w-6 h-6"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path
+														fillRule="evenodd"
+														d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
+														clipRule="evenodd"
+													/>
+												</svg>
+												<span>
+													{selectedFreelance.rate && selectedFreelance.rate}
+												</span>
+											</div>
+										</div>
+
+										<div className="font-light text-gray-600 flex flex-row space-x-1">
+											<svg
+												className="w-6 h-6"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													fillRule="evenodd"
+													d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+													clipRule="evenodd"
+												/>
+											</svg>
+											<span>
+												{selectedFreelance.location &&
+													selectedFreelance.location}
+												,
+												{selectedFreelance.zipcode && selectedFreelance.zipcode}
+											</span>
+										</div>
+										<div className="mt-9">
 											<div className="mt-1 ">
 												<textarea
-													rows={5}
+													rows={3}
 													id="additionalJobInfo"
 													name="additionalJobInfo"
 													placeholder="Description"
@@ -123,4 +221,4 @@ function Modal() {
 		</div>
 	);
 }
-export default Modal;
+export default JobDetailModal;

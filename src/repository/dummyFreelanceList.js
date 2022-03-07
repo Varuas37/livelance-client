@@ -1,4 +1,4 @@
-export const dummyFreelanceList = {
+const dummyFreelanceList = {
 	data: [
 		{
 			id: "3",
@@ -57,6 +57,16 @@ export const dummyFreelanceList = {
 			location: "3900 Old Omen RD",
 			zipcode: "75701",
 		},
-		
 	],
 };
+
+export function fetchDummyFreelanceList() {
+	return dummyFreelanceList;
+}
+export function fetchDummyFreelanceById(id) {
+	return {
+		data: dummyFreelanceList.data.find(
+			(eachDummyFreelance) => eachDummyFreelance.id === id
+		),
+	};
+}
