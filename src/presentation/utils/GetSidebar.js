@@ -5,7 +5,19 @@ import StaticSidebar from "../components/StaticSidebar";
 const GetSidebar = () => {
 	const location = useLocation();
 
-	return <>{location.pathname !== "/" && <StaticSidebar />}</>;
+	let excludeSidebarScreenList = [
+		"/",
+		"/profile",
+		"/profile/edit",
+		"/onboarding",
+	];
+	return (
+		<>
+			{!excludeSidebarScreenList.includes(location.pathname) && (
+				<StaticSidebar />
+			)}
+		</>
+	);
 };
 
 export default GetSidebar;
