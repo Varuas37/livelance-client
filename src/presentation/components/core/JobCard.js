@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchFreelanceById } from "../../../application/redux/action/freelanceActions";
+import Modal from "./modal";
 function JobCard({ data }) {
+	let navigate = useNavigate();
+	let dispatch = useDispatch();
+
+	const handleReadMoreClick = (e) => {
+		e.preventDefault();
+		// dispatch(fetchFreelanceById(data.id))
+		navigate(`/jobdetail/${data.id}`);
+	};
 	return (
 		<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 			<div className="w-full px-10 my-4 py-6 bg-white ">
@@ -24,14 +34,28 @@ function JobCard({ data }) {
 					>
 						{data.jobTitle}
 					</a>
-					<p className="mt-2 text-gray-600">{data.jobDescription}</p>
+					<p className="mt-2 text-gray-600">
+						{data.jobDescription.length > 150
+							? data.jobDescription.substring(0, 150) + " ....... "
+							: data.jobDescription}
+
+						<span
+							onClick={(e) => handleReadMoreClick(e)}
+							className="text-blue-600 hover:underline cursor-pointer"
+						>
+							Read More
+						</span>
+					</p>
 				</div>
-				<Link
-					to={`/jobdetail/${data.id}`}
-					className="text-blue-600 hover:underline"
+				{/* <div
+					onClick={(e) => handleReadMoreClick(e, data.id)}
+					className="text-blue-600 hover:underline cursor-pointer"
 				>
 					Read More
-				</Link>
+				</div> */}
+
+				{/* {returnModal()} */}
+				{/* <Modal/> */}
 				{/* Everything here eventually will need to come from data. The list of skills here needs to be mapped.*/}
 				<div className="py-5">
 					<h3 className="font-bold text-xs">Skills</h3>
