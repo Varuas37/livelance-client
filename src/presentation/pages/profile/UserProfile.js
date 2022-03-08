@@ -17,7 +17,7 @@ function UserProfile() {
 	const profile = useSelector((state) => state.profileReducer.profile);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		// dispatch(setProfile());
+		dispatch(setProfile());
 	}, []);
 
 	return (
