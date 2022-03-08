@@ -15,8 +15,8 @@ import CategoryGrid from "../../components/core/CategoryGrid";
 import CategoryDetails from "../categories/CategoryDetails";
 import { useDispatch } from "react-redux";
 import {
-	fetchFreelanceById,
-	fetchFreelanceList,
+	setFreelanceById,
+	setFreelanceList,
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
 import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
@@ -48,7 +48,8 @@ function Home() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchFreelanceList());
+		dispatch(setFreelanceList());
+		
 	}, []);
 
 	return (

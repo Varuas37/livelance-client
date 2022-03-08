@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFreelanceById } from "../../../application/redux/action/freelanceActions";
+import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 
 function JobDetailModal() {
 	let { id } = useParams();
@@ -24,7 +24,7 @@ function JobDetailModal() {
 
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
-		dispatch(fetchFreelanceById(id));
+		dispatch(setFreelanceById(id));
 
 		// console.log("shivam")
 	}, []);

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchFreelanceById } from "../../../application/redux/action/freelanceActions";
+import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 import Modal from "./modal";
 function JobCard({ data }) {
 	let navigate = useNavigate();
