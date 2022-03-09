@@ -4,16 +4,18 @@ import {
 	fetchDummyFreelanceList,
 } from "../../../repository/dummyFreelanceList";
 import { fetchdummyOfferedFreelanceList } from "../../../repository/dummyOfferedFreelances";
-import { fetchdummyOngoingFreelanceList } from "../../../repository/dummyOngoingFreelances";
+import { fetchdummyAcceptedFreelanceList } from "../../../repository/dummyAcceptedFreelances";
 import { fetchdummySavedFreelanceList } from "../../../repository/dummySavedJobs";
 import {
 	SET_FREELANCE_LIST,
 	SET_FREELANCE_BY_ID,
 	SET_SAVED_FREELANCE_LIST,
 	SET_OFFERED_FREELANCE_LIST,
-	SET_ONGOING_FREELANCE_LIST,
+	SET_ACCEPTED_FREELANCE_LIST,
 	SET_APPLIED_FREELANCE_LIST,
+	SET_POSTED_FREELANCE_LIST,
 } from "./types";
+import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 
 export const setFreelanceList = () => async (dispatch) => {
 	const response = fetchDummyFreelanceList();
@@ -35,10 +37,14 @@ export const setOfferedFreelanceList = () => async (dispatch) => {
 	dispatch({ type: SET_OFFERED_FREELANCE_LIST, payload: response.data });
 };
 export const setOngoingFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyOngoingFreelanceList();
-	dispatch({ type: SET_ONGOING_FREELANCE_LIST, payload: response.data });
+	const response = fetchdummyAcceptedFreelanceList();
+	dispatch({ type: SET_ACCEPTED_FREELANCE_LIST, payload: response.data });
 };
 export const setAppliedFreelanceList = () => async (dispatch) => {
 	const response = fetchdummyAppliedFreelanceList();
 	dispatch({ type: SET_APPLIED_FREELANCE_LIST, payload: response.data });
+};
+export const setPostedFreelanceList = () => async (dispatch) => {
+	const response = fetchdummyPostedFreelanceList();
+	dispatch({ type: SET_POSTED_FREELANCE_LIST, payload: response.data });
 };
