@@ -6,7 +6,6 @@ export const setProfile = () => async (dispatch) => {
 	dispatch({ type: SET_PROFILE, payload: response.data });
 };
 
-export const editAndSetProfile = (profile) => async (dispatch) => {
-	console.log(profile)
+export const editAndSetProfile = (profile) => async (dispatch) => {	
 	dispatch({ type: EDIT_AND_SAVE_PROFILE, payload: profile });
 };

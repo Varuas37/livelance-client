@@ -11,22 +11,22 @@ const PostJob = () => {
 	const postJobButtonStyle = {
 		height: "200px",
 		width: "200px",
-		backgroundColor: "teal",
+		border: "2px solid gray",
 		textAlign: "center",
-		color: "white",
-		fontSize: "32px",
+		fontSize: "24px",
 		cursor: "pointer",
+		margin: "16px",
 	};
 
 	function handlePostJobClick() {
-        navigate("/postjob")
-    }
+		navigate("/postjob");
+	}
 
 	return (
 		<div style={postJobButtonContainerStyle}>
 			<div style={postJobButtonStyle} onClick={handlePostJobClick}>
 				{" "}
-				Post A Job
+				Post a Non-Remote Freelance
 			</div>
 		</div>
 	);

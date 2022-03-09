@@ -17,6 +17,7 @@ const initialState = {
 	appliedFreelanceList: [],
 	selectedFreelance: {},
 	postedFreelanceList: [],
+	postedFreelance: {},
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
