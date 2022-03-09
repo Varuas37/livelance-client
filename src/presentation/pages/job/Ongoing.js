@@ -1,9 +1,31 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	setOfferedFreelanceList,
+	setOngoingFreelanceList,
+	setSavedFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
+import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 
 const Ongoing = () => {
-  return (
-    <div>Ongoing</div>
-  )
-}
+	const ongoingFreelanceList = useSelector(
+		(state) => state.freelanceReducer.ongoingFreelanceList
+	);
 
-export default Ongoing
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(setOngoingFreelanceList());
+	}, []);
+
+	return (
+		<>
+			{ongoingFreelanceList.length > 0 && (
+				<GenericBrowseJob
+					props={{ dataList: ongoingFreelanceList, myJobType: "ongoing" }}
+				/>
+			)}
+		</>
+	);
+};
+
+export default Ongoing;

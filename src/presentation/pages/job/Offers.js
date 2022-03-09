@@ -1,9 +1,30 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	setOfferedFreelanceList,
+	setSavedFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
+import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 
 const Offers = () => {
-  return (
-    <div>Offers</div>
-  )
-}
+	const offeredFreelanceList = useSelector(
+		(state) => state.freelanceReducer.offeredFreelanceList
+	);
 
-export default Offers
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(setOfferedFreelanceList());
+	}, []);
+
+	return (
+		<>
+			{offeredFreelanceList.length > 0 && (
+				<GenericBrowseJob
+					props={{ dataList: offeredFreelanceList, myJobType: "offers" }}
+				/>
+			)}
+		</>
+	);
+};
+
+export default Offers;
