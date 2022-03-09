@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 
 const navigation = [
-	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
+	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: false },
 	{
 		name: "My Jobs",
 		href: "/myjobs/saved",
