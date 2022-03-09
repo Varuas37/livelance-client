@@ -6,10 +6,16 @@ import {
 	XIcon,
 	BriefcaseIcon,
 } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
 
 const navigation = [
 	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
-	{ name: "My Jobs", href: "/documents", icon: BriefcaseIcon, current: false },
+	{
+		name: "My Jobs",
+		href: "/myjobs/saved",
+		icon: BriefcaseIcon,
+		current: false,
+	},
 ];
 
 function classNames(...classes) {
@@ -30,9 +36,9 @@ const StaticSidebar = () => {
 				<div className="flex-grow mt-5 flex flex-col">
 					<nav className="flex-1 px-2 pb-4 space-y-1">
 						{navigation.map((item) => (
-							<a
+							<Link
 								key={item.name}
-								href={item.href}
+								to={item.href}
 								className={classNames(
 									item.current
 										? "bg-gray-100 text-gray-900"
@@ -50,7 +56,7 @@ const StaticSidebar = () => {
 									aria-hidden="true"
 								/>
 								{item.name}
-							</a>
+							</Link>
 						))}
 					</nav>
 				</div>

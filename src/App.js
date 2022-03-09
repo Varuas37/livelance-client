@@ -20,7 +20,11 @@ import Modal from "./presentation/components/core/modal";
 import JobDetailModal from "./presentation/pages/jobDetail/JobDetailModal";
 import Onboarding from "./presentation/pages/onboarding/Onboarding";
 import EditProfileModal from "./presentation/pages/profile/EditProfileModal";
-
+import Offers from "./presentation/pages/job/Offers";
+import Ongoing from "./presentation/pages/job/Ongoing";
+import Applied from "./presentation/pages/job/Applied";
+import GetMyJobsNavigation from "./presentation/utils/GetMyJobsNavigation";
+import SavedJobs from "./presentation/pages/job/SavedJobs";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -39,7 +43,8 @@ const App = () => {
 						{/* <StaticSidebar /> */}
 
 						{/* <Sidebar/> */}
-						<GetSidebar/>
+						<GetSidebar />
+						<GetMyJobsNavigation />
 						<Routes>
 							<Route exact path="/" element={<LandingPage />} />
 							<Route exact path="/signup" element={<SignUp />} />
@@ -49,7 +54,15 @@ const App = () => {
 							<Route exact path="/profile" element={<UserProfile />} />
 							<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
 							<Route exact path="/onboarding" element={<Onboarding />} />
-							<Route exact path="/profile/edit" element={<EditProfileModal />} />
+							<Route
+								exact
+								path="/profile/edit"
+								element={<EditProfileModal />}
+							/>
+							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
+							<Route exact path="/myjobs/offers" element={<Offers />} />
+							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
+							<Route exact path="/myjobs/applied" element={<Applied />} />
 						</Routes>
 					</Fragment>
 				</PersistGate>
