@@ -14,6 +14,7 @@ import {
 	SET_ACCEPTED_FREELANCE_LIST,
 	SET_APPLIED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE_LIST,
+	SET_POSTED_FREELANCE,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 
@@ -47,4 +48,10 @@ export const setAppliedFreelanceList = () => async (dispatch) => {
 export const setPostedFreelanceList = () => async (dispatch) => {
 	const response = fetchdummyPostedFreelanceList();
 	dispatch({ type: SET_POSTED_FREELANCE_LIST, payload: response.data });
+};
+
+export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
+
+	console.log(postedFreelance)
+	dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
 };
