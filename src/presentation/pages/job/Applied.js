@@ -1,12 +1,6 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setAppliedFreelanceList,
-	setOfferedFreelanceList,
-	setOngoingFreelanceList,
-	setSavedFreelanceList,
-} from "../../../application/redux/action/freelanceActions";
+import { setAppliedFreelanceList } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 
 const Applied = () => {

@@ -6,6 +6,7 @@ function GenericJobCard({ data, myJobType }) {
 	let navigate = useNavigate();
 	let dispatch = useDispatch();
 
+	const descriptionLength = myJobType === "saved" ? 150 : 300;
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		// dispatch(fetchFreelanceById(data.id))
@@ -35,16 +36,19 @@ function GenericJobCard({ data, myJobType }) {
 						{data.jobTitle}
 					</a>
 					<p className="mt-2 text-gray-600">
-						{data.jobDescription.length > 150
-							? data.jobDescription.substring(0, 150) + " ....... "
+						{data.jobDescription.length > descriptionLength
+							? data.jobDescription.substring(0, descriptionLength) +
+							  " ....... "
 							: data.jobDescription}
 
-						<span
-							onClick={(e) => handleReadMoreClick(e)}
-							className="text-blue-600 hover:underline cursor-pointer"
-						>
-							Read More
-						</span>
+						{myJobType === "saved" && (
+							<span
+								onClick={(e) => handleReadMoreClick(e)}
+								className="text-blue-600 hover:underline cursor-pointer"
+							>
+								Read More
+							</span>
+						)}
 					</p>
 				</div>
 				{/* <div
@@ -138,19 +142,47 @@ function GenericJobCard({ data, myJobType }) {
 							{data.location}, {data.zipcode}
 						</span>
 					</div>
+
 					<div>
 						<a className="flex items-center" href="#">
-							<img
-								className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-								src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
-								alt="avatar"
-							/>
-							<button
-								type="button"
-								className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							>
-								Apply
-							</button>
+							{myJobType !== "posted" && (
+								<img
+									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+									src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+									alt="avatar"
+								/>
+							)}
+							{/* show accept button only for saved, offered, and posted jobs */}
+							{(myJobType === "saved" ||
+								myJobType === "offers" ||
+								myJobType === "posted") && (
+								<button
+									type="button"
+									className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+								>
+									{myJobType === "saved"
+										? "Apply"
+										: myJobType === "offers"
+										? "Accept"
+										: myJobType === "posted"
+										? "Edit"
+										: ""}
+								</button>
+							)}
+
+							{/* show reject button only for applied, ongoing, and offered jobs */}
+							{myJobType !== "saved" && (
+								<button
+									type="button"
+									className="inline-flex items-center mx-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+								>
+									{myJobType === "applied" || myJobType === "ongoing"
+										? "Cancel Application"
+										: myJobType === "posted"
+										? "Delete"
+										: "Reject"}
+								</button>
+							)}
 						</a>
 					</div>
 				</div>
@@ -158,6 +190,5 @@ function GenericJobCard({ data, myJobType }) {
 		</li>
 	);
 }
-
 
 export default GenericJobCard;

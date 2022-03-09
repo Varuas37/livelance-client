@@ -17,7 +17,17 @@ const JobsNavigation = (props) => {
 						Saved
 					</NavLink>
 				</li>
-
+				<li>
+					<NavLink
+						className={({ isActive }) =>
+							isActive ? "selected" : "nonSelected"
+						}
+						id="labNavLink"
+						to={`/myjobs/applied`}
+					>
+						Applied
+					</NavLink>
+				</li>
 				<li>
 					<NavLink
 						className={({ isActive }) =>
@@ -29,7 +39,6 @@ const JobsNavigation = (props) => {
 						Offers
 					</NavLink>
 				</li>
-
 				<li>
 					<NavLink
 						className={({ isActive }) =>
@@ -38,23 +47,9 @@ const JobsNavigation = (props) => {
 						id="labNavLink"
 						to={`/myjobs/ongoing`}
 					>
-						Ongoing
+						Accepted
 					</NavLink>
 				</li>
-
-				{props.labinitial !== "PAL" && (
-					<li>
-						<NavLink
-							className={({ isActive }) =>
-								isActive ? "selected" : "nonSelected"
-							}
-							id="labNavLink"
-							to={`/myjobs/applied`}
-						>
-							Applied
-						</NavLink>
-					</li>
-				)}
 			</ul>
 		</div>
 	);

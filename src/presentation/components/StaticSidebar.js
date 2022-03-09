@@ -5,6 +5,7 @@ import {
 	MenuAlt2Icon,
 	XIcon,
 	BriefcaseIcon,
+	OfficeBuildingIcon
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 
@@ -14,6 +15,12 @@ const navigation = [
 		name: "My Jobs",
 		href: "/myjobs/saved",
 		icon: BriefcaseIcon,
+		current: false,
+	},
+	{
+		name: "Posted Jobs",
+		href: "/postedjobs",
+		icon: OfficeBuildingIcon,
 		current: false,
 	},
 ];

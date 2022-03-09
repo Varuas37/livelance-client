@@ -1,9 +1,9 @@
-const dummyOngoingFreelanceList = {
+const dummyAcceptedFreelanceList = {
 	data: [
 		{
 			id: "1",
 			postedOn: "Jan 22, 2022",
-			jobTitle: "Ongoing Job 1",
+			jobTitle: "Accepted Job 1",
 			jobDescription:
 				"Job Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero!",
 			skills: [
@@ -22,7 +22,7 @@ const dummyOngoingFreelanceList = {
 		{
 			id: "2",
 			postedOn: "Jan 22, 2022",
-			jobTitle: "Ongoing Job 2",
+			jobTitle: "Accepted Job 2",
 			jobDescription:
 				"Job Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero!",
 			skills: [
@@ -41,7 +41,7 @@ const dummyOngoingFreelanceList = {
 		{
 			id: "3",
 			postedOn: "Jan 22, 2022",
-			jobTitle: "Ongoing Job 3",
+			jobTitle: "Accepted Job 3",
 			jobDescription:
 				"Job Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim reprehenderit nisi, accusamus delectus nihil quis facere in modi ratione libero!",
 			skills: [
@@ -60,12 +60,12 @@ const dummyOngoingFreelanceList = {
 	],
 };
 
-export function fetchdummyOngoingFreelanceList() {
-	return dummyOngoingFreelanceList;
+export function fetchdummyAcceptedFreelanceList() {
+	return dummyAcceptedFreelanceList;
 }
 export function fetchDummyFreelanceById(id) {
 	return {
-		data: dummyOngoingFreelanceList.data.find(
+		data: dummyAcceptedFreelanceList.data.find(
 			(eachDummyFreelance) => eachDummyFreelance.id === id
 		),
 	};
