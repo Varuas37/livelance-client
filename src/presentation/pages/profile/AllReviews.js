@@ -1,9 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { StarIcon } from "@heroicons/react/solid";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setReviews } from "../../../application/redux/action/profileActions";
 import ReviewsStatistics from "../../components/profile/ReviewsStatistics";
 import ShareYourThoughts from "../../components/profile/ShareYourThoughts";
 
-// the whole code below is for review on the profile screen
+// the whole code below is for review on the reviews screen
 const reviews = {
 	average: 4,
 	totalCount: 1624,
@@ -14,26 +17,18 @@ const reviews = {
 		{ rating: 2, count: 199 },
 		{ rating: 1, count: 147 },
 	],
-	featured: [
-		{
-			id: 1,
-			rating: 5,
-			content: `
-        <p>I loved working with her. She did her job really well. Would hire her for the job again</p>
-      `,
-			author: "Emily Selman",
-			avatarSrc:
-				"https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-		},
-		// More reviews...
-	],
 };
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function Reviews() {
+function AllReviews() {
+	const reviewsList = useSelector((state) => state.profileReducer.reviews);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(setReviews());
+	}, []);
 	return (
 		<div className="bg-white">
 			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:py-32 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-x-8">
@@ -75,42 +70,50 @@ function Reviews() {
 
 					<div className="flow-root">
 						<div className="-my-12 divide-y divide-gray-200">
-							{reviews.featured.map((review) => (
-								<div key={review.id} className="py-12">
-									<div className="flex items-center">
-										<img
-											src={review.avatarSrc}
-											alt={`${review.author}.`}
-											className="h-12 w-12 rounded-full"
-										/>
-										<div className="ml-4">
-											<h4 className="text-sm font-bold text-gray-900">
-												{review.author}
-											</h4>
-											<div className="mt-1 flex items-center">
-												{[0, 1, 2, 3, 4].map((rating) => (
-													<StarIcon
-														key={rating}
-														className={classNames(
-															review.rating > rating
-																? "text-yellow-400"
-																: "text-gray-300",
-															"h-5 w-5 flex-shrink-0"
-														)}
-														aria-hidden="true"
-													/>
-												))}
-											</div>
-											<p className="sr-only">{review.rating} out of 5 stars</p>
-										</div>
-									</div>
+							{reviewsList &&
+								reviewsList.map((review) => (
+									<div key={review.id} className="py-12">
+										<div className="flex items-center">
+											<img
+												src={review.avatarSrc}
+												alt={`${review.author}.`}
+												className="h-12 w-12 rounded-full"
+											/>
+											<div className="ml-4">
+												<h4 className="text-sm font-bold text-gray-900">
+													{review.author}
+												</h4>
 
-									<div
-										className="mt-4 space-y-6 text-base italic text-gray-600"
-										dangerouslySetInnerHTML={{ __html: review.content }}
-									/>
-								</div>
-							))}
+												<div className="mt-1 flex items-center">
+													{[0, 1, 2, 3, 4].map((rating) => (
+														<StarIcon
+															key={rating}
+															className={classNames(
+																review.rating > rating
+																	? "text-yellow-400"
+																	: "text-gray-300",
+																"h-5 w-5 flex-shrink-0"
+															)}
+															aria-hidden="true"
+														/>
+													))}
+												</div>
+												<p className="sr-only">
+													{review.rating} out of 5 stars
+												</p>
+											</div>
+										</div>
+										<div style={{ margin: "16px 0 -16px 0" }}>
+											<h4 className="text-sm font-bold text-gray-900">
+												{review.title}
+											</h4>
+										</div>
+										<div
+											className="mt-4 space-y-6 text-base italic text-gray-600"
+											dangerouslySetInnerHTML={{ __html: review.content }}
+										/>
+									</div>
+								))}
 						</div>
 					</div>
 				</div>
@@ -118,4 +121,4 @@ function Reviews() {
 		</div>
 	);
 }
-export default Reviews;
+export default AllReviews;
