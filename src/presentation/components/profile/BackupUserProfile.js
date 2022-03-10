@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setProfile } from "../../../application/redux/action/profileActions";
-import Reviews from "./Reviews";
+import ProfileScreenReviews from "./ProfileScreenReviews";
 
 const tabs = [
 	{ name: "Profile", href: "#", current: true },
@@ -147,7 +147,7 @@ function UserProfile() {
 								</div>
 
 								{/* Reviews */}
-								<Reviews />
+								<ProfileScreenReviews />
 							</article>
 						</main>
 					</div>

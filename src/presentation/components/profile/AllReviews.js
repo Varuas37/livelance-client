@@ -3,8 +3,8 @@ import { StarIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setReviews } from "../../../application/redux/action/profileActions";
-import ReviewsStatistics from "../../components/profile/ReviewsStatistics";
-import ShareYourThoughts from "../../components/profile/ShareYourThoughts";
+import ReviewsStatistics from "./ReviewsStatistics";
+import ShareYourThoughts from "./ShareYourThoughts";
 
 // the whole code below is for review on the reviews screen
 const reviews = {

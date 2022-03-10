@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { StarIcon } from "@heroicons/react/solid";
-import ReviewsStatistics from "../../components/profile/ReviewsStatistics";
-import ShareYourThoughts from "../../components/profile/ShareYourThoughts";
+import ReviewsStatistics from "./ReviewsStatistics";
+import ShareYourThoughts from "./ShareYourThoughts";
 
 // the whole code below is for review on the profile screen
 const reviews = {
@@ -33,7 +33,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function Reviews() {
+function ProfileScreenReviews() {
 	return (
 		<div className="bg-white">
 			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:py-32 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-x-8">
@@ -118,4 +118,4 @@ function Reviews() {
 		</div>
 	);
 }
-export default Reviews;
+export default ProfileScreenReviews;
