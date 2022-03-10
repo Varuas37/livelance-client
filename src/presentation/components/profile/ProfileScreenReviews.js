@@ -4,68 +4,16 @@ import ReviewsStatistics from "./ReviewsStatistics";
 import ShareYourThoughts from "./ShareYourThoughts";
 
 // the whole code below is for review on the profile screen
-const reviews = {
-	average: 4,
-	totalCount: 1624,
-	counts: [
-		{ rating: 5, count: 1019 },
-		{ rating: 4, count: 162 },
-		{ rating: 3, count: 97 },
-		{ rating: 2, count: 199 },
-		{ rating: 1, count: 147 },
-	],
-	featured: [
-		{
-			id: 1,
-			rating: 5,
-			content: `
-        <p>I loved working with her. She did her job really well. Would hire her for the job again</p>
-      `,
-			author: "Emily Selman",
-			avatarSrc:
-				"https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-		},
-		// More reviews...
-	],
-};
-
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function ProfileScreenReviews() {
+function ProfileScreenReviews({ reviewsList, reviewsData }) {
 	return (
 		<div className="bg-white">
 			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:py-32 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-x-8">
 				<div className="lg:col-span-4">
-					<h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
-						Reviews
-					</h2>
-
-					<div className="mt-3 flex items-center">
-						<div>
-							<div className="flex items-center">
-								{[0, 1, 2, 3, 4].map((rating) => (
-									<StarIcon
-										key={rating}
-										className={classNames(
-											reviews.average > rating
-												? "text-yellow-400"
-												: "text-gray-300",
-											"flex-shrink-0 h-5 w-5"
-										)}
-										aria-hidden="true"
-									/>
-								))}
-							</div>
-							<p className="sr-only">{reviews.average} out of 5 stars</p>
-						</div>
-						<p className="ml-2 text-sm text-gray-900">
-							Based on {reviews.totalCount} reviews
-						</p>
-					</div>
-
-					{reviews && <ReviewsStatistics reviews={reviews} />}
+					{reviewsData && <ReviewsStatistics reviewsData={reviewsData} />}
 
 					<ShareYourThoughts />
 				</div>
@@ -75,7 +23,7 @@ function ProfileScreenReviews() {
 
 					<div className="flow-root">
 						<div className="-my-12 divide-y divide-gray-200">
-							{reviews.featured.map((review) => (
+							{reviewsList.map((review) => (
 								<div key={review.id} className="py-12">
 									<div className="flex items-center">
 										<img

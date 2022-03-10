@@ -1,6 +1,14 @@
 import { fetchDummyProfile } from "../../../repository/dummyProfile";
-import { fetchDummyReviewsList } from "../../../repository/dummyReviewsList";
-import { SET_PROFILE, EDIT_AND_SAVE_PROFILE, SET_REVIEWS } from "./types";
+import {
+	fetchDummyReviewsData,
+	fetchDummyReviewsList,
+} from "../../../repository/dummyReviewsList";
+import {
+	SET_PROFILE,
+	EDIT_AND_SAVE_PROFILE,
+	SET_REVIEWS,
+	SET_REVIEWS_DATA,
+} from "./types";
 
 export const setProfile = () => async (dispatch) => {
 	const response = fetchDummyProfile();
@@ -14,4 +22,8 @@ export const editAndSetProfile = (profile) => async (dispatch) => {
 export const setReviews = () => async (dispatch) => {
 	const response = fetchDummyReviewsList();
 	dispatch({ type: SET_REVIEWS, payload: response.data });
+};
+export const setReviewsData = () => async (dispatch) => {
+	const response = fetchDummyReviewsData();
+	dispatch({ type: SET_REVIEWS_DATA, payload: response.data });
 };
