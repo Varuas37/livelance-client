@@ -17,7 +17,7 @@ const dummyReviewsList = {
 		{
 			id: "1",
 			postedOn: "Jan 22, 2022",
-			author: "John Doe",
+			authorId: "1234",
 			title: "review title 1",
 			content:
 				"review Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim",
@@ -29,7 +29,7 @@ const dummyReviewsList = {
 		{
 			id: "2",
 			postedOn: "Jan 22, 2022",
-			author: "John Doe",
+			authorId: "1234",
 			title: "review title 2",
 			content:
 				"review Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim",
@@ -40,7 +40,7 @@ const dummyReviewsList = {
 		{
 			id: "3",
 			postedOn: "Jan 22, 2022",
-			author: "John Doe",
+			authorId: "1234",
 			title: "review title 3",
 			content:
 				"review Description. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora expedita dicta totam aspernatur doloremque. Excepturi iste iusto eos enim",
