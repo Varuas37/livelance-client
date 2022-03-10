@@ -27,3 +27,6 @@ export const setReviewsData = () => async (dispatch) => {
 	const response = fetchDummyReviewsData();
 	dispatch({ type: SET_REVIEWS_DATA, payload: response.data });
 };
+export const submitReview = async (review) => async (dispatch) => {
+	// const response = await submitreview(review);
+};
