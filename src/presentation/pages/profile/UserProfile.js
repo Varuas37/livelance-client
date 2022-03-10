@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setProfile } from "../../../application/redux/action/profileActions";
 import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
-import AllReviews from "./AllReviews";
-import Reviews from "./Reviews";
+import AllReviews from "../../components/profile/AllReviews";
+import ProfileScreenReviews from "../../components/profile/ProfileScreenReviews";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -155,7 +155,7 @@ function UserProfile() {
 								{tabs["Profile"].current && (
 									<>
 										<ProfileBodyPart profile={profile} />
-										<Reviews />
+										<ProfileScreenReviews />
 									</>
 								)}
 
