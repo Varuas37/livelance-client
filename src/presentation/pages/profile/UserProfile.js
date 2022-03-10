@@ -2,9 +2,13 @@ import { MailIcon, PhoneIcon, PencilIcon } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setProfile } from "../../../application/redux/action/profileActions";
+import {
+	setProfile,
+	setReviews,
+	setReviewsData,
+} from "../../../application/redux/action/profileActions";
 import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
-import AllReviews from "../../components/profile/AllReviews";
+
 import ProfileScreenReviews from "../../components/profile/ProfileScreenReviews";
 
 function classNames(...classes) {
@@ -17,9 +21,14 @@ function UserProfile() {
 	});
 
 	const profile = useSelector((state) => state.profileReducer.profile);
+	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
+	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(setProfile());
+		dispatch(setReviews());
+		dispatch(setReviewsData());
 	}, []);
 
 	const profileTabClick = (e, tabname) => {
@@ -155,12 +164,26 @@ function UserProfile() {
 								{tabs["Profile"].current && (
 									<>
 										<ProfileBodyPart profile={profile} />
-										<ProfileScreenReviews />
+										{reviewsList && (
+											<ProfileScreenReviews
+												reviewsList={
+													reviewsList.length > 2
+														? reviewsList.slice(0, 2)
+														: reviewsList
+												}
+												reviewsData={reviewsData}
+											/>
+										)}
 									</>
 								)}
 
 								{/* Reviews */}
-								{tabs["Reviews"].current && <AllReviews />}
+								{tabs["Reviews"].current && reviewsList && (
+									<ProfileScreenReviews
+										reviewsList={reviewsList}
+										reviewsData={reviewsData}
+									/>
+								)}
 							</article>
 						</main>
 					</div>
