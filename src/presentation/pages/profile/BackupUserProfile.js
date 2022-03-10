@@ -1,54 +1,25 @@
 import { MailIcon, PhoneIcon, PencilIcon } from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setProfile } from "../../../application/redux/action/profileActions";
-import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
 import Reviews from "./Reviews";
+
+const tabs = [
+	{ name: "Profile", href: "#", current: true },
+	{ name: "Reviews", href: "#", current: false },
+];
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 function UserProfile() {
-	const [tabs, setTabs] = useState({
-		Profile: { name: "Profile", href: "/myjobs", current: true },
-		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
-	});
-
 	const profile = useSelector((state) => state.profileReducer.profile);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(setProfile());
 	}, []);
 
-	const profileTabClick = (e, tabname) => {
-		e.preventDefault();
-
-		// console.log(tabname);
-		Object.keys(tabs).forEach((key) => {
-			if (key === tabname) {
-				setTabs((prev) => {
-					return {
-						...prev,
-						[key]: {
-							...prev[key],
-							current: true,
-						},
-					};
-				});
-			} else {
-				setTabs((prev) => {
-					return {
-						...prev,
-						[key]: {
-							...prev[key],
-							current: false,
-						},
-					};
-				});
-			}
-		});
-	};
 	return (
 		<>
 			{profile && (
@@ -127,23 +98,20 @@ function UserProfile() {
 									<div className="border-b border-gray-200">
 										<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 											<nav className="-mb-px flex space-x-8" aria-label="Tabs">
-												{Object.keys(tabs).map((tab) => (
-													<div
-														onClick={(e) => profileTabClick(e, tabs[tab].name)}
-														key={tab}
-														to={tabs[tab].href}
+												{tabs.map((tab) => (
+													<a
+														key={tab.name}
+														href={tab.href}
 														className={classNames(
-															tabs[tab].current
+															tab.current
 																? "border-pink-500 text-gray-900"
 																: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
 															"whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
 														)}
-														aria-current={
-															tabs[tab].current ? "page" : undefined
-														}
+														aria-current={tab.current ? "page" : undefined}
 													>
-														{tabs[tab].name}
-													</div>
+														{tab.name}
+													</a>
 												))}
 											</nav>
 										</div>
@@ -151,14 +119,35 @@ function UserProfile() {
 								</div>
 
 								{/* Description list */}
-								{tabs["Profile"].current && (
-									<ProfileBodyPart profile={profile} />
-								)}
+								<div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+									<dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+										{profile.fields &&
+											Object.keys(profile.fields).map((field) => (
+												<div key={field} className="sm:col-span-1">
+													<dt className="text-sm font-medium text-gray-500">
+														{field}
+													</dt>
+													<dd className="mt-1 text-sm text-gray-900">
+														{profile.fields[field]}
+													</dd>
+												</div>
+											))}
+										<div className="sm:col-span-2">
+											<dt className="text-sm font-medium text-gray-500">
+												About
+											</dt>
+											<dd
+												className="mt-1 max-w-prose text-sm text-gray-900 space-y-5"
+												dangerouslySetInnerHTML={{
+													__html: profile.about && profile.about,
+												}}
+											/>
+										</div>
+									</dl>
+								</div>
 
 								{/* Reviews */}
-								{tabs["Reviews"].current && (
-									<Reviews/>
-								)}
+								<Reviews />
 							</article>
 						</main>
 					</div>
