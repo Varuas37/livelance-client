@@ -7,9 +7,12 @@ const GetSidebar = () => {
 
 	let excludeSidebarScreenList = [
 		"/",
+		"/signup",
+		"/signin",
 		"/profile",
 		"/profile/edit",
 		"/onboarding",
+		// "/categories",
 	];
 	return (
 		<>

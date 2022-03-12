@@ -7,6 +7,7 @@ import {
 	SET_ACCEPTED_FREELANCE_LIST,
 	SET_APPLIED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE_LIST,
+	SET_CATEGORY_LIST,
 } from "../action/types";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
 	selectedFreelance: {},
 	postedFreelanceList: [],
 	postedFreelance: {},
+	categoryList: [],
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -41,6 +43,8 @@ export default function (state = initialState, action) {
 			return { ...state, appliedFreelanceList: payload };
 		case SET_POSTED_FREELANCE_LIST:
 			return { ...state, postedFreelanceList: payload };
+		case SET_CATEGORY_LIST:
+			return { ...state, categoryList: payload };
 		default:
 			return state;
 	}
