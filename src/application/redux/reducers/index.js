@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import alert from "./alert";
 import freelanceReducer from "./freelanceReducer";
 import profileReducer from "./profileReducer";
+import authReducer from "./authReducer";
 import auth from "./auth";
 
 const persistConfig = {
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 	alert,
 	freelanceReducer,
 	profileReducer,
+	authReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

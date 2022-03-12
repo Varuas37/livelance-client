@@ -5,9 +5,12 @@ import {
 	MenuAlt2Icon,
 	XIcon,
 	BriefcaseIcon,
-	OfficeBuildingIcon
+	OfficeBuildingIcon,
+	ArrowCircleDownIcon,
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import GetCategoryFields from "./categories/GetCategoryFields";
 
 const navigation = [
 	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: false },
@@ -23,12 +26,26 @@ const navigation = [
 		icon: OfficeBuildingIcon,
 		current: false,
 	},
+	{
+		name: "Categories",
+		href: "/categories",
+		icon: ArrowCircleDownIcon,
+		current: false,
+	},
 ];
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 const StaticSidebar = () => {
+	const user = useSelector((state) => state.authReducer.user);
+	// console.log();
+
+	if (user && user.role === "freelancer") {
+		navigation.splice(2, 1);
+	} else if (user && user.role === "lister") {
+		navigation.splice(1, 1);
+	}
 	return (
 		<div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 			{/* Sidebar component, swap this element with another sidebar if you like */}
@@ -52,6 +69,7 @@ const StaticSidebar = () => {
 										: "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
 									"group rounded-md py-2 px-2 flex items-center text-sm font-medium"
 								)}
+								
 							>
 								<item.icon
 									className={classNames(
@@ -65,6 +83,8 @@ const StaticSidebar = () => {
 								{item.name}
 							</Link>
 						))}
+
+						<GetCategoryFields/>
 					</nav>
 				</div>
 			</div>

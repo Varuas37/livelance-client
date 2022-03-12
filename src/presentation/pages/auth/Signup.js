@@ -1,4 +1,65 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+	loginUser,
+	signUpUser,
+} from "../../../application/redux/action/authActions";
+
 function SignUp() {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+
+	const [user, setUser] = useState({
+		userId: "123",
+		role: "freelancer",
+		name: "",
+		gender: "Man",
+		ZipCode: "",
+		email: "",
+		password: "",
+		confirmPassword: "",
+	});
+
+	const [userParts, setUserParts] = useState({
+		userId: "123",
+		role: user.role,
+		email: user.email,
+		password: user.password,
+	});
+
+	let dispatch = useDispatch();
+	let navigate = useNavigate();
+
+	const onHandleChange = (e) => {
+		if (e.target.name === "firstName") {
+			setFirstName(e.target.value);
+			setUser({
+				...user,
+				name: e.target.value + " " + lastName,
+			});
+		} else if (e.target.name === "lastName") {
+			setLastName(e.target.value);
+			setUser({
+				...user,
+				name: firstName + " " + e.target.value,
+			});
+		} else {
+			setUser({
+				...user,
+				[e.target.name]: e.target.value,
+			});
+		}
+	};
+
+	const onSignUpFormSubmit = async (e) => {
+		e.preventDefault();
+		const resp = await dispatch(signUpUser(user));
+		if (resp) {
+			navigate("/home");
+		}
+	};
+
 	return (
 		<>
 			<div className="h-screen bg-white">
@@ -19,7 +80,34 @@ function SignUp() {
 
 								<div className="mt-8">
 									<div className="mt-6">
-										<form action="#" method="POST" className="space-y-6">
+										<form
+											onSubmit={onSignUpFormSubmit}
+											method="POST"
+											className="space-y-6"
+										>
+											<div>
+												<label
+													htmlFor="role"
+													className="block text-sm font-medium text-gray-700"
+												>
+													I'm a
+												</label>
+												<div className="mt-1">
+													<select
+														name="role"
+														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+														value={user.role}
+														onChange={(e) => onHandleChange(e)}
+													>
+														<option value="freelancer">
+															Non-remote Freelancer
+														</option>
+														<option value="lister">
+															Non-remote Freelance Lister
+														</option>
+													</select>
+												</div>
+											</div>
 											<div className="flex flex-row md-flex-col space-x-5">
 												<div>
 													<label className="block text-sm font-medium text-gray-700">
@@ -29,6 +117,8 @@ function SignUp() {
 														<input
 															id="firstName"
 															name="firstName"
+															value={firstName}
+															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="given-name"
 															required
@@ -44,6 +134,8 @@ function SignUp() {
 														<input
 															id="lastName"
 															name="lastName"
+															value={lastName}
+															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="family-name"
 															required
@@ -60,6 +152,8 @@ function SignUp() {
 													<select
 														id="gender"
 														name="gender"
+														value={user.gender}
+														onChange={(e) => onHandleChange(e)}
 														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 													>
 														<option value="Man">Man</option>
@@ -74,7 +168,9 @@ function SignUp() {
 													<div className="mt-1">
 														<input
 															id="zipcode"
-															name="zipcode"
+															name="ZipCode"
+															value={user.ZipCode}
+															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="postal-code"
 															required
@@ -83,6 +179,7 @@ function SignUp() {
 													</div>
 												</div>
 											</div>
+
 											<div>
 												<label
 													htmlFor="email"
@@ -94,6 +191,8 @@ function SignUp() {
 													<input
 														id="email"
 														name="email"
+														value={user.email}
+														onChange={(e) => onHandleChange(e)}
 														type="email"
 														autoComplete="email"
 														required
@@ -102,7 +201,7 @@ function SignUp() {
 												</div>
 											</div>
 
-											<div className="space-y-1">
+											<div>
 												<label
 													htmlFor="password"
 													className="block text-sm font-medium text-gray-700"
@@ -114,13 +213,14 @@ function SignUp() {
 														id="password"
 														name="password"
 														type="password"
+														value={user.password}
+														onChange={(e) => onHandleChange(e)}
 														autoComplete="current-password"
 														required
 														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 													/>
 												</div>
 											</div>
-
 											<div className="space-y-1">
 												<label
 													htmlFor="password"
@@ -131,7 +231,9 @@ function SignUp() {
 												<div className="mt-1">
 													<input
 														id="confirm-password"
-														name="confirm-password"
+														name="confirmPassword"
+														value={user.confirmPassword}
+														onChange={(e) => onHandleChange(e)}
 														type="password"
 														required
 														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -155,14 +257,14 @@ function SignUp() {
 													</label>
 												</div>
 
-												<div className="text-sm">
+												{/* <div className="text-sm">
 													<a
 														href="#"
 														className="font-medium text-indigo-600 hover:text-indigo-500"
 													>
 														Forgot your password?
 													</a>
-												</div>
+												</div> */}
 											</div>
 
 											<div>
@@ -170,7 +272,7 @@ function SignUp() {
 													type="submit"
 													className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 												>
-													Sign in
+													Sign Up
 												</button>
 											</div>
 										</form>

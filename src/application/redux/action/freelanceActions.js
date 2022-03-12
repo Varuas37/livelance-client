@@ -15,8 +15,10 @@ import {
 	SET_APPLIED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE,
+	SET_CATEGORY_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
+import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
 
 export const setFreelanceList = () => async (dispatch) => {
 	const response = fetchDummyFreelanceList();
@@ -51,7 +53,14 @@ export const setPostedFreelanceList = () => async (dispatch) => {
 };
 
 export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
-
-	console.log(postedFreelance)
+	console.log(postedFreelance);
 	dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
 };
+
+export const setCategoryList = () => async (dispatch) => {
+	const response = fetchDummyCategoryList();
+	dispatch({ type: SET_CATEGORY_LIST, payload: response.data });
+};
+
+export const submitCategoryFilter =
+	async (categoryFields) => async (dispatch) => {};

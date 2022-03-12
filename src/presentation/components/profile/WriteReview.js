@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditProfileModal from "../../pages/profile/EditProfileModal";
 import WriteReviewForm from "./WriteReviewForm";
 const WriteReview = () => {
-	const [showWriteReviewForm, setShowWriteReviewForm] = useState(true);
+	const [showWriteReviewForm, setShowWriteReviewForm] = useState(false);
 	const writeReviewClicked = (e) => {
 		e.preventDefault();
 		setShowWriteReviewForm((prev) => !prev);
