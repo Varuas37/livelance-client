@@ -2,6 +2,7 @@ import { fetchdummyAppliedFreelanceList } from "../../../repository/dummyApplied
 import {
 	fetchDummyFreelanceById,
 	fetchDummyFreelanceList,
+	searchFreelanceList,
 } from "../../../repository/dummyFreelanceList";
 import { fetchdummyOfferedFreelanceList } from "../../../repository/dummyOfferedFreelances";
 import { fetchdummyAcceptedFreelanceList } from "../../../repository/dummyAcceptedFreelances";
@@ -64,3 +65,10 @@ export const setCategoryList = () => async (dispatch) => {
 
 export const submitCategoryFilter =
 	async (categoryFields) => async (dispatch) => {};
+
+export const searchQueries = (queryList) => async (dispatch) => {
+	// console.log(postedFreelance);
+	const response = searchFreelanceList(queryList);
+	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
+	// dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
+};

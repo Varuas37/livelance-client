@@ -21,7 +21,7 @@ import {
 import { useSelector } from "react-redux";
 import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
 import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
-
+import GetSearchPart from "../../components/search/GetSearchPart";
 const navigation = [
 	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
 	{ name: "My Jobs", href: "/documents", icon: BriefcaseIcon, current: false },
@@ -49,7 +49,6 @@ function Home() {
 
 	useEffect(() => {
 		dispatch(setFreelanceList());
-		
 	}, []);
 
 	return (
@@ -159,7 +158,8 @@ function Home() {
 								<MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
 							</button>
 							<div className="flex-1 flex justify-between px-4 md:px-0">
-								<div className="flex-1 flex">
+								<GetSearchPart />
+								{/* <div className="flex-1 flex">
 									<form className="w-full flex md:ml-0" action="#" method="GET">
 										<label htmlFor="search-field" className="sr-only">
 											Search
@@ -177,7 +177,7 @@ function Home() {
 											/>
 										</div>
 									</form>
-								</div>
+								</div> */}
 								<div className="ml-4 flex items-center md:ml-6">
 									<button
 										type="button"
@@ -256,6 +256,8 @@ function Home() {
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
+
+											
 										</div>
 									</ul>
 
