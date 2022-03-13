@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { MinusSmIcon } from "@heroicons/react/solid";
-const HandleJobSkillsList = ({ props }) => {
-	const [skillTyped, setSkillTyped] = useState("");
+const HandleSearchQueryList = () => {
+	const [searchQueryTyped, setSearchQueryTyped] = useState("");
+	const [searchQueryList, setSearchQueryList] = useState([]);
 
 	const handleKeyPressed = (e) => {
+        e.preventDefault();
 		if (e.key === "Enter") {
-			props.setMutableObject({
-				...props.mutableObject,
-				skills: props.mutableObject.skills.concat(skillTyped),
+			setSearchQueryList((prevList) => {
+				prevList.push(searchQueryTyped);
 			});
 
-			setSkillTyped("");
+			setSearchQueryTyped("");
 		}
 	};
 
 	const deleteFromSkillsList = (e, skillName) => {
 		e.preventDefault();
-		const array = props.mutableObject.skills;
-		array.splice(array.indexOf(skillName), 1);
-		props.setMutableObject({
-			...props.mutableObject,
-			skills: array,
+
+		setSearchQueryList((prevList) => {
+			prevList.splice(searchQueryList.indexOf(skillName), 1);
 		});
 	};
 
-	// useEffect(() => {}, [props.mutableObject.skills]);
+	// useEffect(() => {}, [searchQueryList.skills]);
 	return (
 		<>
 			<div className="mt-1">
@@ -32,16 +31,15 @@ const HandleJobSkillsList = ({ props }) => {
 					id="ZipCode"
 					name="ZipCode"
 					type="ZipCode"
-					value={skillTyped}
-					onChange={(e) => setSkillTyped(e.target.value)}
-					placeholder={props.placeholder}
+					value={searchQueryTyped}
+					onChange={(e) => setSearchQueryTyped(e.target.value)}
 					required
 					className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					onKeyPress={(e) => handleKeyPressed(e)}
 				/>
 			</div>
-			{props.mutableObject.skills &&
-				props.mutableObject.skills.map((eachSkill, idx) => {
+			{searchQueryList &&
+				searchQueryList.map((eachSkill, idx) => {
 					return (
 						<span key={idx}>
 							<p style={{ marginTop: "-2px" }}>
@@ -65,4 +63,4 @@ const HandleJobSkillsList = ({ props }) => {
 	);
 };
 
-export default HandleJobSkillsList;
+export default HandleSearchQueryList;

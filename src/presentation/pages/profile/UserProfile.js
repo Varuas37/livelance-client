@@ -165,7 +165,7 @@ function UserProfile() {
 								{tabs["Profile"].current && (
 									<>
 										<ProfileBodyPart profile={profile} />
-										{reviewsList && (
+										{/* {reviewsList && (
 											<ProfileScreenReviews
 												reviewsList={
 													reviewsList.length > 2
@@ -174,7 +174,7 @@ function UserProfile() {
 												}
 												reviewsData={reviewsData}
 											/>
-										)}
+										)} */}
 									</>
 								)}
 

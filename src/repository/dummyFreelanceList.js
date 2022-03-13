@@ -70,3 +70,19 @@ export function fetchDummyFreelanceById(id) {
 		),
 	};
 }
+export function searchFreelanceList(query) {
+	const output = [];
+	if (query.length === 0) {
+		return dummyFreelanceList;
+	}
+	dummyFreelanceList.data.forEach((each) => {
+		if (
+			query.find((eachQuery) =>
+				each.jobTitle.toLowerCase().includes(eachQuery.toLowerCase())
+			)
+		) {
+			output.push(each);
+		}
+	});
+	return { data: output };
+}
