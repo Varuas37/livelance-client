@@ -28,6 +28,8 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
+import Messenger from "./presentation/pages/messenger/messenger";
+
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -73,6 +75,8 @@ const App = () => {
 							<Route exact path="/myjobs/applied" element={<Applied />} />
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
+							<Route exact path="/testmessenger" element={<Messenger />} />
+
 						</Routes>
 					</Fragment>
 				</PersistGate>
