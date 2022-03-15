@@ -2,6 +2,7 @@
 import Chattile from './chattile'
 import './styles.css';
 
+
 function Messenger() {
 
     
@@ -16,15 +17,6 @@ function Messenger() {
         ```
       */}
 
-      
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js"
-      integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA=="
-      crossorigin="anonymous"
-    ></script>
-
-   
-    <script defer src="chat.js"></script>
 
             <div class="h-screen overflow-hidden">
                 <div className="h-full flex overflow-hidden">
