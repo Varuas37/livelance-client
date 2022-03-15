@@ -28,7 +28,8 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-import Messenger from "./presentation/pages/messenger/Messenger";
+import Messenger from "./presentation/pages/messenger/messenger";
+import SortPage from "./presentation/pages/sort/SortPage";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -54,6 +55,7 @@ const App = () => {
 							<Route exact path="/signup" element={<SignUp />} />
 							<Route exact path="/signin" element={<Login />} />
 							<Route exact path="/home" element={<Home />} />
+							<Route exact path="/home/sort/:sortterm" element={<SortPage />} />
 							<Route exact path="/categories" element={<CategoryDetails />} />
 							<Route exact path="/profile" element={<UserProfile />} />
 							<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />

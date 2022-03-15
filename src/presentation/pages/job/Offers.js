@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOfferedFreelanceList } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
+import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 
 const Offers = () => {
 	const offeredFreelanceList = useSelector(
@@ -15,6 +16,7 @@ const Offers = () => {
 
 	return (
 		<>
+			<SearchAndProfileAvatar />
 			{offeredFreelanceList.length > 0 && (
 				<GenericBrowseJob
 					props={{ dataList: offeredFreelanceList, myJobType: "offers" }}
