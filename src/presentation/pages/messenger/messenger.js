@@ -1,4 +1,4 @@
-import "./messenger.css"
+import "./styles.css"
 
 export default function messenger() {
     return (
