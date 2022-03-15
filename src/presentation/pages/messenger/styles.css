@@ -1,0 +1,60 @@
+#chatContainer {
+    height: 60vh;
+    border: 1px solid #e095fd;
+    border-radius: 10px;
+    margin: 1rem 1rem;
+    padding: 0.5rem;
+    overflow: scroll;
+  }
+  #messageForm {
+    width: 80%;
+    position: absolute;
+    bottom: 10px;
+  }
+  .input {
+    margin: auto;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    width: 70%;
+    border: 1px solid #c2c2c2;
+    border-radius: 2px;
+  }
+  .input:active,
+  .input:focus {
+    border-color: #9de3ff;
+  }
+
+  .btn {
+    padding: 0.5rem;
+    background-color: #5fcefa;
+    border: 1px solid #06b8ff;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .center {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .error {
+    border-color: #fa7962 !important;
+  }
+  /* default message styling for server notifications */
+  .message {
+    background-color: rgb(223, 174, 230);
+    color: #333;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-top: 1rem;
+  }
+  /* change colors and alignment for self and others messages */
+  .self-message {
+    background-color: #ccffcc;
+    text-align: right;
+  }
+  .others-message {
+    background-color: aqua;
+    text-align: left;
+  }

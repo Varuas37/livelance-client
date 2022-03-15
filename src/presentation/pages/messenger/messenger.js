@@ -1,18 +1,31 @@
 /* This example requires Tailwind CSS v2.0+ */
 import Chattile from './chattile'
+import './styles.css';
 
 function Messenger() {
+
+    
 
     return (
         <>
             {/*
         This example requires updating your template:
-
         ```
         <html class="h-full bg-white">
         <body class="h-full overflow-hidden">
         ```
       */}
+
+      
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js"
+      integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA=="
+      crossorigin="anonymous"
+    ></script>
+
+   
+    <script defer src="chat.js"></script>
+
             <div class="h-screen overflow-hidden">
                 <div className="h-full flex overflow-hidden">
                     {/* Static sidebar for desktop */}
@@ -26,17 +39,22 @@ function Messenger() {
                                     {/* ACTUAL CONVERSATION GOES HERE */}
                                     {/* It's just to check the scrolling works. You have have your own kinda input like thing here.*/}
                                     <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
-                                    <Chattile />
+                                    <body>
+    <div id="app">
+      <h1 class="center">Messenger</h1>
+
+      
+      <div id="chatContainer"></div>
+
+     
+      <div class="center">
+        <form id="messageForm">
+          <input class="input center" type="text" id="messageInput" />
+          <button class="btn" type="submit" id="sendBtn">Send!</button>
+        </form>
+      </div>
+    </div>
+  </body>
 
                                 </div>
                                 {/* End main area */}
@@ -49,15 +67,7 @@ function Messenger() {
                                         <Chattile />
                                         <Chattile />
                                         <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
-                                        <Chattile />
+                                       
                                     </li>
                                 </div>
                                 {/* End secondary column */}
