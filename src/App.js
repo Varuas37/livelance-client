@@ -28,7 +28,13 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-import Messenger from "./presentation/pages/messenger/Messenger";
+import Messenger from "./presentation/pages/messenger/messenger";
+
+import SetAvatar from "./presentation/components/SetAvatar";
+import Chat from "./presentation/pages/Chat";
+import AltLogin from "./presentation/pages/Login";
+import AltRegister from "./presentation/pages/Register";
+
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -50,6 +56,13 @@ const App = () => {
 						<GetSidebar />
 						<GetMyJobsNavigation />
 						<Routes>
+							<Route exact path="/register" element={<AltRegister />} />
+        					<Route exact path="/login" element={<AltLogin />} />
+        					<Route exact path="/setAvatar" element={<SetAvatar />} />
+        					<Route exact path="/messengeralt" element={<Chat />} />		
+
+
+
 							<Route exact path="/" element={<LandingPage />} />
 							<Route exact path="/signup" element={<SignUp />} />
 							<Route exact path="/signin" element={<Login />} />
@@ -68,7 +81,7 @@ const App = () => {
 								path="/profile/edit"
 								element={<EditProfileModal />}
 							/>
-							<Route exact path="/messenger" element={<Messenger />} />
+							<Route exact path="/messenger" element={<Messenger/>} />
 							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
 							<Route exact path="/myjobs/offers" element={<Offers />} />
 							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
@@ -76,6 +89,7 @@ const App = () => {
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
 							<Route exact path="/testmessenger" element={<Messenger />} />
+
 						</Routes>
 					</Fragment>
 				</PersistGate>

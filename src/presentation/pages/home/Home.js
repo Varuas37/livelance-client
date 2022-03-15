@@ -23,7 +23,7 @@ import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
 import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GetSearchPart from "../../components/search/GetSearchPart";
 const navigation = [
-	{ name: "dash", href: "/home", icon: HomeIcon, current: true },
+	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
 	{ name: "My Jobs", href: "/documents", icon: BriefcaseIcon, current: false },
 ];
 const userNavigation = [
@@ -256,6 +256,8 @@ function Home() {
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
+
+											
 										</div>
 									</ul>
 
