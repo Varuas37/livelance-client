@@ -28,8 +28,18 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
+<<<<<<< HEAD
 import Messenger from "./presentation/pages/messenger/messenger";
 import SortPage from "./presentation/pages/sort/SortPage";
+||||||| 9ece52d
+import Messenger from "./presentation/pages/messenger/Messenger";
+=======
+import SetAvatar from "./presentation/components/messenger/SetAvatar";
+import Chat from "./presentation/pages/messenger/Chat";
+import AltLogin from "./presentation/pages/messenger/Login";
+import AltRegister from "./presentation/pages/messenger/Register";
+
+>>>>>>> main
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -51,6 +61,13 @@ const App = () => {
 						<GetSidebar />
 						<GetMyJobsNavigation />
 						<Routes>
+							<Route exact path="/register" element={<AltRegister />} />
+        					<Route exact path="/login" element={<AltLogin />} />
+        					<Route exact path="/setAvatar" element={<SetAvatar />} />
+        					<Route exact path="/messengeralt" element={<Chat />} />		
+
+
+
 							<Route exact path="/" element={<LandingPage />} />
 							<Route exact path="/signup" element={<SignUp />} />
 							<Route exact path="/signin" element={<Login />} />
@@ -70,14 +87,15 @@ const App = () => {
 								path="/profile/edit"
 								element={<EditProfileModal />}
 							/>
-							<Route exact path="/messenger" element={<Messenger />} />
+							
 							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
 							<Route exact path="/myjobs/offers" element={<Offers />} />
 							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
 							<Route exact path="/myjobs/applied" element={<Applied />} />
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
-							<Route exact path="/testmessenger" element={<Messenger />} />
+							
+
 						</Routes>
 					</Fragment>
 				</PersistGate>

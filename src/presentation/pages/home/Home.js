@@ -25,7 +25,7 @@ import GetSearchPart from "../../components/search/GetSearchPart";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 const navigation = [
-	{ name: "dash", href: "/home", icon: HomeIcon, current: true },
+	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
 	{ name: "My Jobs", href: "/documents", icon: BriefcaseIcon, current: false },
 ];
 const userNavigation = [
@@ -181,6 +181,8 @@ function Home() {
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
+
+											
 										</div>
 									</ul>
 
