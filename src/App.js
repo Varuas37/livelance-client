@@ -28,18 +28,11 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-<<<<<<< HEAD
-import Messenger from "./presentation/pages/messenger/messenger";
-import SortPage from "./presentation/pages/sort/SortPage";
-||||||| 9ece52d
-import Messenger from "./presentation/pages/messenger/Messenger";
-=======
 import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
 import AltLogin from "./presentation/pages/messenger/Login";
 import AltRegister from "./presentation/pages/messenger/Register";
 
->>>>>>> main
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
