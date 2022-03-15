@@ -32,7 +32,7 @@ import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
 import AltLogin from "./presentation/pages/messenger/Login";
 import AltRegister from "./presentation/pages/messenger/Register";
-
+import SortPage from "./presentation/pages/sort/SortPage";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -87,8 +87,7 @@ const App = () => {
 							<Route exact path="/myjobs/applied" element={<Applied />} />
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
-							
-
+		
 						</Routes>
 					</Fragment>
 				</PersistGate>
