@@ -3,10 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../utils/APIRoutes";
-import ChatContainer from "../components/ChatContainer";
-import Contacts from "../components/Contacts";
-import Welcome from "../components/Welcome";
+import { allUsersRoute, host } from "../../utils/APIRoutes";
+import ChatContainer from "../../components/messenger/ChatContainer";
+import Contacts from "../../components/messenger/Contacts";
+import Welcome from "../../components/messenger/Welcome";
+import Chattile from "./chattile";
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -48,6 +49,7 @@ export default function Chat() {
   return (
     <>
       <Container>
+        
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {currentChat === undefined ? (

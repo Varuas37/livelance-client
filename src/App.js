@@ -28,12 +28,10 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-import Messenger from "./presentation/pages/messenger/messenger";
-
-import SetAvatar from "./presentation/components/SetAvatar";
-import Chat from "./presentation/pages/Chat";
-import AltLogin from "./presentation/pages/Login";
-import AltRegister from "./presentation/pages/Register";
+import SetAvatar from "./presentation/components/messenger/SetAvatar";
+import Chat from "./presentation/pages/messenger/Chat";
+import AltLogin from "./presentation/pages/messenger/Login";
+import AltRegister from "./presentation/pages/messenger/Register";
 
 
 if (localStorage.token) {
@@ -81,14 +79,14 @@ const App = () => {
 								path="/profile/edit"
 								element={<EditProfileModal />}
 							/>
-							<Route exact path="/messenger" element={<Messenger/>} />
+							
 							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
 							<Route exact path="/myjobs/offers" element={<Offers />} />
 							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
 							<Route exact path="/myjobs/applied" element={<Applied />} />
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
-							<Route exact path="/testmessenger" element={<Messenger />} />
+							
 
 						</Routes>
 					</Fragment>
