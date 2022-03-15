@@ -55,11 +55,9 @@ const App = () => {
 						<GetMyJobsNavigation />
 						<Routes>
 							<Route exact path="/register" element={<AltRegister />} />
-        					<Route exact path="/login" element={<AltLogin />} />
-        					<Route exact path="/setAvatar" element={<SetAvatar />} />
-        					<Route exact path="/messengeralt" element={<Chat />} />		
-
-
+							<Route exact path="/login" element={<AltLogin />} />
+							<Route exact path="/setAvatar" element={<SetAvatar />} />
+							<Route exact path="/messengeralt" element={<Chat />} />
 
 							<Route exact path="/" element={<LandingPage />} />
 							<Route exact path="/signup" element={<SignUp />} />
@@ -80,14 +78,13 @@ const App = () => {
 								path="/profile/edit"
 								element={<EditProfileModal />}
 							/>
-							
+
 							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
 							<Route exact path="/myjobs/offers" element={<Offers />} />
 							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
 							<Route exact path="/myjobs/applied" element={<Applied />} />
 							<Route exact path="/postedjobs" element={<PostedJobs />} />
 							<Route exact path="/postjob" element={<PostJobModal />} />
-		
 						</Routes>
 					</Fragment>
 				</PersistGate>
