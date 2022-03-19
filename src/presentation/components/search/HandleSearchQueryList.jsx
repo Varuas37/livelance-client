@@ -5,7 +5,7 @@ const HandleSearchQueryList = () => {
 	const [searchQueryList, setSearchQueryList] = useState([]);
 
 	const handleKeyPressed = (e) => {
-        e.preventDefault();
+		e.preventDefault();
 		if (e.key === "Enter") {
 			setSearchQueryList((prevList) => {
 				prevList.push(searchQueryTyped);
@@ -17,13 +17,11 @@ const HandleSearchQueryList = () => {
 
 	const deleteFromSkillsList = (e, skillName) => {
 		e.preventDefault();
-
 		setSearchQueryList((prevList) => {
 			prevList.splice(searchQueryList.indexOf(skillName), 1);
 		});
 	};
 
-	// useEffect(() => {}, [searchQueryList.skills]);
 	return (
 		<>
 			<div className="mt-1">

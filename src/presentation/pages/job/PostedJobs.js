@@ -1,14 +1,17 @@
-import React from 'react'
-import PostJob from '../../components/jobs/PostJob'
-import BrowsePostedJobs from './BrowsePostedJobs'
+import React from "react";
+import PostJob from "../../components/jobs/PostJob";
+import BrowsePostedJobs from "./BrowsePostedJobs";
+import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 
 const PostedJobs = () => {
-  return (
-    <>
-        <PostJob/>
-        <BrowsePostedJobs/>
-    </>
-  )
-}
+	return (
+		<>
+			<SearchAndProfileAvatar />
 
-export default PostedJobs
+			<PostJob />
+			<BrowsePostedJobs />
+		</>
+	);
+};
+
+export default PostedJobs;

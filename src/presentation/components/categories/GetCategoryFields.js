@@ -27,9 +27,12 @@ const GetCategoryFields = () => {
 		e.preventDefault();
 		dispatch(submitCategoryFilter(categoryFields));
 	};
+
+	const whenToShowFilters = "/";
+	// "/categories";
 	return (
 		<>
-			{location.pathname.includes("/categories") && (
+			{!location.pathname.includes(whenToShowFilters) && (
 				<form onSubmit={submitHandler} method="POST" className="space-y-6">
 					<div>
 						<label className="block text-sm font-medium text-gray-700">
