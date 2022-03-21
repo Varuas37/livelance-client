@@ -6,37 +6,59 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../../utils/APIRoutes";
 
+const mockedMessages = [
+
+]
+
 export default function ChatContainer({ currentChat, socket }) {
+  console.log("chat container mounted", currentChat)
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
+    // const data = await JSON.parse(
+    //   localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    // );
+    // TODO: get logged in user's data here
+    const userData = {
+      _id: "62368838e65b618794bed0af"
+    }
     const response = await axios.post(recieveMessageRoute, {
-      from: data._id,
-      to: currentChat._id,
+      from: userData._id,
+      email: currentChat.email,
     });
-    setMessages(response.data);
+    console.log("response", response)
+    
+    // TODO: remove once above is created and real messages can be fetched
+    setMessages(mockedMessages)
+    
+    // setMessages(response.data);
   }, [currentChat]);
 
-  useEffect(() => {
-    const getCurrentChat = async () => {
-      if (currentChat) {
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )._id;
-      }
-    };
-    getCurrentChat();
-  }, [currentChat]);
+  // why
+  // useEffect(() => {
+  //   const getCurrentChat = async () => {
+  //     if (currentChat) {
+  //       await JSON.parse(
+  //         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+  //       )._id;
+  //     }
+  //   };
+  //   getCurrentChat();
+  // }, [currentChat]);
 
+  // TODO: memoize this function
+  // https://reactjs.org/docs/hooks-reference.html#usecallback
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
+
+    // TODO: change all of this client side logic to be email
+    // and then change corresponding server side to accept email
+  
+    // or get the id on the frontend
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: data._id,

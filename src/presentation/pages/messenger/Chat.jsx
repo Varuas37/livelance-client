@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {useParams} from "react-router";
 import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../../utils/APIRoutes";
@@ -9,23 +10,33 @@ import Contacts from "../../components/messenger/Contacts";
 import Welcome from "../../components/messenger/Welcome";
 import Chattile from "./chattile";
 
+const mapUserToChat = (user => {
+  console.log("user", user)
+  return {
+    ...user,
+    _id: `id-${user.email}`
+  }
+});
+
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const { email } = useParams();
+  console.log("chatting with ", email)
   useEffect(async () => {
-    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-      navigate("/login");
-    } else {
-      setCurrentUser(
-        await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        )
-      );
-    }
+    console.log("chat mounted")
   }, []);
+
+  useEffect(() => {
+    const chat = mapUserToChat({email})
+    console.log("chat", chat)
+    setCurrentChat(chat);
+    // TODO: create function / use redux to findfind user youre chatting w/ from email
+  }, [email])
+
   useEffect(() => {
     if (currentUser) {
       socket.current = io(host);
@@ -48,8 +59,7 @@ export default function Chat() {
   };
   return (
     <>
-      <Container>
-        
+      <Container className='md:pl-64 h-1/2'>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {currentChat === undefined ? (
@@ -65,14 +75,14 @@ export default function Chat() {
 
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  //height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
   background-color: white;
+  height: 100vh;
   .container {
     position:relative; left:100px;
     height: 85vh;

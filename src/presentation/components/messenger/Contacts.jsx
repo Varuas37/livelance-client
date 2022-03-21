@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 
+// TODO: store contacts in redux, get them from redux here instead of prop
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
@@ -10,8 +11,10 @@ export default function Contacts({ contacts, changeChat }) {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
-    setCurrentUserName(data.username);
-    setCurrentUserImage(data.avatarImage);
+    if(data){
+      setCurrentUserName(data.username);
+      setCurrentUserImage(data.avatarImage);
+    }
   }, []);
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -19,7 +22,6 @@ export default function Contacts({ contacts, changeChat }) {
   };
   return (
     <>
-      {currentUserImage && currentUserImage && (
         <Container>
           <div className="brand">
 
@@ -49,6 +51,8 @@ export default function Contacts({ contacts, changeChat }) {
             })}
           </div>
           <div className="current-user">
+          {currentUserImage && currentUserImage ? (
+            <>
             <div className="avatar">
               <img
                 src={`data:image/svg+xml;base64,${currentUserImage}`}
@@ -58,9 +62,13 @@ export default function Contacts({ contacts, changeChat }) {
             <div className="username">
               <h2>{currentUserName}</h2>
             </div>
+            </>
+          ) :
+          <div>upload an avatar or else </div>
+          
+          }
           </div>
         </Container>
-      )}
     </>
   );
 }

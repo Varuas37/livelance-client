@@ -30,9 +30,9 @@ import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
 import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
-import AltLogin from "./presentation/pages/messenger/Login";
 import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
+import Messenger from "./presentation/pages/messenger/Messenger";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -54,10 +54,14 @@ const App = () => {
 						<GetSidebar />
 						<GetMyJobsNavigation />
 						<Routes>
-							<Route exact path="/register" element={<AltRegister />} />
-        					<Route exact path="/login" element={<AltLogin />} />
+							{/* TODO: figure out how to get cool avatar  */}
         					<Route exact path="/setAvatar" element={<SetAvatar />} />
-        					<Route exact path="/messengeralt" element={<Chat />} />		
+
+							{/*messenger page old ver*/ }
+        					<Route exact path="/messenger" element={<Messenger />} />
+							{/* TODO: make this conditional i foreget how */}
+							<Route exact path="/coolchat" element={<Chat />} />
+							<Route exact path="/coolchat/:email" element={<Chat />} />
 
 
 
