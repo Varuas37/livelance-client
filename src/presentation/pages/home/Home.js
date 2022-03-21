@@ -24,22 +24,6 @@ import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GetSearchPart from "../../components/search/GetSearchPart";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
-const navigation = [
-	{ name: "Dashboard", href: "/home", icon: HomeIcon, current: true },
-	{ name: "My Jobs", href: "/documents", icon: BriefcaseIcon, current: false },
-];
-const userNavigation = [
-	{ name: "Your Profile", href: "/profile" },
-	{ name: "Settings", href: "/settings" },
-	{
-		name: "Sign out",
-		href: "/",
-	},
-];
-
-function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
-}
 
 function Home() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -172,7 +156,7 @@ function Home() {
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
-															key={eachFreelance.id}
+															key={eachFreelance._id}
 															data={eachFreelance}
 														/>
 													);
@@ -181,8 +165,6 @@ function Home() {
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
                                             </>)} */}
-
-											
 										</div>
 									</ul>
 

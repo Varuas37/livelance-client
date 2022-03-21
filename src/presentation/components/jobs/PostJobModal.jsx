@@ -179,6 +179,7 @@ function PostJobModal() {
 															setMutableObject: setPostFreelance,
 															skillsList: skillsList,
 															setSkillsList: setSkillsList,
+															columnName: "skills",
 														}}
 													/>
 

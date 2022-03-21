@@ -4,7 +4,7 @@ import { BellIcon, MenuAlt2Icon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import GetSearchPart from "../../components/search/GetSearchPart";
 
-const SearchAndProfileAvatar = () => {
+const SearchAndProfileAvatar = ({ searchTermList }) => {
 	const userNavigation = [
 		{ name: "Your Profile", href: "/profile" },
 		{ name: "Settings", href: "/settings" },
@@ -34,7 +34,8 @@ const SearchAndProfileAvatar = () => {
 							<MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
 						</button>
 						<div className="flex-1 flex justify-between px-4 md:px-0">
-							<GetSearchPart />
+							<GetSearchPart searchTermList={searchTermList} />
+
 							<div className="ml-4 flex items-center md:ml-6">
 								<button
 									type="button"

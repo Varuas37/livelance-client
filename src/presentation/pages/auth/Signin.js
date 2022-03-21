@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { loginUser } from "../../../application/redux/action/authActions";
 import { useDispatch, useSelector } from "react-redux";
 function SignIn() {
-	const [signin, setSignin] = useState({
-		userId: "123",
-		role: "freelancer",
+	const [signin, setSignin] = useState({		
 		email: "",
 		password: "",
 	});
@@ -17,14 +15,13 @@ function SignIn() {
 		});
 	};
 
-	let dispatch = useDispatch();
-	let navigate = useNavigate();
+	let dispatch = useDispatch();	
 	const onSignInFormSubmit = async (e) => {
 		e.preventDefault();
-		const resp = await dispatch(loginUser(signin));
-		if (resp) {
-			navigate("/home");
-		}
+		dispatch(loginUser(signin));
+		// if (resp) {
+		// 	navigate("/home");
+		// }
 	};
 	return (
 		<>
