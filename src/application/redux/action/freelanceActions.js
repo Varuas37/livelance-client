@@ -17,13 +17,29 @@ import {
 	SET_POSTED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE,
 	SET_CATEGORY_LIST,
+	SET_SEARCH_QUERY_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
+import MainApi from "../../../repository/MainApi";
 
 export const setFreelanceList = () => async (dispatch) => {
-	const response = fetchDummyFreelanceList();
-	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
+	const token = localStorage.LLtoken;
+	// console.log(token);
+	// const response = await MainApi.get("/jobs", config)
+	// 	.then(console.log)
+	// 	.catch(console.log);
+
+	const AuthStr = "Bearer ".concat(
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNjIyZmMyNDE2MTgwMmU2M2E4NjIzNmUwIiwiaWF0IjoxNjQ3Mjk3MDg5LCJleHAiOjE2Nzg4NTQ2ODksImlzcyI6ImNvbS5raXRjaGVuQXBwIn0.iXx6EpV4BN945yJecmZLDbZ2RYs0QIo-sWdDL0vb24w"
+	);
+	// console.log(AuthStr);
+	
+	const response = await MainApi.get("/jobs", {
+		headers: { Authorization: AuthStr },
+	});
+
+	dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
 };
 
 export const setFreelanceById = (id) => async (dispatch) => {
@@ -70,5 +86,10 @@ export const searchQueries = (queryList) => async (dispatch) => {
 	// console.log(postedFreelance);
 	const response = searchFreelanceList(queryList);
 	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
+	// dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
+};
+export const setSearchTermsList = (queryList) => async (dispatch) => {
+	// console.log(postedFreelance);
+	dispatch({ type: SET_SEARCH_QUERY_LIST, payload: queryList });
 	// dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
 };

@@ -17,9 +17,10 @@ function Onboarding() {
 	const [user, setUser] = useState({
 		userId: "123",
 		name: "",
-		gender: "Man",
+		gender: "",
 		ZipCode: "",
 		imageUrl: "#",
+		coverImageUrl: "#",
 		skills: [],
 		categories: [],
 	});
@@ -105,6 +106,20 @@ function Onboarding() {
 													}}
 												/>
 											</div>
+											<div>
+												<label className="block text-sm font-medium text-gray-700">
+													Cover Picture
+												</label>
+
+												<ImageHandler
+													props={{
+														sectionMediaTitle: "Change Above Image",
+														sectionMediaValue: user,
+														setSectionMediaLink: setUser,
+														columnName: "coverImageUrl",
+													}}
+												/>
+											</div>
 											<div className="flex flex-row md-flex-col space-x-5">
 												<div>
 													<label className="block text-sm font-medium text-gray-700">
@@ -153,6 +168,7 @@ function Onboarding() {
 														onChange={(e) => onHandleChange(e)}
 														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 													>
+														<option value="" disabled>Select</option>
 														<option value="Man">Man</option>
 														<option value="Woman">Woman</option>
 														<option value="Other">Other</option>

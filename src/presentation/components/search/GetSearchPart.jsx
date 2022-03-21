@@ -1,10 +1,15 @@
 import React, { useRef, useState } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
-import { searchQueries } from "../../../application/redux/action/freelanceActions";
+import {
+	searchQueries,
+	setSearchTermsList,
+} from "../../../application/redux/action/freelanceActions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const GetSearchPart = () => {
+const GetSearchPart = ({ searchTermList }) => {
+	let navigate = useNavigate();
 	const [searchQueryTyped, setSearchQueryTyped] = useState("");
 	const [searchQueryList, setSearchQueryList] = useState([]);
 
@@ -14,15 +19,22 @@ const GetSearchPart = () => {
 		e.preventDefault();
 		if (e.key === "Enter") {
 			setSearchQueryList(searchQueryList.concat(searchQueryTyped));
-			setSearchQueryTyped("");
+			// setSearchQueryTyped("");
 		}
 	};
 
 	const didMountRef = useRef(false);
 
 	useEffect(() => {
+		if(searchTermList){
+			setSearchQueryList(searchTermList)
+		}
+	}, []);
+	useEffect(() => {
 		if (didMountRef.current) {
-			dispatch(searchQueries(searchQueryList));
+			// dispatch(searchQueries(searchQueryList));
+			dispatch(setSearchTermsList(searchQueryList));
+			// navigate("/search");
 		}
 		didMountRef.current = true;
 	}, [searchQueryList]);
