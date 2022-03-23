@@ -30,11 +30,9 @@ export const setFreelanceList = () => async (dispatch) => {
 	// 	.then(console.log)
 	// 	.catch(console.log);
 
-	const AuthStr = "Bearer ".concat(
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNjIyZmMyNDE2MTgwMmU2M2E4NjIzNmUwIiwiaWF0IjoxNjQ3Mjk3MDg5LCJleHAiOjE2Nzg4NTQ2ODksImlzcyI6ImNvbS5raXRjaGVuQXBwIn0.iXx6EpV4BN945yJecmZLDbZ2RYs0QIo-sWdDL0vb24w"
-	);
+	const AuthStr = "Bearer ".concat(token);
 	// console.log(AuthStr);
-	
+
 	const response = await MainApi.get("/jobs", {
 		headers: { Authorization: AuthStr },
 	});

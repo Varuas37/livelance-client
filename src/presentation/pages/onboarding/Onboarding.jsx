@@ -7,20 +7,20 @@ import {
 } from "../../../application/redux/action/authActions";
 import HandleJobSkillsList from "../../components/jobs/HandleJobSkillsList";
 import ImageHandler from "../../utils/ImageHandler";
-
+import { setProfile } from "../../../application/redux/action/profileActions";
 function Onboarding() {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
 	const [skillsList, setSkillsList] = useState([]);
 	const [categoriesList, setCategoriesList] = useState([]);
 
 	const [user, setUser] = useState({
-		userId: "123",
-		name: "",
+		firstName: "",
+		lastName: "",
+		about: "",
 		gender: "",
 		ZipCode: "",
-		imageUrl: "#",
-		coverImageUrl: "#",
+		contactNumber: "",
+		avatar: "#",
+		coverImage: "#",
 		skills: [],
 		categories: [],
 	});
@@ -36,29 +36,16 @@ function Onboarding() {
 	let navigate = useNavigate();
 
 	const onHandleChange = (e) => {
-		if (e.target.name === "firstName") {
-			setFirstName(e.target.value);
-			setUser({
-				...user,
-				name: e.target.value + " " + lastName,
-			});
-		} else if (e.target.name === "lastName") {
-			setLastName(e.target.value);
-			setUser({
-				...user,
-				name: firstName + " " + e.target.value,
-			});
-		} else {
-			setUser({
-				...user,
-				[e.target.name]: e.target.value,
-			});
-		}
+		setUser({
+			...user,
+			[e.target.name]: e.target.value,
+		});
 	};
 
 	const onSignUpFormSubmit = async (e) => {
 		e.preventDefault();
-		const resp = await dispatch(signUpUser(user));
+		const resp = await dispatch(setProfile(user));
+		console.log(resp);
 		if (resp) {
 			navigate("/home");
 		}
@@ -80,7 +67,13 @@ function Onboarding() {
 									<h2 className="mt-6 text-3xl font-extrabold text-gray-900">
 										Set Up Profile
 									</h2>
-									<h2 className="cursor-pointer mt-6 ml-64 text-1xl font-bold text-blue-900">
+									<h2
+										className="cursor-pointer mt-6 ml-64 text-1xl font-bold text-blue-900"
+										onClick={(e) => {
+											e.preventDefault();
+											navigate("/home");
+										}}
+									>
 										Skip for now
 									</h2>
 								</div>
@@ -102,7 +95,7 @@ function Onboarding() {
 														sectionMediaTitle: "Change Above Image",
 														sectionMediaValue: user,
 														setSectionMediaLink: setUser,
-														columnName: "imageUrl",
+														columnName: "avatar",
 													}}
 												/>
 											</div>
@@ -116,7 +109,7 @@ function Onboarding() {
 														sectionMediaTitle: "Change Above Image",
 														sectionMediaValue: user,
 														setSectionMediaLink: setUser,
-														columnName: "coverImageUrl",
+														columnName: "coverImage",
 													}}
 												/>
 											</div>
@@ -129,7 +122,7 @@ function Onboarding() {
 														<input
 															id="firstName"
 															name="firstName"
-															value={firstName}
+															value={user.firstName}
 															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="given-name"
@@ -146,7 +139,7 @@ function Onboarding() {
 														<input
 															id="lastName"
 															name="lastName"
-															value={lastName}
+															value={user.lastName}
 															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="family-name"
@@ -154,6 +147,27 @@ function Onboarding() {
 															className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 														/>
 													</div>
+												</div>
+											</div>
+											<div>
+												<label
+													htmlFor="about"
+													className="block text-sm font-medium text-gray-700"
+												>
+													About
+												</label>
+												<div className="mt-1">
+													<textarea
+														rows={4}
+														id="about"
+														name="about"
+														type="text"
+														onChange={(e) => onHandleChange(e)}
+														value={user.about}
+														autoComplete="about"
+														required
+														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+													/>
 												</div>
 											</div>
 											<div className="flex flex-row md-flex-col space-x-5">
@@ -168,13 +182,15 @@ function Onboarding() {
 														onChange={(e) => onHandleChange(e)}
 														className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 													>
-														<option value="" disabled>Select</option>
+														<option value="" disabled>
+															Select
+														</option>
 														<option value="Man">Man</option>
 														<option value="Woman">Woman</option>
 														<option value="Other">Other</option>
 													</select>
 												</div>
-												<div>
+												{/* <div>
 													<label className="block text-sm font-medium text-gray-700">
 														Zip Code
 													</label>
@@ -183,6 +199,23 @@ function Onboarding() {
 															id="zipcode"
 															name="ZipCode"
 															value={user.ZipCode}
+															onChange={(e) => onHandleChange(e)}
+															type="text"
+															autoComplete="postal-code"
+															required
+															className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+														/>
+													</div>
+												</div> */}
+												<div>
+													<label className="block text-sm font-medium text-gray-700">
+														Contact Number
+													</label>
+													<div className="mt-1">
+														<input
+															id="contactNumber"
+															name="contactNumber"
+															value={user.contactNumber}
 															onChange={(e) => onHandleChange(e)}
 															type="text"
 															autoComplete="postal-code"
@@ -212,7 +245,7 @@ function Onboarding() {
 												/>
 											</div>
 
-											<div>
+											{/* <div>
 												<label
 													htmlFor="PayRange"
 													className="block text-sm font-medium text-gray-700"
@@ -229,7 +262,7 @@ function Onboarding() {
 														placeholder: "Type in Categories and Press Enter",
 													}}
 												/>
-											</div>
+											</div> */}
 
 											<div>
 												<button

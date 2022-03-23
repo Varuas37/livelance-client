@@ -70,6 +70,13 @@ const App = () => {
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />
+						{/* <Route
+							exact
+							path="/signup"
+							element={
+								!isUserAuthenticated ? <SignUp /> : <Navigate to="/home" />
+							}
+						/> */}
 
 						<Route
 							exact
