@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
 function SignUp() {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-
+	const [passwordsMatch, setPasswordsMatch] = useState(false);
 	const [user, setUser] = useState({
 		role: "freelancer",
 		email: "",
@@ -17,42 +17,29 @@ function SignUp() {
 		confirmPassword: "",
 	});
 
-	const [userParts, setUserParts] = useState({
-		userId: "123",
-		role: user.role,
-		email: user.email,
-		password: user.password,
-	});
-
 	let dispatch = useDispatch();
 	let navigate = useNavigate();
 
 	const onHandleChange = (e) => {
-		if (e.target.name === "firstName") {
-			setFirstName(e.target.value);
-			setUser({
-				...user,
-				name: e.target.value + " " + lastName,
-			});
-		} else if (e.target.name === "lastName") {
-			setLastName(e.target.value);
-			setUser({
-				...user,
-				name: firstName + " " + e.target.value,
-			});
-		} else {
-			setUser({
-				...user,
-				[e.target.name]: e.target.value,
-			});
-		}
+		setUser({
+			...user,
+			[e.target.name]: e.target.value,
+		});
 	};
 
-	const onSignUpFormSubmit = async (e) => {
+	useEffect(() => {
+		if (user.password === user.confirmPassword) {
+			setPasswordsMatch(true);
+		} else {
+			setPasswordsMatch(false);
+		}
+	}, [user.password, user.confirmPassword]);
+
+	const onSignUpFormSubmit = (e) => {
 		e.preventDefault();
-		const resp = await dispatch(signUpUser(user));
-		if (resp) {
-			navigate("/home");
+		const responseBool = dispatch(signUpUser(user));
+		if (responseBool) {
+			navigate("/onboarding")
 		}
 	};
 
@@ -98,7 +85,7 @@ function SignUp() {
 														<option value="freelancer">
 															Non-remote Freelancer
 														</option>
-														<option value="lister">
+														<option value="employer">
 															Non-remote Freelance Lister
 														</option>
 													</select>
@@ -166,6 +153,20 @@ function SignUp() {
 												</div>
 											</div>
 
+											<div
+												className={
+													passwordsMatch ? "text-lime-700" : "text-red-700"
+												}
+											>
+												{user.confirmPassword.length > 0 && (
+													<p>
+														{passwordsMatch
+															? "Passwords Match"
+															: "Passwords Don't Match"}
+													</p>
+												)}
+											</div>
+
 											<div className="flex items-center justify-between">
 												<div className="flex items-center">
 													<input
@@ -187,6 +188,7 @@ function SignUp() {
 												<button
 													type="submit"
 													className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+													disabled={passwordsMatch ? false : true}
 												>
 													Sign Up
 												</button>
