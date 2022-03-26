@@ -11,6 +11,7 @@ import {
 	SET_REVIEWS_DATA,
 } from "./types";
 
+
 export const getProfile = (profile) => async (dispatch) => {
 	try {
 		
@@ -39,7 +40,7 @@ export const setProfile = (profile) => async (dispatch) => {
 				headers: { Authorization: AuthStr },
 			}
 		);
-		console.log(response);
+		// console.log(response);
 		if (response.status === 200 || response.status === 201) {
 			alert("successful!");
 			dispatch({ type: SET_PROFILE, payload: response.data.profile });
