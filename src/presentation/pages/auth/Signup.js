@@ -35,11 +35,12 @@ function SignUp() {
 		}
 	}, [user.password, user.confirmPassword]);
 
-	const onSignUpFormSubmit = (e) => {
+	const onSignUpFormSubmit = async (e) => {
 		e.preventDefault();
-		const responseBool = dispatch(signUpUser(user));
+		const responseBool = await dispatch(signUpUser(user));
+		console.log(responseBool);
 		if (responseBool) {
-			navigate("/onboarding")
+			navigate("/onboarding");
 		}
 	};
 

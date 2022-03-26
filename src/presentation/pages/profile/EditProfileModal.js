@@ -35,7 +35,7 @@ function EditProfileModal() {
 	}, [profile]);
 
 	useEffect(() => {
-		dispatch(setProfile());
+		// dispatch(setProfile());
 	}, []);
 
 	const saveButtonClicked = (e) => {
