@@ -11,3 +11,4 @@ export const chatHost = "http://localhost:5501";
 export const sendMessageRoute = `${chatHost}/api/messages/addmsg`;
 export const recieveMessageRoute = `${chatHost}/api/messages/getmsg`;
 export const setAvatarRoute = `${chatHost}/api/auth/setavatar`;
+export const getContactsRoute = `${chatHost}/api/messages/getContacts`;

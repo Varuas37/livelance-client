@@ -64,7 +64,7 @@ export default function Contacts({ contacts, changeChat }) {
             </div>
             </>
           ) :
-          <div>upload an avatar or else </div>
+          <div>upload an avatar</div>
           
           }
           </div>
