@@ -1,9 +1,14 @@
 import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import history from "./presentation/utils/history";
 import LandingPage from "./presentation/pages/Landing/LandingPage";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store, persistor } from "./application/redux/store/store";
 import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
@@ -37,18 +42,25 @@ import Messenger from "./presentation/pages/messenger/Messenger";
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
+import SearchPage from "./presentation/pages/search/SearchPage";
+import SignIn from "./presentation/pages/auth/Signin";
+import { checkUser } from "./application/redux/action/authActions";
 
 const App = () => {
+	const isUserAuthenticated = useSelector(
+		(state) => state.authReducer.isUserAuthenticated
+	);
+
+	let dispatch = useDispatch();
 	useEffect(() => {
-		store.dispatch(loadUser());
+		dispatch(checkUser());
 	}, []);
 
 	return (
-		<Provider store={store}>
-			<Router history={history}>
-				<PersistGate persistor={persistor}>
-					<Fragment>
-						{/* <StaticSidebar /> */}
+		<Router history={history}>
+			<PersistGate persistor={persistor}>
+				<Fragment>
+					{/* <StaticSidebar /> */}
 
 						{/* <Sidebar/> */}
 						<GetSidebar />
@@ -63,40 +75,52 @@ const App = () => {
 							<Route exact path="/coolchat" element={<Chat />} />
 							<Route exact path="/coolchat/:email" element={<Chat />} />
 
+						<Route exact path="/" element={<LandingPage />} />
+						<Route exact path="/signup" element={<SignUp />} />
+						{/* <Route
+							exact
+							path="/signup"
+							element={
+								!isUserAuthenticated ? <SignUp /> : <Navigate to="/home" />
+							}
+						/> */}
 
+						<Route
+							exact
+							path="/signin"
+							element={
+								!isUserAuthenticated ? <SignIn /> : <Navigate to="/home" />
+							}
+						/>
+						<Route
+							exact
+							path="/home"
+							element={isUserAuthenticated ? <Home /> : <SignIn />}
+						/>
 
-							<Route exact path="/" element={<LandingPage />} />
-							<Route exact path="/signup" element={<SignUp />} />
-							<Route exact path="/signin" element={<Login />} />
-							<Route exact path="/home" element={<Home />} />
-							<Route exact path="/home/sort/:sortterm" element={<SortPage />} />
-							<Route exact path="/categories" element={<CategoryDetails />} />
-							<Route exact path="/profile" element={<UserProfile />} />
-							<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
-							<Route
-								exact
-								path="/jobdetail/:myjobtype/:id"
-								element={<GenericJobDetailModal />}
-							/>
-							<Route exact path="/onboarding" element={<Onboarding />} />
-							<Route
-								exact
-								path="/profile/edit"
-								element={<EditProfileModal />}
-							/>
-							
-							<Route exact path="/myjobs/saved" element={<SavedJobs />} />
-							<Route exact path="/myjobs/offers" element={<Offers />} />
-							<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
-							<Route exact path="/myjobs/applied" element={<Applied />} />
-							<Route exact path="/postedjobs" element={<PostedJobs />} />
-							<Route exact path="/postjob" element={<PostJobModal />} />
-		
-						</Routes>
-					</Fragment>
-				</PersistGate>
-			</Router>
-		</Provider>
+						<Route exact path="/search" element={<SearchPage />} />
+						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
+						<Route exact path="/categories" element={<CategoryDetails />} />
+						<Route exact path="/profile" element={<UserProfile />} />
+						<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
+						<Route
+							exact
+							path="/jobdetail/:myjobtype/:id"
+							element={<GenericJobDetailModal />}
+						/>
+						<Route exact path="/onboarding" element={<Onboarding />} />
+						<Route exact path="/profile/edit" element={<EditProfileModal />} />
+
+						<Route exact path="/myjobs/saved" element={<SavedJobs />} />
+						<Route exact path="/myjobs/offers" element={<Offers />} />
+						<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
+						<Route exact path="/myjobs/applied" element={<Applied />} />
+						<Route exact path="/postedjobs" element={<PostedJobs />} />
+						<Route exact path="/postjob" element={<PostJobModal />} />
+					</Routes>
+				</Fragment>
+			</PersistGate>
+		</Router>
 	);
 };
 export default App;

@@ -1,8 +1,13 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import StaticSidebar from "../components/StaticSidebar";
+import { useSelector } from "react-redux";
 
 const GetSidebar = () => {
+	const isUserAuthenticated = useSelector(
+		(state) => state.authReducer.isUserAuthenticated
+	);
+
 	const location = useLocation();
 
 	let excludeSidebarScreenList = [
@@ -16,9 +21,8 @@ const GetSidebar = () => {
 	];
 	return (
 		<>
-			{!excludeSidebarScreenList.includes(location.pathname) && (
-				<StaticSidebar />
-			)}
+			{!excludeSidebarScreenList.includes(location.pathname) &&
+				isUserAuthenticated && <StaticSidebar />}
 		</>
 	);
 };
