@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 import {
 	editAndSetProfile,
+	getProfile,
 	setProfile,
 } from "../../../application/redux/action/profileActions";
 import HandleSkills from "../../components/profile/HandleSkills";
@@ -35,7 +36,7 @@ function EditProfileModal() {
 	}, [profile]);
 
 	useEffect(() => {
-		// dispatch(setProfile());
+		dispatch(getProfile());
 	}, []);
 
 	const saveButtonClicked = (e) => {
@@ -150,7 +151,7 @@ function EditProfileModal() {
 																	sectionMediaTitle: "Change Above Image",
 																	sectionMediaValue: editProfile,
 																	setSectionMediaLink: setEditProfile,
-																	columnName: "imageUrl",
+																	columnName: "avatar",
 																}}
 															/>
 														</div>
@@ -165,21 +166,45 @@ function EditProfileModal() {
 																	sectionMediaTitle: "Change Above Image",
 																	sectionMediaValue: editProfile,
 																	setSectionMediaLink: setEditProfile,
-																	columnName: "coverImageUrl",
+																	columnName: "coverImage",
 																}}
 															/>
 														</div>
 														<div className="flex flex-row md-flex-col space-x-5">
 															<div>
 																<label className="block text-sm font-medium text-gray-700">
-																	Name
+																	First Name
 																</label>
 																<div className="mt-1">
 																	<input
 																		id="firstName"
 																		name="name"
 																		value={
-																			editProfile.name ? editProfile.name : ""
+																			editProfile.firstName
+																				? editProfile.firstName
+																				: ""
+																		}
+																		onChange={(e) => onHandleChange(e)}
+																		type="text"
+																		required
+																		className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																	/>
+																</div>
+															</div>
+														</div>
+														<div className="flex flex-row md-flex-col space-x-5">
+															<div>
+																<label className="block text-sm font-medium text-gray-700">
+																	Last Name
+																</label>
+																<div className="mt-1">
+																	<input
+																		id="firstName"
+																		name="name"
+																		value={
+																			editProfile.lastName
+																				? editProfile.lastName
+																				: ""
 																		}
 																		onChange={(e) => onHandleChange(e)}
 																		type="text"

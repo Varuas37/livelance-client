@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
+	getProfile,
 	setProfile,
 	setReviews,
 	setReviewsData,
@@ -29,6 +30,7 @@ function UserProfile() {
 		// dispatch(setProfile());
 		// dispatch(setReviews());
 		// dispatch(setReviewsData());
+		dispatch(getProfile());
 	}, []);
 
 	const profileTabClick = (e, tabname) => {
