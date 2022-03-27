@@ -7,22 +7,23 @@ import { setPostedFreelance } from "../../../application/redux/action/freelanceA
 
 function PostJobModal() {
 	const [postFreelance, setPostFreelance] = useState({
-		postedById: "",
 		postedBy: "",
-		postedOn: Date.now(),
+		postedOn: Date.now().toString(),
 		jobTitle: "",
 		jobDescription: "",
+		category: "",
+		subCategory: "",
 		skills: [],
 		duration: "1 hr",
-		startDate: "",
-		startTime: "",
-		rate: "$0/hr",
+		// startDate: "",
+		// startTime: "",
+		rate: "",
+		rateDuration: "hour",
 		location: "",
+		city: "",
+		state: "",
 		zipcode: "",
-		isActive: true,
 	});
-	const [payAmount, setPayAmount] = useState("0");
-	const [payPeriod, setPayPeriod] = useState("hr");
 
 	const [open, setOpen] = useState(true);
 
@@ -31,9 +32,19 @@ function PostJobModal() {
 	const [skillsList, setSkillsList] = useState([]);
 	const cancelButtonRef = useRef(null);
 
+	const user = useSelector((state) => state.authReducer.user);
 	const dispatch = useDispatch();
+	const didMountRef = useRef(false);
+	useEffect(() => {
+		setPostFreelance({
+			...postFreelance,
+			postedBy: user.userId,
+		});
+		// if (didMountRef.current) {
 
-	useEffect(() => {}, []);
+		// }
+		// didMountRef.current = true;
+	}, [user]);
 
 	let navigate = useNavigate();
 	const modalClick = () => {
@@ -61,19 +72,21 @@ function PostJobModal() {
 				...postFreelance,
 				duration: freelanceDurationNumber + " " + e.target.value,
 			});
-		} else if (e.target.name === "PayAmount") {
-			setPayAmount(e.target.value);
-			setPostFreelance({
-				...postFreelance,
-				rate: "$" + e.target.value + "/" + payPeriod,
-			});
-		} else if (e.target.name === "period") {
-			setPayPeriod(e.target.value);
-			setPostFreelance({
-				...postFreelance,
-				rate: "$" + payAmount + "/" + e.target.value,
-			});
-		} else {
+		}
+		// else if (e.target.name === "PayAmount") {
+		// 	setPayAmount(e.target.value);
+		// 	setPostFreelance({
+		// 		...postFreelance,
+		// 		rate: "$" + e.target.value + "/" + payPeriod,
+		// 	});
+		// } else if (e.target.name === "period") {
+		// 	setPayPeriod(e.target.value);
+		// 	setPostFreelance({
+		// 		...postFreelance,
+		// 		rate: "$" + payAmount + "/" + e.target.value,
+		// 	});
+		// }
+		else {
 			setPostFreelance({
 				...postFreelance,
 				[e.target.name]: e.target.value,
@@ -166,6 +179,40 @@ function PostJobModal() {
 															</div>
 														</div>
 													</div>
+													<div className="flex flex-row md-flex-col space-x-5">
+														<div>
+															<label className="block text-sm font-medium text-gray-700">
+																Freelance Category
+															</label>
+															<div className="mt-1">
+																<input
+																	name="category"
+																	value={postFreelance.category}
+																	onChange={(e) => onHandleChange(e)}
+																	type="text"
+																	required
+																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																/>
+															</div>
+														</div>
+													</div>
+													<div className="flex flex-row md-flex-col space-x-5">
+														<div>
+															<label className="block text-sm font-medium text-gray-700">
+																Freelance Sub-Category
+															</label>
+															<div className="mt-1">
+																<input
+																	name="subCategory"
+																	value={postFreelance.subCategory}
+																	onChange={(e) => onHandleChange(e)}
+																	type="text"
+																	required
+																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																/>
+															</div>
+														</div>
+													</div>
 
 													<label
 														htmlFor="PayRange"
@@ -215,7 +262,7 @@ function PostJobModal() {
 														</div>
 													</div>
 
-													<div className="flex flex-row md-flex-col space-x-5">
+													{/* <div className="flex flex-row md-flex-col space-x-5">
 														<div>
 															<label className="block text-sm font-medium text-gray-700">
 																Start Date
@@ -248,7 +295,7 @@ function PostJobModal() {
 																/>
 															</div>
 														</div>
-													</div>
+													</div> */}
 
 													<div>
 														<label
@@ -261,10 +308,10 @@ function PostJobModal() {
 															$
 															<input
 																id="PayAmount"
-																name="PayAmount"
+																name="rate"
 																type="text"
 																onChange={(e) => onHandleChange(e)}
-																value={payAmount}
+																value={postFreelance.rate}
 																autoComplete="PayAmount"
 																required
 																className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -274,12 +321,12 @@ function PostJobModal() {
 															</label>
 															<select
 																id="period"
-																name="period"
+																name="rateDuration"
 																className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																value={payPeriod}
+																value={postFreelance.rateDuration}
 																onChange={(e) => onHandleChange(e)}
 															>
-																<option value="hr">hr</option>
+																<option value="hour">hr</option>
 																<option value="day">day</option>
 																<option value="week">week</option>
 															</select>
@@ -295,6 +342,40 @@ function PostJobModal() {
 																<input
 																	name="location"
 																	value={postFreelance.location}
+																	onChange={(e) => onHandleChange(e)}
+																	type="text"
+																	required
+																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																/>
+															</div>
+														</div>
+													</div>
+													<div className="flex flex-row md-flex-col space-x-5">
+														<div>
+															<label className="block text-sm font-medium text-gray-700">
+																Freelance City
+															</label>
+															<div className="mt-1">
+																<input
+																	name="city"
+																	value={postFreelance.city}
+																	onChange={(e) => onHandleChange(e)}
+																	type="text"
+																	required
+																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																/>
+															</div>
+														</div>
+													</div>
+													<div className="flex flex-row md-flex-col space-x-5">
+														<div>
+															<label className="block text-sm font-medium text-gray-700">
+																Freelance State
+															</label>
+															<div className="mt-1">
+																<input
+																	name="state"
+																	value={postFreelance.state}
 																	onChange={(e) => onHandleChange(e)}
 																	type="text"
 																	required
