@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { fetchDummyProfile } from "../../../repository/dummyProfile";
 import {
 	fetchDummyReviewsData,
@@ -11,12 +12,20 @@ import {
 	SET_REVIEWS_DATA,
 } from "./types";
 
-
 export const getProfile = (profile) => async (dispatch) => {
 	try {
-		
-	} catch (err) {		
-		console.log(err.message);		
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.get(`/profile/current`, {
+			headers: { Authorization: AuthStr },
+		});
+		if (response.status === 200 || response.status === 201) {
+			dispatch({ type: SET_PROFILE, payload: response.data.profile });
+			return true;
+		}
+	} catch (err) {
+		console.log(err.message);
 	}
 };
 export const setProfile = (profile) => async (dispatch) => {

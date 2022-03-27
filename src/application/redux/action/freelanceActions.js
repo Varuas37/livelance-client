@@ -68,8 +68,44 @@ export const setPostedFreelanceList = () => async (dispatch) => {
 };
 
 export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
-	console.log(postedFreelance);
-	dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
+	try {
+		console.log(postedFreelance);
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.post(
+			"/jobs",
+
+			{
+				postedOn: postedFreelance.postedOn,
+				jobTitle: postedFreelance.jobTitle,
+				jobDescription: postedFreelance.jobDescription,
+				category: postedFreelance.category,
+
+				subCategory: postedFreelance.subCategory,
+				skills: postedFreelance.skills,
+				postedBy: postedFreelance.postedBy,
+				duration: postedFreelance.duration,
+
+				rate: postedFreelance.rate,
+				rateDuration: postedFreelance.rateDuration,
+				location: postedFreelance.location,
+				city: postedFreelance.city,
+				state: postedFreelance.state,
+				zipcode: postedFreelance.zipcode,
+			},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);
+
+		if (response.status === 200 || response.status === 201) {
+			alert("successful!");
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+	}
 };
 
 export const setCategoryList = () => async (dispatch) => {
