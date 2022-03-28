@@ -24,6 +24,7 @@ import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GetSearchPart from "../../components/search/GetSearchPart";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import { checkUser } from "../../../application/redux/action/authActions";
 
 function Home() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -34,6 +35,8 @@ function Home() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(checkUser());
+
 		dispatch(setFreelanceList());
 	}, []);
 
