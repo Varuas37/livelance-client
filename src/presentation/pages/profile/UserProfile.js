@@ -25,6 +25,7 @@ function UserProfile() {
 	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
 	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
 
+	console.log(profile)
 	const dispatch = useDispatch();
 	useEffect(() => {
 		// dispatch(setProfile());
@@ -90,9 +91,11 @@ function UserProfile() {
 											<div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
 												<div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
 													<h1 className="text-2xl font-bold text-gray-900 truncate">
-														{profile.name && profile.name}
+														{profile.firstName && profile.firstName}{" "}
+														{profile.lastName && profile.lastName}
 													</h1>
 												</div>
+
 												<div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
 													
 														<Link

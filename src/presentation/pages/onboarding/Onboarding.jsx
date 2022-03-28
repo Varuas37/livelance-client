@@ -23,6 +23,7 @@ function Onboarding() {
 		coverImage: "#",
 		skills: [],
 		categories: [],
+		subCategories: [],
 	});
 
 	const [userParts, setUserParts] = useState({
@@ -245,7 +246,7 @@ function Onboarding() {
 												/>
 											</div>
 
-											{/* <div>
+											<div>
 												<label
 													htmlFor="PayRange"
 													className="block text-sm font-medium text-gray-700"
@@ -262,7 +263,26 @@ function Onboarding() {
 														placeholder: "Type in Categories and Press Enter",
 													}}
 												/>
-											</div> */}
+											</div>
+											<div>
+												<label
+													htmlFor="PayRange"
+													className="block text-sm font-medium text-gray-700"
+												>
+													Categories
+												</label>
+												<HandleJobSkillsList
+													props={{
+														mutableObject: user,
+														setMutableObject: setUser,
+														skillsList: categoriesList,
+														setSkillsList: setCategoriesList,
+														columnName: "subCategories",
+														placeholder:
+															"Type in sub-Categories and Press Enter",
+													}}
+												/>
+											</div>
 
 											<div>
 												<button

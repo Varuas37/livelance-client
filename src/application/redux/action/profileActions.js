@@ -44,6 +44,8 @@ export const setProfile = (profile) => async (dispatch) => {
 				contactNumber: profile.contactNumber,
 				about: profile.about,
 				skills: profile.skills,
+				categories: profile.categories,
+				subCategories: profile.subCategories,
 			},
 			{
 				headers: { Authorization: AuthStr },
@@ -51,7 +53,6 @@ export const setProfile = (profile) => async (dispatch) => {
 		);
 		// console.log(response);
 		if (response.status === 200 || response.status === 201) {
-			alert("successful!");
 			dispatch({ type: SET_PROFILE, payload: response.data.profile });
 			return true;
 		}
