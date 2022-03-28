@@ -269,7 +269,7 @@ function Onboarding() {
 													htmlFor="PayRange"
 													className="block text-sm font-medium text-gray-700"
 												>
-													Categories
+													Sub-Categories
 												</label>
 												<HandleJobSkillsList
 													props={{

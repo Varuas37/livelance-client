@@ -46,6 +46,10 @@ function JobCard({ data, appliedFreelanceIdList }) {
 							{" "}
 							Read More
 						</span>
+						{/* {data.jobDescription.length > 150 ? (
+						) : (
+							""
+						)} */}
 					</p>
 				</div>
 				{/* <div
@@ -70,6 +74,33 @@ function JobCard({ data, appliedFreelanceIdList }) {
 							</div>
 						))}
 					</div>
+
+					{data.category && (
+						<>
+							<h3 className="font-bold text-xs">Category</h3>
+
+							<div className="my-1 flex flex-wrap -m-1">
+								<div>
+									<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+										{data.category}
+									</span>
+								</div>
+							</div>
+						</>
+					)}
+					{data.subCategory && (
+						<>
+							<h3 className="font-bold text-xs">Sub-Category</h3>
+							{/* <!-- This is the tags / Skills container --> */}
+							<div className="my-1 flex flex-wrap -m-1">
+								<div>
+									<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+										{data.subCategory}
+									</span>
+								</div>
+							</div>
+						</>
+					)}
 				</div>
 				{/* End of skill */}
 				{/* Start of information about job poster, pay and duration */}
@@ -119,7 +150,9 @@ function JobCard({ data, appliedFreelanceIdList }) {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{data.rate}</span>
+						<span>
+							${data.rate}/{data.rateDuration}
+						</span>
 					</div>
 				</div>
 
@@ -138,14 +171,15 @@ function JobCard({ data, appliedFreelanceIdList }) {
 							/>
 						</svg>
 						<span>
-							{data.location}, {data.zipcode}
+							{data.city && data.city}, {data.zipcode && data.zipcode},{" "}
+							{data.state && data.state}
 						</span>
 					</div>
 					<div>
 						<a className="flex items-center" href="#">
 							<img
 								className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-								src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+								src={data.postedBy && data.postedBy.avatar}
 								alt="avatar"
 							/>
 							{data &&

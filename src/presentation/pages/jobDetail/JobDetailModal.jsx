@@ -147,7 +147,11 @@ function JobDetailModal() {
 												</svg>
 												<span>
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy}
+														selectedFreelance.postedBy.firstName &&
+														selectedFreelance.postedBy.firstName}{" "}
+													{selectedFreelance.postedBy &&
+														selectedFreelance.postedBy.lastName &&
+														selectedFreelance.postedBy.lastName}
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
