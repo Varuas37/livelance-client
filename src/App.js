@@ -9,6 +9,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import history from "./presentation/utils/history";
 import LandingPage from "./presentation/pages/Landing/LandingPage";
 import { Provider, useDispatch, useSelector } from "react-redux";
+import SearchPage from "./presentation/pages/search/SearchPage";
+import SignIn from "./presentation/pages/auth/Signin";
+import { checkUser } from "./application/redux/action/authActions";
 import { store, persistor } from "./application/redux/store/store";
 import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
@@ -42,9 +45,7 @@ import Messenger from "./presentation/pages/messenger/Messenger";
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
-import SearchPage from "./presentation/pages/search/SearchPage";
-import SignIn from "./presentation/pages/auth/Signin";
-import { checkUser } from "./application/redux/action/authActions";
+
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
