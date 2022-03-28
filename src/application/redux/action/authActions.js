@@ -10,8 +10,8 @@ export const loginUser = (user) => async (dispatch) => {
 			password: user.password,
 		});
 		if (response.data.auth_token) {
-			dispatch({ type: SET_AUTH, payload: true });
 			localStorage.setItem("LLtoken", response.data.auth_token);
+			dispatch({ type: SET_AUTH, payload: true });
 		}
 	} catch (err) {
 		alert("Wrong Credentials Entered!");
@@ -44,19 +44,42 @@ export const signUpUser = (user) => async (dispatch) => {
 export const checkUser = () => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
-		const AuthStr = "Bearer ".concat(token);
+		if (token) {
+			const AuthStr = "Bearer ".concat(token);
+			const response = await MainApi.get("/profile/current", {
+				headers: { Authorization: AuthStr },
+			});
 
-		const response = await MainApi.get("/profile/current", {
-			headers: { Authorization: AuthStr },
-		});
-		if (response.status === 200) {
-			dispatch({ type: SET_AUTH, payload: true });
-			dispatch({ type: SET_USER, payload: response.data.profile });
-			return true;
+			if (response.status === 200) {
+				dispatch({ type: SET_AUTH, payload: true });
+				dispatch({ type: SET_USER, payload: response.data.profile });
+				// return true;
+			}
 		}
 	} catch (err) {
 		// alert("Unsuccessful!");
 		console.log(err.message);
-		return false;
+		// return false;
+	}
+};
+export const getAccountType = () => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		if (token) {
+			const AuthStr = "Bearer ".concat(token);
+			const response = await MainApi.get("/profile/current", {
+				headers: { Authorization: AuthStr },
+			});
+
+			if (response.status === 200) {
+				dispatch({ type: SET_AUTH, payload: true });
+				dispatch({ type: SET_USER, payload: response.data.profile });
+				// return true;
+			}
+		}
+	} catch (err) {
+		// alert("Unsuccessful!");
+		console.log(err.message);
+		// return false;
 	}
 };

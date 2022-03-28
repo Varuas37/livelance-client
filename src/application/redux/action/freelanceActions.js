@@ -18,31 +18,82 @@ import {
 	SET_POSTED_FREELANCE,
 	SET_CATEGORY_LIST,
 	SET_SEARCH_QUERY_LIST,
+	SET_APPLIED_FREELANCE_ID_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
 import MainApi from "../../../repository/MainApi";
+import { groupBy } from "../../helper/groupBy";
+import { useSelector } from "react-redux";
 
 export const setFreelanceList = () => async (dispatch) => {
 	const token = localStorage.LLtoken;
-	// console.log(token);
-	// const response = await MainApi.get("/jobs", config)
-	// 	.then(console.log)
-	// 	.catch(console.log);
 
 	const AuthStr = "Bearer ".concat(token);
-	// console.log(AuthStr);
 
 	const response = await MainApi.get("/jobs", {
 		headers: { Authorization: AuthStr },
 	});
 
-	dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
+	if (response.data.jobs) {
+		const responseRole = await MainApi.get("/profile/current", {
+			headers: { Authorization: AuthStr },
+		});
+
+		if (responseRole.data.profile.accountType === "freelancer") {
+			const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+				headers: {
+					Authorization: AuthStr,
+					data: JSON.stringify({ status: "Applied" }),
+				},
+			});
+
+			dispatch({
+				type: SET_APPLIED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		}
+
+		dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
+	}
 };
 
 export const setFreelanceById = (id) => async (dispatch) => {
-	const response = fetchDummyFreelanceById(id);
-	dispatch({ type: SET_FREELANCE_BY_ID, payload: response.data });
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.get(`/jobs/${id}`, {
+			headers: { Authorization: AuthStr },
+		});
+		if (response.status === 200 || response.status === 201) {
+			dispatch({ type: SET_FREELANCE_BY_ID, payload: response.data.job });
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+	}
+};
+export const applyToJob = (id) => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.post(
+			`/jobs/apply/${id}`,
+			{},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);
+		console.log(response);
+		if (response.status === 200 || response.status === 201) {
+			alert("Successfully Applied!");
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+	}
 };
 
 export const setSavedFreelanceList = () => async (dispatch) => {
@@ -117,13 +168,9 @@ export const submitCategoryFilter =
 	async (categoryFields) => async (dispatch) => {};
 
 export const searchQueries = (queryList) => async (dispatch) => {
-	// console.log(postedFreelance);
 	const response = searchFreelanceList(queryList);
 	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
-	// dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
 };
 export const setSearchTermsList = (queryList) => async (dispatch) => {
-	// console.log(postedFreelance);
 	dispatch({ type: SET_SEARCH_QUERY_LIST, payload: queryList });
-	// dispatch({ type: SET_POSTED_FREELANCE, payload: postedFreelance });
 };

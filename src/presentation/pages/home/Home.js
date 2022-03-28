@@ -31,6 +31,11 @@ function Home() {
 	const freelanceList = useSelector(
 		(state) => state.freelanceReducer.freelanceList
 	);
+	const appliedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.appliedFreelanceIdList
+	);
+
+	const user = useSelector((state) => state.authReducer.user);
 
 	const dispatch = useDispatch();
 
@@ -155,12 +160,15 @@ function Home() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											{freelanceList &&
+											{ freelanceList &&
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
 															key={eachFreelance._id}
 															data={eachFreelance}
+															appliedFreelanceIdList={
+																appliedFreelanceIdList.Applied
+															}
 														/>
 													);
 												})}

@@ -4,7 +4,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
+import {
+	applyToJob,
+	setFreelanceById,
+} from "../../../application/redux/action/freelanceActions";
 
 function JobDetailModal() {
 	let { id } = useParams();
@@ -17,10 +20,15 @@ function JobDetailModal() {
 		navigate(`/home`);
 	};
 
+	const dispatch = useDispatch();
+	const applyJob = () => {
+		dispatch(applyToJob(id));
+		setOpen(!open);
+		navigate(`/home`);
+	};
 	const selectedFreelance = useSelector(
 		(state) => state.freelanceReducer.selectedFreelance
 	);
-	const dispatch = useDispatch();
 
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
@@ -97,6 +105,31 @@ function JobDetailModal() {
 													))}
 											</div>
 										</div>
+										<div className="py-5">
+											<h3 className="font-bold text-xs">Category</h3>
+											{/* <!-- This is the tags / Skills container --> */}
+											<div className="my-1 flex flex-wrap -m-1">
+												<div>
+													<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+														{selectedFreelance.category &&
+															selectedFreelance.category}
+													</span>
+												</div>
+											</div>
+										</div>
+
+										<div className="py-5">
+											<h3 className="font-bold text-xs">Sub-Category</h3>
+											{/* <!-- This is the tags / Skills container --> */}
+											<div className="my-1 flex flex-wrap -m-1">
+												<div>
+													<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+														{selectedFreelance.subCategory &&
+															selectedFreelance.subCategory}
+													</span>
+												</div>
+											</div>
+										</div>
 
 										<div className="flex flex-row  space-x-5 ">
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
@@ -149,7 +182,9 @@ function JobDetailModal() {
 													/>
 												</svg>
 												<span>
-													{selectedFreelance.rate && selectedFreelance.rate}
+													${selectedFreelance.rate && selectedFreelance.rate}/
+													{selectedFreelance.rateDuration &&
+														selectedFreelance.rateDuration}
 												</span>
 											</div>
 										</div>
@@ -169,12 +204,13 @@ function JobDetailModal() {
 											</svg>
 											<span>
 												{selectedFreelance.location &&
-													selectedFreelance.location}
-												,
+													selectedFreelance.location}{" "}
+												{selectedFreelance.city && selectedFreelance.city}{" "}
+												{selectedFreelance.state && selectedFreelance.state},{" "}
 												{selectedFreelance.zipcode && selectedFreelance.zipcode}
 											</span>
 										</div>
-										<div className="mt-9">
+										{/* <div className="mt-9">
 											<div className="mt-1 ">
 												<textarea
 													rows={3}
@@ -193,14 +229,14 @@ function JobDetailModal() {
 												Please write any additional information you want the
 												employer to know.
 											</p>
-										</div>
+										</div> */}
 									</div>
 								</div>
 								<div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
 									<button
 										type="button"
 										className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-										onClick={() => modalClick()}
+										onClick={() => applyJob()}
 									>
 										Apply
 									</button>
