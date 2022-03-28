@@ -269,8 +269,9 @@ function EditProfileModal() {
 																	type="text"
 																	onChange={(e) => onHandleChange(e)}
 																	value={
-																		editProfile.contactNumber &&
 																		editProfile.contactNumber
+																			? editProfile.contactNumber
+																			: ""
 																	}
 																	autoComplete="Email"
 																	required

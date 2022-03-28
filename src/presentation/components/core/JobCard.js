@@ -2,15 +2,15 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 import Modal from "./modal";
-function JobCard({ data }) {
+function JobCard({ data, appliedFreelanceIdList }) {
 	let navigate = useNavigate();
-	let dispatch = useDispatch();
 
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		// dispatch(fetchFreelanceById(data.id))
-		navigate(`/jobdetail/${data.id}`);
+		navigate(`/jobdetail/${data._id}`);
 	};
+
 	return (
 		<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 			<div className="w-full px-10 my-4 py-6 bg-white ">
@@ -43,6 +43,7 @@ function JobCard({ data }) {
 							onClick={(e) => handleReadMoreClick(e)}
 							className="text-blue-600 hover:underline cursor-pointer"
 						>
+							{" "}
 							Read More
 						</span>
 					</p>
@@ -86,7 +87,9 @@ function JobCard({ data }) {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{data.postedBy}</span>
+						<span>
+							{data.postedBy.firstName} {data.postedBy.lastName}
+						</span>
 					</div>
 					<div className="font-light text-gray-600 flex flex-row space-x-1">
 						<svg
@@ -145,12 +148,18 @@ function JobCard({ data }) {
 								src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
 								alt="avatar"
 							/>
-							<button
-								type="button"
-								className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-							>
-								Apply
-							</button>
+							{data &&
+							appliedFreelanceIdList &&
+							appliedFreelanceIdList.includes(data._id) ? (
+								<h1 style={{ fontWeight: "800", color: "#0000ff" }}>Applied</h1>
+							) : (
+								<button
+									type="button"
+									className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+								>
+									Apply
+								</button>
+							)}
 						</a>
 					</div>
 				</div>
