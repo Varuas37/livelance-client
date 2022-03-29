@@ -9,6 +9,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import history from "./presentation/utils/history";
 import LandingPage from "./presentation/pages/Landing/LandingPage";
 import { Provider, useDispatch, useSelector } from "react-redux";
+import SearchPage from "./presentation/pages/search/SearchPage";
+import SignIn from "./presentation/pages/auth/Signin";
+import { checkUser } from "./application/redux/action/authActions";
 import { store, persistor } from "./application/redux/store/store";
 import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
@@ -35,12 +38,14 @@ import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
 import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
-import AltLogin from "./presentation/pages/messenger/Login";
 import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
-import SearchPage from "./presentation/pages/search/SearchPage";
-import SignIn from "./presentation/pages/auth/Signin";
-import { checkUser } from "./application/redux/action/authActions";
+import Messenger from "./presentation/pages/messenger/Messenger";
+
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
+
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
@@ -58,14 +63,18 @@ const App = () => {
 				<Fragment>
 					{/* <StaticSidebar /> */}
 
-					{/* <Sidebar/> */}
-					<GetSidebar />
-					<GetMyJobsNavigation />
-					<Routes>
-						<Route exact path="/register" element={<AltRegister />} />
-						<Route exact path="/login" element={<AltLogin />} />
-						<Route exact path="/setAvatar" element={<SetAvatar />} />
-						<Route exact path="/messengeralt" element={<Chat />} />
+						{/* <Sidebar/> */}
+						<GetSidebar />
+						<GetMyJobsNavigation />
+						<Routes>
+							{/* TODO: figure out how to get cool avatar  */}
+        					<Route exact path="/setAvatar" element={<SetAvatar />} />
+
+							{/*messenger page old ver*/ }
+        					<Route exact path="/messenger" element={<Messenger />} />
+							{/* TODO: make this conditional i foreget how */}
+							<Route exact path="/coolchat" element={<Chat />} />
+							<Route exact path="/coolchat/:email" element={<Chat />} />
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />
