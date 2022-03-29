@@ -3,6 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuAlt2Icon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import GetSearchPart from "../../components/search/GetSearchPart";
+import { useSelector } from "react-redux";
 
 const SearchAndProfileAvatar = ({ searchTermList }) => {
 	const userNavigation = [
@@ -19,6 +20,8 @@ const SearchAndProfileAvatar = ({ searchTermList }) => {
 	}
 
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+
+	const profile = useSelector((state) => state.authReducer.user);
 
 	return (
 		<>
@@ -52,7 +55,7 @@ const SearchAndProfileAvatar = ({ searchTermList }) => {
 											<span className="sr-only">Open user menu</span>
 											<img
 												className="h-8 w-8 rounded-full"
-												src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+												src={profile && profile.avatar && profile.avatar}
 												alt=""
 											/>
 										</Menu.Button>

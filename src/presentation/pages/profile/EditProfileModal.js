@@ -22,7 +22,6 @@ function EditProfileModal() {
 
 	const profile = useSelector((state) => state.profileReducer.profile);
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		setEditProfile(profile);
 		const payRange = profile && profile.fields && profile.fields.PayRange;
@@ -41,7 +40,7 @@ function EditProfileModal() {
 
 	const saveButtonClicked = (e) => {
 		e.preventDefault();
-		dispatch(editAndSetProfile(editProfile));
+		dispatch(setProfile(editProfile));
 		setOpen(!open);
 		navigate(`/profile`);
 	};
@@ -178,7 +177,7 @@ function EditProfileModal() {
 																<div className="mt-1">
 																	<input
 																		id="firstName"
-																		name="name"
+																		name="firstName"
 																		value={
 																			editProfile.firstName
 																				? editProfile.firstName
@@ -199,11 +198,31 @@ function EditProfileModal() {
 																</label>
 																<div className="mt-1">
 																	<input
-																		id="firstName"
-																		name="name"
+																		name="lastName"
 																		value={
 																			editProfile.lastName
 																				? editProfile.lastName
+																				: ""
+																		}
+																		onChange={(e) => onHandleChange(e)}
+																		type="text"
+																		required
+																		className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																	/>
+																</div>
+															</div>
+														</div>
+														<div className="flex flex-row md-flex-col space-x-5">
+															<div>
+																<label className="block text-sm font-medium text-gray-700">
+																	Gender
+																</label>
+																<div className="mt-1">
+																	<input
+																		name="gender"
+																		value={
+																			editProfile.gender
+																				? editProfile.gender
 																				: ""
 																		}
 																		onChange={(e) => onHandleChange(e)}
@@ -242,18 +261,16 @@ function EditProfileModal() {
 																htmlFor="Email"
 																className="block text-sm font-medium text-gray-700"
 															>
-																Email address
+																Contact Number
 															</label>
 															<div className="mt-1">
 																<input
-																	id="Email"
-																	name="Email"
-																	type="Email"
+																	name="contactNumber"
+																	type="text"
 																	onChange={(e) => onHandleChange(e)}
 																	value={
-																		editProfile.fields &&
-																		editProfile.fields.Email
-																			? editProfile.fields.Email
+																		editProfile.contactNumber
+																			? editProfile.contactNumber
 																			: ""
 																	}
 																	autoComplete="Email"
@@ -262,7 +279,7 @@ function EditProfileModal() {
 																/>
 															</div>
 														</div>
-														<div>
+														{/* <div>
 															<label
 																htmlFor="Title"
 																className="block text-sm font-medium text-gray-700"
@@ -286,8 +303,8 @@ function EditProfileModal() {
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 																/>
 															</div>
-														</div>
-														<div>
+														</div> */}
+														{/* <div>
 															<label
 																htmlFor="Location"
 																className="block text-sm font-medium text-gray-700"
@@ -312,8 +329,8 @@ function EditProfileModal() {
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 																/>
 															</div>
-														</div>
-														<div>
+														</div> */}
+														{/* <div>
 															<label
 																htmlFor="ZipCode"
 																className="block text-sm font-medium text-gray-700"
@@ -337,8 +354,8 @@ function EditProfileModal() {
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 																/>
 															</div>
-														</div>
-														<div>
+														</div> */}
+														{/* <div>
 															<label
 																htmlFor="PayRange"
 																className="block text-sm font-medium text-gray-700"
@@ -371,22 +388,53 @@ function EditProfileModal() {
 																	<option value="week">week</option>
 																</select>
 															</div>
-														</div>
+														</div> */}
 
-														<label
-															htmlFor="PayRange"
-															className="block text-sm font-medium text-gray-700"
-														>
-															Skills
-														</label>
-														<HandleSkills
-															props={{
-																mutableObject: editProfile,
-																setMutableObject: setEditProfile,
-																skillsList: skillsList,
-																setSkillsList: setSkillsList,
-															}}
-														/>
+														<>
+															<label
+																htmlFor="PayRange"
+																className="block text-sm font-medium text-gray-700"
+															>
+																Skills
+															</label>
+															<HandleSkills
+																props={{
+																	mutableObject: editProfile,
+																	setMutableObject: setEditProfile,
+																	field: "skills",
+																}}
+															/>
+														</>
+														<>
+															<label
+																htmlFor="PayRange"
+																className="block text-sm font-medium text-gray-700"
+															>
+																Categories
+															</label>
+															<HandleSkills
+																props={{
+																	mutableObject: editProfile,
+																	setMutableObject: setEditProfile,
+																	field: "categories",
+																}}
+															/>
+														</>
+														<>
+															<label
+																htmlFor="PayRange"
+																className="block text-sm font-medium text-gray-700"
+															>
+																Sub-Categories
+															</label>
+															<HandleSkills
+																props={{
+																	mutableObject: editProfile,
+																	setMutableObject: setEditProfile,
+																	field: "subCategories",
+																}}
+															/>
+														</>
 													</form>
 												</div>
 											</div>

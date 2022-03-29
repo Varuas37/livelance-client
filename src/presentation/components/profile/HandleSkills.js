@@ -6,12 +6,8 @@ const HandleSkills = ({ props }) => {
 		if (e.key === "Enter") {
 			props.setMutableObject({
 				...props.mutableObject,
-				fields: {
-					...props.mutableObject.fields,
-					Skills: props.mutableObject.fields.Skills + ", " + skillTyped,
-				},
+				[props.field]: props.mutableObject[props.field].concat(skillTyped),
 			});
-			props.setSkillsList([...props.skillsList, skillTyped]);
 			setSkillTyped("");
 		}
 	};
@@ -19,23 +15,16 @@ const HandleSkills = ({ props }) => {
 	const deleteFromSkillsList = (e, skillName) => {
 		e.preventDefault();
 
-		props.setSkillsList((skillsList) =>
-			skillsList.filter((eachSkill) => eachSkill !== skillName)
-		);
-
-		const array = props.mutableObject.fields.Skills.split(",");
+		const array = props.mutableObject[props.field];
 		array.splice(array.indexOf(skillName), 1);
 
 		props.setMutableObject({
 			...props.mutableObject,
-			fields: {
-				...props.mutableObject.fields,
-				Skills: array.join(","),
-			},
+			[props.field]: array,
 		});
 	};
 
-	useEffect(() => {}, [props.skillsList]);
+	// useEffect(() => {}, [props.skillsList]);
 	return (
 		<>
 			<div className="mt-1">
@@ -51,8 +40,8 @@ const HandleSkills = ({ props }) => {
 					onKeyPress={(e) => handleKeyPressed(e)}
 				/>
 			</div>
-			{props.skillsList &&
-				props.skillsList.map((eachSkill, idx) => {
+			{props.mutableObject[props.field] &&
+				props.mutableObject[props.field].map((eachSkill, idx) => {
 					return (
 						<span key={idx}>
 							<p style={{ marginTop: "-2px" }}>

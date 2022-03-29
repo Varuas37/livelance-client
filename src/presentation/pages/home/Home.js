@@ -24,16 +24,24 @@ import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GetSearchPart from "../../components/search/GetSearchPart";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import { checkUser } from "../../../application/redux/action/authActions";
 
 function Home() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const freelanceList = useSelector(
 		(state) => state.freelanceReducer.freelanceList
 	);
+	const appliedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.appliedFreelanceIdList
+	);
+
+	const user = useSelector((state) => state.authReducer.user);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(checkUser());
+
 		dispatch(setFreelanceList());
 	}, []);
 
@@ -152,12 +160,15 @@ function Home() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											{freelanceList &&
+											{ freelanceList &&
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
 															key={eachFreelance._id}
 															data={eachFreelance}
+															appliedFreelanceIdList={
+																appliedFreelanceIdList.Applied
+															}
 														/>
 													);
 												})}

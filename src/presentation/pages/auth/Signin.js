@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { loginUser } from "../../../application/redux/action/authActions";
 import { useDispatch, useSelector } from "react-redux";
 function SignIn() {
-	const [signin, setSignin] = useState({		
+	const [signin, setSignin] = useState({
 		email: "",
 		password: "",
 	});
@@ -15,7 +15,7 @@ function SignIn() {
 		});
 	};
 
-	let dispatch = useDispatch();	
+	let dispatch = useDispatch();
 	const onSignInFormSubmit = async (e) => {
 		e.preventDefault();
 		dispatch(loginUser(signin));
@@ -55,7 +55,7 @@ function SignIn() {
 								onSubmit={onSignInFormSubmit}
 								method="POST"
 							>
-								<div>
+								{/* <div>
 									<label
 										htmlFor="role"
 										className="block text-sm font-medium text-gray-700"
@@ -75,7 +75,7 @@ function SignIn() {
 											</option>
 										</select>
 									</div>
-								</div>
+								</div> */}
 								<div>
 									<label
 										htmlFor="email"
@@ -144,7 +144,7 @@ function SignIn() {
 								<div>
 									<button
 										type="submit"
-										className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"									
+										className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 									>
 										Sign in
 									</button>
