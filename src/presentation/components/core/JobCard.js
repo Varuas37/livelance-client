@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "./modal";
-import { applyToJob } from "../../../application/redux/action/freelanceActions";
+import {
+	applyToJob,
+	saveJob,
+} from "../../../application/redux/action/freelanceActions";
 function JobCard({ data, appliedFreelanceIdList }) {
 	let navigate = useNavigate();
-	const applyBtn = useRef(null);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
+	const [isSvgClicked, setIsSvgClicked] = useState(false);
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		// dispatch(fetchFreelanceById(data.id))
@@ -21,9 +24,21 @@ function JobCard({ data, appliedFreelanceIdList }) {
 		if (response === true) {
 			setIsAppliedJob(true);
 			alert("Successfully Applied!");
-
 		} else {
 			alert("Unsuccessful in Applying!");
+		}
+	};
+
+	const saveSvgClicked = async () => {
+		if (!isSvgClicked) {
+			const response = await dispatch(saveJob(data._id));
+			if (response === true) {
+				setIsSvgClicked(true);
+			} else {
+				alert("Could not save the job");
+			}
+		} else {
+			//code for unsaving job goes here
 		}
 	};
 
@@ -45,10 +60,13 @@ function JobCard({ data, appliedFreelanceIdList }) {
 					{/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg> */}
 					{/* This svg should be used when the job is already saved */}
 					<svg
-						className="w-6 h-6"
-						fill="blue"
+						className="w-8 h-8"
+						fill={isSvgClicked ? "blue" : "white"}
 						viewBox="0 0 20 20"
 						xmlns="http://www.w3.org/2000/svg"
+						stroke="#646464"
+						strokeWidth={"1px"}
+						onClick={saveSvgClicked}
 					>
 						<path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
 					</svg>
@@ -213,7 +231,6 @@ function JobCard({ data, appliedFreelanceIdList }) {
 									type="button"
 									className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 									onClick={(e) => handleApplyClick(e, data._id)}
-									ref={applyBtn}
 									disabled
 								>
 									Applied
@@ -223,7 +240,6 @@ function JobCard({ data, appliedFreelanceIdList }) {
 									type="button"
 									className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 									onClick={(e) => handleApplyClick(e, data._id)}
-									ref={applyBtn}
 								>
 									Apply
 								</button>
