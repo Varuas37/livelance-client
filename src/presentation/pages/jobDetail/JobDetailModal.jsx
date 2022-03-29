@@ -21,10 +21,14 @@ function JobDetailModal() {
 	};
 
 	const dispatch = useDispatch();
-	const applyJob = () => {
-		dispatch(applyToJob(id));
-		setOpen(!open);
-		navigate(`/home`);
+	const applyJob = async () => {
+		const response = await dispatch(applyToJob(id));
+		if (response === true) {
+			setOpen(!open);
+			navigate(`/home`);
+		} else {
+			alert("Unsuccessful in Applying!")
+		}
 	};
 	const selectedFreelance = useSelector(
 		(state) => state.freelanceReducer.selectedFreelance

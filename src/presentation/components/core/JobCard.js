@@ -1,15 +1,41 @@
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 import Modal from "./modal";
+import { applyToJob } from "../../../application/redux/action/freelanceActions";
 function JobCard({ data, appliedFreelanceIdList }) {
 	let navigate = useNavigate();
-
+	const applyBtn = useRef(null);
+	const [isAppliedJob, setIsAppliedJob] = useState(false);
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		// dispatch(fetchFreelanceById(data.id))
 		navigate(`/jobdetail/${data._id}`);
 	};
+
+	// console.log(appliedFreelanceIdList);
+	const dispatch = useDispatch();
+	const handleApplyClick = async (e, id) => {
+		e.preventDefault();
+		const response = await dispatch(applyToJob(id));
+		if (response === true) {
+			setIsAppliedJob(true);
+			alert("Successfully Applied!");
+
+		} else {
+			alert("Unsuccessful in Applying!");
+		}
+	};
+
+	useEffect(() => {
+		if (
+			data &&
+			appliedFreelanceIdList &&
+			appliedFreelanceIdList.includes(data._id)
+		) {
+			setIsAppliedJob(true);
+		}
+	}, []);
 
 	return (
 		<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
@@ -182,14 +208,22 @@ function JobCard({ data, appliedFreelanceIdList }) {
 								src={data.postedBy && data.postedBy.avatar}
 								alt="avatar"
 							/>
-							{data &&
-							appliedFreelanceIdList &&
-							appliedFreelanceIdList.includes(data._id) ? (
-								<h1 style={{ fontWeight: "800", color: "#0000ff" }}>Applied</h1>
+							{isAppliedJob ? (
+								<button
+									type="button"
+									className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									onClick={(e) => handleApplyClick(e, data._id)}
+									ref={applyBtn}
+									disabled
+								>
+									Applied
+								</button>
 							) : (
 								<button
 									type="button"
 									className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+									onClick={(e) => handleApplyClick(e, data._id)}
+									ref={applyBtn}
 								>
 									Apply
 								</button>
