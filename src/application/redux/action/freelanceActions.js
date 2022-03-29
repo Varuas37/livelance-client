@@ -95,7 +95,7 @@ export const applyToJob = (id) => async (dispatch) => {
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
-		return false
+		return false;
 	}
 };
 export const saveJob = (id) => async (dispatch) => {
@@ -109,18 +109,34 @@ export const saveJob = (id) => async (dispatch) => {
 			{
 				headers: { Authorization: AuthStr },
 			}
-		);		
+		);
 		return true;
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
-		return false
+		return false;
 	}
 };
 
 export const setSavedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummySavedFreelanceList();
-	dispatch({ type: SET_SAVED_FREELANCE_LIST, payload: response.data });
+	// const response = fetchdummySavedFreelanceList();
+	// dispatch({ type: SET_SAVED_FREELANCE_LIST, payload: response.data });
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+		headers: {
+			Authorization: AuthStr,
+			data: JSON.stringify({ status: "Saved" }),
+		},
+	});
+
+	// console.log(responseJobStatus)
+	dispatch({
+		type: SET_SAVED_FREELANCE_LIST,
+		payload: responseJobStatus.data.status,
+	});
 };
 
 export const setOfferedFreelanceList = () => async (dispatch) => {

@@ -9,6 +9,7 @@ const SavedJobs = () => {
 		(state) => state.freelanceReducer.savedFreelanceList
 	);
 
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(setSavedFreelanceList());

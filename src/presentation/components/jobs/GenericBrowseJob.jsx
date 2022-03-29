@@ -112,7 +112,7 @@ function GenericBrowseJob({ props }) {
 												props.dataList.map((eachFreelance) => {
 													return (
 														<GenericJobCard
-															key={eachFreelance.id}
+															key={eachFreelance._id}
 															data={eachFreelance}
 															myJobType={props.myJobType}
 														/>
