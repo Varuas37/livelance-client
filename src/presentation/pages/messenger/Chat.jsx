@@ -50,12 +50,8 @@ export default function Chat() {
         const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
         setContacts(data.data);
       } else {
-<<<<<<< Updated upstream
-        navigate("/setAvatar");
-=======
         console.log("would redirect you to set your avatar"); //shouldnt execute
         
->>>>>>> Stashed changes
       }
     }
   }, [currentUser]);
