@@ -98,6 +98,25 @@ export const applyToJob = (id) => async (dispatch) => {
 		return false
 	}
 };
+export const saveJob = (id) => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		await MainApi.post(
+			`/jobs/save/${id}`,
+			{},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);		
+		return true;
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+		return false
+	}
+};
 
 export const setSavedFreelanceList = () => async (dispatch) => {
 	const response = fetchdummySavedFreelanceList();
