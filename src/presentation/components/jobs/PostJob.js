@@ -15,7 +15,6 @@ const PostJob = () => {
 		textAlign: "center",
 		fontSize: "24px",
 		cursor: "pointer",
-		margin: "16px",
 	};
 
 	function handlePostJobClick() {
@@ -23,12 +22,20 @@ const PostJob = () => {
 	}
 
 	return (
-		<div style={postJobButtonContainerStyle}>
-			<div style={postJobButtonStyle} onClick={handlePostJobClick}>
-				{" "}
-				Post a Non-Remote Freelance
+		<>
+			<div>
+				<h1
+					style={{ textAlign: "center", fontSize: "24px", marginTop: "32px" }}
+				>
+					Post a Non-remote Freelancing Opportunity
+				</h1>
 			</div>
-		</div>
+			<div style={postJobButtonContainerStyle}>
+				<div style={postJobButtonStyle} onClick={handlePostJobClick}>
+					<img src="/images/plus.jpg" alt=""></img>
+				</div>
+			</div>
+		</>
 	);
 };
 

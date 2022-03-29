@@ -22,8 +22,7 @@ const GetSidebar = () => {
 	return (
 		<>
 			{!excludeSidebarScreenList.includes(location.pathname) &&
-				//isUserAuthenticated && 
-				<StaticSidebar />}
+				isUserAuthenticated && <StaticSidebar />}
 		</>
 	);
 };

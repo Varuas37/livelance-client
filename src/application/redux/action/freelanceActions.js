@@ -48,6 +48,7 @@ export const setFreelanceList = () => async (dispatch) => {
 				},
 			});
 
+			// console.log(responseJobStatus)
 			dispatch({
 				type: SET_APPLIED_FREELANCE_ID_LIST,
 				payload: groupBy(responseJobStatus.data.status, "status"),
@@ -86,13 +87,15 @@ export const applyToJob = (id) => async (dispatch) => {
 				headers: { Authorization: AuthStr },
 			}
 		);
-		console.log(response);
-		if (response.status === 200 || response.status === 201) {
-			alert("Successfully Applied!");
-		}
+		// console.log(response);
+		// if (response.status === 200 || response.status === 201) {
+		// 	alert("Successfully Applied!");
+		// }
+		return true;
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
+		return false
 	}
 };
 
