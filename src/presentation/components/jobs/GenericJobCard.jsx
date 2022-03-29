@@ -1,22 +1,61 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
+import MainApi from "../../../repository/MainApi";
 import Modal from "../core/modal";
 function GenericJobCard({ data, myJobType }) {
 	let navigate = useNavigate();
+
+	const [listerName, setListerName] = useState("");
+
 	let dispatch = useDispatch();
 
 	const descriptionLength = myJobType === "saved" ? 150 : 300;
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
-		// dispatch(fetchFreelanceById(data.id))
-		navigate(`/jobdetail/${myJobType}/${data.id}`);
+		// dispatch(fetchFreelanceById(data.jobId.id))
+		navigate(`/jobdetail/${myJobType}/${data.jobId._id}`);
 	};
+
+	useEffect(() => {
+		const fetch = async () => {
+			console.log(data.jobId.postedBy._id);
+			if (data.jobId.postedBy) {
+				try {
+					const token = localStorage.LLtoken;
+					const AuthStr = "Bearer ".concat(token);
+
+					const response = await MainApi.get(
+						`/profile/${data.jobId.postedBy}`,
+						{
+							headers: { Authorization: AuthStr },
+						}
+					);
+					setListerName(
+						response.data.profile.firstName +
+							" " +
+							response.data.profile.lastName
+					);
+					// if (response.status === 200 || response.status === 201) {
+					// 	return true;
+					// }
+				} catch (err) {
+					console.log(err.message);
+				}
+			}
+		};
+
+		fetch();
+	}, [data && data.jobId && data.jobId.postedBy]);
 	return (
 		<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 			<div className="w-full px-10 my-4 py-6 bg-white ">
 				<div className="flex justify-between items-center">
-					<span className="font-light text-gray-600">{data.postedOn}</span>
+					<span className="font-light text-gray-600">
+						{data.jobId.postedOn}
+					</span>
 					{/* <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg> */}
 					{/* This svg should be used when the job is already saved */}
 					<svg
@@ -33,26 +72,27 @@ function GenericJobCard({ data, myJobType }) {
 						className="text-2xl text-gray-700 font-bold hover:text-gray-600"
 						href="#"
 					>
-						{data.jobTitle}
+						{data.jobId.jobTitle}
 					</a>
 					<p className="mt-2 text-gray-600">
-						{data.jobDescription.length > descriptionLength
-							? data.jobDescription.substring(0, descriptionLength) +
+						{data.jobId.jobDescription.length > descriptionLength
+							? data.jobId.jobDescription.substring(0, descriptionLength) +
 							  " ....... "
-							: data.jobDescription}
+							: data.jobId.jobDescription}
 
 						{myJobType === "saved" && (
 							<span
 								onClick={(e) => handleReadMoreClick(e)}
 								className="text-blue-600 hover:underline cursor-pointer"
 							>
+								{" "}
 								Read More
 							</span>
 						)}
 					</p>
 				</div>
 				{/* <div
-					onClick={(e) => handleReadMoreClick(e, data.id)}
+					onClick={(e) => handleReadMoreClick(e, data.jobId.id)}
 					className="text-blue-600 hover:underline cursor-pointer"
 				>
 					Read More
@@ -60,12 +100,12 @@ function GenericJobCard({ data, myJobType }) {
 
 				{/* {returnModal()} */}
 				{/* <Modal/> */}
-				{/* Everything here eventually will need to come from data. The list of skills here needs to be mapped.*/}
+				{/* Everything here eventually will need to come from data.jobId. The list of skills here needs to be mapped.*/}
 				<div className="py-5">
 					<h3 className="font-bold text-xs">Skills</h3>
 					{/* <!-- This is the tags / Skills container --> */}
 					<div className="my-1 flex flex-wrap -m-1">
-						{data.skills.map((skill, idx) => (
+						{data.jobId.skills.map((skill, idx) => (
 							<div key={idx}>
 								<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
 									{skill}
@@ -74,6 +114,33 @@ function GenericJobCard({ data, myJobType }) {
 						))}
 					</div>
 				</div>
+
+				{data.jobId.category && (
+					<>
+						<h3 className="font-bold text-xs">Category</h3>
+
+						<div className="my-1 flex flex-wrap -m-1">
+							<div>
+								<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+									{data.jobId.category}
+								</span>
+							</div>
+						</div>
+					</>
+				)}
+				{data.jobId.subCategory && (
+					<>
+						<h3 className="font-bold text-xs">Sub-Category</h3>
+						{/* <!-- This is the tags / Skills container --> */}
+						<div className="my-1 flex flex-wrap -m-1">
+							<div>
+								<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+									{data.jobId.subCategory}
+								</span>
+							</div>
+						</div>
+					</>
+				)}
 				{/* End of skill */}
 				{/* Start of information about job poster, pay and duration */}
 				<div className="flex flex-row  space-x-5 ">
@@ -90,7 +157,7 @@ function GenericJobCard({ data, myJobType }) {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{data.postedBy}</span>
+						<span>{listerName}</span>
 					</div>
 					<div className="font-light text-gray-600 flex flex-row space-x-1">
 						<svg
@@ -105,7 +172,7 @@ function GenericJobCard({ data, myJobType }) {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{data.duration}</span>
+						<span>{data.jobId.duration}</span>
 					</div>
 					<div className="font-light text-gray-600 flex flex-row space-x-1">
 						<svg
@@ -120,7 +187,9 @@ function GenericJobCard({ data, myJobType }) {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<span>{data.rate}</span>
+						<span>
+							${data.jobId.rate}/{data.jobId.rateDuration}
+						</span>
 					</div>
 				</div>
 
@@ -139,7 +208,7 @@ function GenericJobCard({ data, myJobType }) {
 							/>
 						</svg>
 						<span>
-							{data.location}, {data.zipcode}
+							{data.jobId.city}, {data.jobId.state}, {data.jobId.zipcode}
 						</span>
 					</div>
 
