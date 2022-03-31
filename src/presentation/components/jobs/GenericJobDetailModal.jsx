@@ -21,8 +21,7 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 		(state) => state.freelanceReducer.selectedFreelance
 	);
 	const dispatch = useDispatch();
-	console.log(selectedFreelance);
-	console.log(jobId);
+
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
 		dispatch(setFreelanceById(jobId));
@@ -118,7 +117,6 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 														selectedFreelance.postedBy.firstName}{" "}
 													{selectedFreelance.postedBy &&
 														selectedFreelance.postedBy.lastName}
-													
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
