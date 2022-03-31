@@ -9,7 +9,7 @@ import {
 import JobDetailModal from "../../pages/jobDetail/JobDetailModal";
 function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 	let navigate = useNavigate();
-
+	
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
 	const [isSvgClicked, setIsSvgClicked] = useState(false);

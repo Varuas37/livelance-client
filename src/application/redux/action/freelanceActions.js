@@ -56,16 +56,29 @@ export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 		});
 
 		if (jobStatus === "Applied") {
-			dispatch({
-				type: SET_APPLIED_FREELANCE_ID_LIST,
-				payload: groupBy(responseJobStatus.data.status, "status"),
-			});
+			if (responseJobStatus.data.status.length > 0) {
+				dispatch({
+					type: SET_APPLIED_FREELANCE_ID_LIST,
+					payload: groupBy(responseJobStatus.data.status, "status"),
+				});
+			} else {
+				dispatch({
+					type: SET_APPLIED_FREELANCE_ID_LIST,
+					payload: [],
+				});
+			}
 		} else if (jobStatus === "Saved") {
-			console.log(responseJobStatus.data.status);
-			dispatch({
-				type: SET_SAVED_FREELANCE_ID_LIST,
-				payload: groupBy(responseJobStatus.data.status, "status"),
-			});
+			if (responseJobStatus.data.status.length > 0) {
+				dispatch({
+					type: SET_SAVED_FREELANCE_ID_LIST,
+					payload: groupBy(responseJobStatus.data.status, "status"),
+				});
+			} else {
+				dispatch({
+					type: SET_SAVED_FREELANCE_ID_LIST,
+					payload: [],
+				});
+			}
 		}
 	}
 };
@@ -100,7 +113,9 @@ export const applyToJob = (id) => async (dispatch) => {
 			}
 		);
 
-		return true;
+		if (response.status === 200 || response.status === 201) {
+			return true;
+		}
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
