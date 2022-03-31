@@ -10,24 +10,22 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 
 function JobDetailModal({
-	jobId,
 	setIsReadMoreClicked,
 	isAppliedJob,
 	setIsAppliedJob,
+	selectedFreelance,
 }) {
 	const [open, setOpen] = useState(true);
-	let navigate = useNavigate();
-	const cancelButtonRef = useRef(null);
 
+	const cancelButtonRef = useRef(null);
 	const modalClick = () => {
 		setOpen(!open);
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
-		// navigate(`/home`);
 	};
 
 	const dispatch = useDispatch();
 	const applyJob = async () => {
-		const response = await dispatch(applyToJob(jobId));
+		const response = await dispatch(applyToJob(selectedFreelance._id));
 		if (response === true) {
 			setOpen(!open);
 			setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
@@ -37,16 +35,6 @@ function JobDetailModal({
 			alert("Unsuccessful in Applying!");
 		}
 	};
-	const selectedFreelance = useSelector(
-		(state) => state.freelanceReducer.selectedFreelance
-	);
-
-	useEffect(() => {
-		// dispatch(fetchFreelanceList());
-		dispatch(setFreelanceById(jobId));
-
-		// console.log("shivam")
-	}, []);
 
 	return (
 		<div>
@@ -225,26 +213,6 @@ function JobDetailModal({
 												{selectedFreelance.zipcode && selectedFreelance.zipcode}
 											</span>
 										</div>
-										{/* <div className="mt-9">
-											<div className="mt-1 ">
-												<textarea
-													rows={3}
-													id="additionalJobInfo"
-													name="additionalJobInfo"
-													placeholder="Description"
-													type="text"
-													autoComplete="family-name"
-													required
-													className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none resize-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-												/>
-											</div>
-										</div>
-										<div className="mt-2">
-											<p className="text-sm text-start text-gray-500">
-												Please write any additional information you want the
-												employer to know.
-											</p>
-										</div> */}
 									</div>
 								</div>
 								<div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
