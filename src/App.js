@@ -41,11 +41,11 @@ import Chat from "./presentation/pages/messenger/Chat";
 import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
 import Messenger from "./presentation/pages/messenger/Messenger";
+import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
-
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
@@ -55,6 +55,8 @@ const App = () => {
 	let dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(checkUser());
+		dispatch(setFreelanceIdListByStatus("Applied"));
+		dispatch(setFreelanceIdListByStatus("Saved"));
 	}, []);
 
 	return (
@@ -63,18 +65,18 @@ const App = () => {
 				<Fragment>
 					{/* <StaticSidebar /> */}
 
-						{/* <Sidebar/> */}
-						<GetSidebar />
-						<GetMyJobsNavigation />
-						<Routes>
-							{/* TODO: figure out how to get cool avatar  */}
-        					<Route exact path="/setAvatar" element={<SetAvatar />} />
+					{/* <Sidebar/> */}
+					<GetSidebar />
+					<GetMyJobsNavigation />
+					<Routes>
+						{/* TODO: figure out how to get cool avatar  */}
+						<Route exact path="/setAvatar" element={<SetAvatar />} />
 
-							{/*messenger page old ver*/ }
-        					<Route exact path="/messenger" element={<Messenger />} />
-							{/* TODO: make this conditional i foreget how */}
-							<Route exact path="/coolchat" element={<Chat />} />
-							<Route exact path="/coolchat/:email" element={<Chat />} />
+						{/*messenger page old ver*/}
+						<Route exact path="/messenger" element={<Messenger />} />
+						{/* TODO: make this conditional i foreget how */}
+						<Route exact path="/coolchat" element={<Chat />} />
+						<Route exact path="/coolchat/:email" element={<Chat />} />
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />
@@ -103,12 +105,12 @@ const App = () => {
 						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
-						<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
-						<Route
+						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}
+						{/* <Route
 							exact
 							path="/jobdetail/:myjobtype/:id"
 							element={<GenericJobDetailModal />}
-						/>
+						/> */}
 						<Route exact path="/onboarding" element={<Onboarding />} />
 						<Route exact path="/profile/edit" element={<EditProfileModal />} />
 

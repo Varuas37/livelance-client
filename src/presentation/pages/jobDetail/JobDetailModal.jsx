@@ -9,25 +9,32 @@ import {
 	setFreelanceById,
 } from "../../../application/redux/action/freelanceActions";
 
-function JobDetailModal() {
-	let { id } = useParams();
+function JobDetailModal({
+	jobId,
+	setIsReadMoreClicked,
+	isAppliedJob,
+	setIsAppliedJob,
+}) {
 	const [open, setOpen] = useState(true);
 	let navigate = useNavigate();
 	const cancelButtonRef = useRef(null);
 
 	const modalClick = () => {
 		setOpen(!open);
-		navigate(`/home`);
+		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
+		// navigate(`/home`);
 	};
 
 	const dispatch = useDispatch();
 	const applyJob = async () => {
-		const response = await dispatch(applyToJob(id));
+		const response = await dispatch(applyToJob(jobId));
 		if (response === true) {
 			setOpen(!open);
-			navigate(`/home`);
+			setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
+			setIsAppliedJob(true);
+			alert("Successfully Applied!");
 		} else {
-			alert("Unsuccessful in Applying!")
+			alert("Unsuccessful in Applying!");
 		}
 	};
 	const selectedFreelance = useSelector(
@@ -36,7 +43,7 @@ function JobDetailModal() {
 
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
-		dispatch(setFreelanceById(id));
+		dispatch(setFreelanceById(jobId));
 
 		// console.log("shivam")
 	}, []);
@@ -241,13 +248,23 @@ function JobDetailModal() {
 									</div>
 								</div>
 								<div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-									<button
-										type="button"
-										className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-										onClick={() => applyJob()}
-									>
-										Apply
-									</button>
+									{isAppliedJob ? (
+										<button
+											type="button"
+											className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+											disabled
+										>
+											Applied
+										</button>
+									) : (
+										<button
+											type="button"
+											className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+											onClick={(e) => applyJob()}
+										>
+											Apply
+										</button>
+									)}
 									<button
 										type="button"
 										className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
