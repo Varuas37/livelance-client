@@ -11,7 +11,7 @@ const Ongoing = () => {
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setOngoingFreelanceList());
+		// dispatch(setOngoingFreelanceList());
 	}, []);
 
 	return (

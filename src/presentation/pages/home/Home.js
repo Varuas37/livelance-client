@@ -16,6 +16,7 @@ import CategoryDetails from "../categories/CategoryDetails";
 import { useDispatch } from "react-redux";
 import {
 	setFreelanceById,
+	setFreelanceIdListByStatus,
 	setFreelanceList,
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
@@ -34,15 +35,20 @@ function Home() {
 	const appliedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.appliedFreelanceIdList
 	);
+	const savedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.savedFreelanceIdList
+	);
 
 	const user = useSelector((state) => state.authReducer.user);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(checkUser());
-
-		dispatch(setFreelanceList());
+		const fetch = async () => {
+			dispatch(checkUser());			
+			dispatch(setFreelanceList());
+		};
+		fetch();
 	}, []);
 
 	return (
@@ -160,7 +166,9 @@ function Home() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											{ freelanceList &&
+											{appliedFreelanceIdList &&
+												savedFreelanceIdList &&
+												freelanceList &&
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
@@ -169,6 +177,7 @@ function Home() {
 															appliedFreelanceIdList={
 																appliedFreelanceIdList.Applied
 															}
+															savedFreelanceIdList={savedFreelanceIdList.Saved}
 														/>
 													);
 												})}

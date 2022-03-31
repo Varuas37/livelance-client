@@ -10,11 +10,11 @@ import {
 	SET_CATEGORY_LIST,
 	SET_SEARCH_QUERY_LIST,
 	SET_APPLIED_FREELANCE_ID_LIST,
+	SET_SAVED_FREELANCE_ID_LIST,
 } from "../action/types";
 
 const initialState = {
 	freelanceList: [],
-	appliedFreelanceIdList: [],
 	savedFreelanceList: [],
 	offeredFreelanceList: [],
 	ongoingFreelanceList: [],
@@ -37,6 +37,8 @@ export default function (state = initialState, action) {
 			return { ...state, freelanceList: payload };
 		case SET_APPLIED_FREELANCE_ID_LIST:
 			return { ...state, appliedFreelanceIdList: payload };
+		case SET_SAVED_FREELANCE_ID_LIST:
+			return { ...state, savedFreelanceIdList: payload };
 		case SET_FREELANCE_BY_ID:
 			return { ...state, selectedFreelance: payload };
 		case SET_SAVED_FREELANCE_LIST:

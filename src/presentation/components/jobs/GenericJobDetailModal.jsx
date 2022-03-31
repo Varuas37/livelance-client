@@ -6,25 +6,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 
-function GenericJobDetailModal() {
-	let { id, myjobtype } = useParams();
+function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 	const [open, setOpen] = useState(true);
 	let navigate = useNavigate();
 	const cancelButtonRef = useRef(null);
-    
+
 	const modalClick = () => {
 		setOpen(!open);
-		navigate(`/myjobs/${myjobtype}`);
+		// navigate(`/myjobs/${myjobtype}`);
+		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
 
 	const selectedFreelance = useSelector(
 		(state) => state.freelanceReducer.selectedFreelance
 	);
 	const dispatch = useDispatch();
-
+	console.log(selectedFreelance);
+	console.log(jobId);
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
-		dispatch(setFreelanceById(id));
+		dispatch(setFreelanceById(jobId));
 
 		// console.log("shivam")
 	}, []);
@@ -114,7 +115,10 @@ function GenericJobDetailModal() {
 												</svg>
 												<span>
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy}
+														selectedFreelance.postedBy.firstName}{" "}
+													{selectedFreelance.postedBy &&
+														selectedFreelance.postedBy.lastName}
+													
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
