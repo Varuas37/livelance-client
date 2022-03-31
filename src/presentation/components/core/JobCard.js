@@ -7,9 +7,11 @@ import {
 	saveJob,
 } from "../../../application/redux/action/freelanceActions";
 import JobDetailModal from "../../pages/jobDetail/JobDetailModal";
+import ViewProfileModal from "../profile/ViewProfileModal";
 function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 	let navigate = useNavigate();
 
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
 	const [isSvgClicked, setIsSvgClicked] = useState(false);
@@ -45,6 +47,10 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		}
 	};
 
+	const openProfileModal = (e) => {
+		e.preventDefault();
+		setIsProfileAvatarClicked(true);
+	};
 	useEffect(() => {
 		if (
 			data &&
@@ -70,6 +76,13 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 					setIsReadMoreClicked={setIsReadMoreClicked}
 					isAppliedJob={isAppliedJob}
 					setIsAppliedJob={setIsAppliedJob}
+				/>
+			)}
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data.postedBy._id}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
 				/>
 			)}
 
@@ -242,11 +255,12 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 							</span>
 						</div>
 						<div>
-							<a className="flex items-center" href="#">
+							<div className="flex items-center" href="#">
 								<img
-									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
 									src={data.postedBy && data.postedBy.avatar}
 									alt="avatar"
+									onClick={(e) => openProfileModal(e)}
 								/>
 								{isAppliedJob ? (
 									<button
@@ -265,7 +279,7 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 										Apply
 									</button>
 								)}
-							</a>
+							</div>
 						</div>
 					</div>
 				</div>
