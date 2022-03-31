@@ -66,10 +66,10 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		<>
 			{isReadMoreClicked && (
 				<JobDetailModal
+					selectedFreelance={data}
 					setIsReadMoreClicked={setIsReadMoreClicked}
 					isAppliedJob={isAppliedJob}
 					setIsAppliedJob={setIsAppliedJob}
-					selectedFreelance={data}
 				/>
 			)}
 

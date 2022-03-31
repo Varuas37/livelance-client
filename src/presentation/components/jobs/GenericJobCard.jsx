@@ -105,8 +105,10 @@ function GenericJobCard({
 		<>
 			{isReadMoreClicked && (
 				<GenericJobDetailModal
-					jobId={data.jobId._id}
+					selectedFreelance={data.jobId}
 					setIsReadMoreClicked={setIsReadMoreClicked}
+					isAppliedJob={isAppliedJob}
+					setIsAppliedJob={setIsAppliedJob}
 				/>
 			)}
 
