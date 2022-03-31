@@ -4,10 +4,20 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
+import {
+	applyToJob,
+	setFreelanceById,
+} from "../../../application/redux/action/freelanceActions";
+import MainApi from "../../../repository/MainApi";
 
-function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
+function GenericJobDetailModal({
+	setIsReadMoreClicked,
+	selectedFreelance,
+	isAppliedJob,
+	setIsAppliedJob,
+}) {
 	const [open, setOpen] = useState(true);
+	const [listerName, setListerName] = useState("");
 	let navigate = useNavigate();
 	const cancelButtonRef = useRef(null);
 
@@ -17,15 +27,57 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
 
-	const selectedFreelance = useSelector(
-		(state) => state.freelanceReducer.selectedFreelance
-	);
-	const dispatch = useDispatch();
+	console.log(selectedFreelance);
+	// const selectedFreelance = useSelector(
+	// 	(state) => state.freelanceReducer.selectedFreelance
+	// );
 
+	// console.log(selectedFreelance);
+
+	const dispatch = useDispatch();
+	const applyJob = async (e) => {
+		e.preventDefault();
+		const response = await dispatch(applyToJob(selectedFreelance._id));
+		if (response === true) {
+			setOpen(!open);
+			setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
+			setIsAppliedJob(true);
+			alert("Successfully Applied!");
+		} else {
+			alert("Unsuccessful in Applying!");
+		}
+	};
 	useEffect(() => {
 		// dispatch(fetchFreelanceList());
-		dispatch(setFreelanceById(jobId));
+		// dispatch(setFreelanceById(jobId));
+		const fetch = async () => {
+			if (selectedFreelance && selectedFreelance.postedBy) {
+				try {
+					const token = localStorage.LLtoken;
+					const AuthStr = "Bearer ".concat(token);
 
+					const response = await MainApi.get(
+						`/profile/${selectedFreelance.postedBy}`,
+						{
+							headers: { Authorization: AuthStr },
+						}
+					);
+					console.log(response);
+					setListerName(
+						response.data.profile.firstName +
+							" " +
+							response.data.profile.lastName
+					);
+					// if (response.status === 200 || response.status === 201) {
+					// 	return true;
+					// }
+				} catch (err) {
+					console.log(err.message);
+				}
+			}
+		};
+
+		fetch();
 		// console.log("shivam")
 	}, []);
 
@@ -113,10 +165,11 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 													/>
 												</svg>
 												<span>
-													{selectedFreelance.postedBy &&
+													{/* {selectedFreelance.postedBy &&
 														selectedFreelance.postedBy.firstName}{" "}
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy.lastName}
+														selectedFreelance.postedBy.lastName} */}
+													<span>{listerName}</span>
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
@@ -170,9 +223,8 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 												/>
 											</svg>
 											<span>
-												{selectedFreelance.location &&
-													selectedFreelance.location}
-												,
+												{selectedFreelance.city && selectedFreelance.city},{" "}
+												{selectedFreelance.state && selectedFreelance.state},{" "}
 												{selectedFreelance.zipcode && selectedFreelance.zipcode}
 											</span>
 										</div>
@@ -199,13 +251,23 @@ function GenericJobDetailModal({ jobId, setIsReadMoreClicked }) {
 									</div>
 								</div>
 								<div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-									<button
-										type="button"
-										className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-										onClick={() => modalClick()}
-									>
-										Apply
-									</button>
+									{isAppliedJob ? (
+										<button
+											type="button"
+											className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+											disabled
+										>
+											Applied
+										</button>
+									) : (
+										<button
+											type="button"
+											className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+											onClick={(e) => applyJob(e)}
+										>
+											Apply
+										</button>
+									)}
 									<button
 										type="button"
 										className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
