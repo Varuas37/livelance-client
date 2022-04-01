@@ -19,6 +19,11 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 		setOpen(!open);
 	};
 
+	let navigate = useNavigate();
+	const viewCompleteProfile = (e)=>{
+		e.preventDefault();
+
+	}
 	useEffect(() => {
 		const fetch = async () => {
 			try {
@@ -124,114 +129,19 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 													/>
 													<span>Message</span>
 												</Link>
-											</div>
-
-											<div className="py-5">
-												<h3 className="font-bold text-xs">Skills</h3>
-												{/* <!-- This is the tags / Skills container --> */}
-												<div className="my-1 flex flex-wrap -m-1">
-													{profile.skills &&
-														profile.skills.map((skill, idx) => (
-															<div key={idx}>
-																<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
-																	{skill}
-																</span>
-															</div>
-														))}
-												</div>
-											</div>
-											<div className="py-5">
-												<h3 className="font-bold text-xs">Categories</h3>
-												{/* <!-- This is the tags / Skills container --> */}
-												<div className="my-1 flex flex-wrap -m-1">
-													{profile.categories &&
-														profile.categories.map((skill, idx) => (
-															<div key={idx}>
-																<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
-																	{skill}
-																</span>
-															</div>
-														))}
-												</div>
-											</div>
-											<div className="py-5">
-												<h3 className="font-bold text-xs">Sub-Categories</h3>
-												{/* <!-- This is the tags / Skills container --> */}
-												<div className="my-1 flex flex-wrap -m-1">
-													{profile.subCategories &&
-														profile.subCategories.map((skill, idx) => (
-															<div key={idx}>
-																<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
-																	{skill}
-																</span>
-															</div>
-														))}
-												</div>
-											</div>
-
-											<div className="flex flex-row  space-x-5 ">
-												<div className="font-light text-gray-600 flex flex-row space-x-1">
-													<svg
-														className="w-6 h-6"
-														fill="currentColor"
-														viewBox="0 0 20 20"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fillRule="evenodd"
-															d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-															clipRule="evenodd"
-														/>
-													</svg>
-													<span>
-														{profile.gender && profile.gender}
-														{/* {profile.postedBy &&
-														profile.postedBy.firstName &&
-														profile.postedBy.firstName}{" "}
-													{profile.postedBy &&
-														profile.postedBy.lastName &&
-														profile.postedBy.lastName} */}
-													</span>
-												</div>
-												<div className="font-light text-gray-600 flex flex-row space-x-1">
-													<svg
-														className="w-6 h-6"
-														fill="currentColor"
-														viewBox="0 0 20 20"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fillRule="evenodd"
-															d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-															clipRule="evenodd"
-														/>
-													</svg>
+												<Link
+													to={`#`}
+													// to={`/coolchat/${profile.fields.Email}`}
+													className="inline-flex justify-center px-4 py-2  shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+												>
+													<PhoneIcon
+														className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+														aria-hidden="true"
+													/>
 													<span>
 														{profile.contactNumber && profile.contactNumber}
-														{/* {profile.duration &&
-														profile.duration} */}
 													</span>
-												</div>
-												<div className="font-light text-gray-600 flex flex-row space-x-1">
-													<svg
-														className="w-6 h-6"
-														fill="currentColor"
-														viewBox="0 0 20 20"
-														xmlns="http://www.w3.org/2000/svg"
-													>
-														<path
-															fillRule="evenodd"
-															d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-															clipRule="evenodd"
-														/>
-													</svg>
-													<span>
-														{profile.accountType && profile.accountType}
-														{/* ${profile.rate && profile.rate}/
-													{profile.rateDuration &&
-														profile.rateDuration} */}
-													</span>
-												</div>
+												</Link>
 											</div>
 
 											{/* <div className="font-light text-gray-600 flex flex-row space-x-1">
@@ -278,6 +188,13 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 											ref={cancelButtonRef}
 										>
 											Cancel
+										</button>
+										<button
+											type="button"
+											className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+											onClick={(e) => viewCompleteProfile(e)}
+										>
+											View Complete Profile
 										</button>
 									</div>
 								</div>
