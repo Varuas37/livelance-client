@@ -10,6 +10,7 @@ import {
 	EDIT_AND_SAVE_PROFILE,
 	SET_REVIEWS,
 	SET_REVIEWS_DATA,
+	SET_VIEW_PROFILE,
 } from "./types";
 
 export const getProfile = (profile) => async (dispatch) => {
@@ -60,6 +61,19 @@ export const setProfile = (profile) => async (dispatch) => {
 		alert("Unsuccessful!");
 		console.log(err.message);
 		return false;
+	}
+};
+export const setViewProfile = (id) => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.get(`/profile/${id}`, {
+			headers: { Authorization: AuthStr },
+		});
+		dispatch({ type: SET_VIEW_PROFILE, payload: response.data.profile });
+	} catch (err) {
+		console.log(err.message);
 	}
 };
 
