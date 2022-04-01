@@ -7,12 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
 import MainApi from "../../../repository/MainApi";
 import { MailIcon, PhoneIcon, PencilIcon } from "@heroicons/react/solid";
+import { setViewProfile } from "../../../application/redux/action/profileActions";
 
 function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 	const [open, setOpen] = useState(true);
 	// console.log(id);
 	const cancelButtonRef = useRef(null);
-	const [profile, setProfile] = useState();
+	// const [profile, setProfile] = useState();
+
+	const profile = useSelector((state) => state.profileReducer.viewProfile);
 
 	const modalClick = () => {
 		setIsProfileAvatarClicked(false);
@@ -20,31 +23,16 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 	};
 
 	let navigate = useNavigate();
-	const viewCompleteProfile = (e)=>{
+	const viewCompleteProfile = (e) => {
 		e.preventDefault();
-
-	}
+		navigate(`/viewprofile/${id}`);
+	};
+	
+	let dispatch = useDispatch();
 	useEffect(() => {
-		const fetch = async () => {
-			try {
-				const token = localStorage.LLtoken;
-				const AuthStr = "Bearer ".concat(token);
-
-				const response = await MainApi.get(`/profile/${id}`, {
-					headers: { Authorization: AuthStr },
-				});
-				setProfile(response.data.profile); // setListerName(
-				// 	response.data.profile.firstName + " " + response.data.profile.lastName
-				// );
-				// if (response.status === 200 || response.status === 201) {
-				// 	return true;
-				// }
-			} catch (err) {
-				console.log(err.message);
-			}
-		};
-		fetch();
+		dispatch(setViewProfile());
 	}, []);
+	
 	return (
 		<div>
 			{profile && (
