@@ -45,8 +45,12 @@ function Home() {
 
 	useEffect(() => {
 		const fetch = async () => {
-			dispatch(checkUser());			
-			dispatch(setFreelanceList());
+			if (localStorage.LLtoken) {
+				dispatch(checkUser());
+				dispatch(setFreelanceIdListByStatus("Applied"));
+				dispatch(setFreelanceIdListByStatus("Saved"));
+				dispatch(setFreelanceList());
+			}
 		};
 		fetch();
 	}, []);

@@ -38,7 +38,6 @@ function SignUp() {
 	const onSignUpFormSubmit = async (e) => {
 		e.preventDefault();
 		const responseBool = await dispatch(signUpUser(user));
-		console.log(responseBool);
 		if (responseBool) {
 			navigate("/onboarding");
 		}
