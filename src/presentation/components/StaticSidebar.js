@@ -7,6 +7,7 @@ import {
 	BriefcaseIcon,
 	OfficeBuildingIcon,
 	ArrowCircleDownIcon,
+	ChatIcon,
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -36,6 +37,14 @@ const StaticSidebar = () => {
 			icon: ArrowCircleDownIcon,
 			current: false,
 		},
+		{
+			name: "Chats",
+
+			// put your route below
+			href: "/coolchat",
+			icon: ChatIcon,
+			current: false,
+		},
 	]);
 	const user = useSelector((state) => state.authReducer.user);
 
@@ -43,13 +52,19 @@ const StaticSidebar = () => {
 		if (user && user.accountType === "freelancer") {
 			setNavigation(
 				navigation.filter(
-					(each) => each.name === "Dashboard" || each.name === "My Jobs"
+					(each) =>
+						each.name === "Dashboard" ||
+						each.name === "Chats" ||
+						each.name === "My Jobs"
 				)
 			);
 		} else if (user && user.accountType === "employer") {
 			setNavigation(
 				navigation.filter(
-					(each) => each.name === "Dashboard" || each.name === "Posted Jobs"
+					(each) =>
+						each.name === "Dashboard" ||
+						each.name === "Chats" ||
+						each.name === "Posted Jobs"
 				)
 			);
 		}

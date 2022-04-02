@@ -51,6 +51,8 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		e.preventDefault();
 		setIsProfileAvatarClicked(true);
 	};
+
+	console.log(data);
 	useEffect(() => {
 		if (
 			data &&
