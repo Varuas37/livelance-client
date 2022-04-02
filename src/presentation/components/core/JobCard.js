@@ -17,7 +17,6 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 	const [isSvgClicked, setIsSvgClicked] = useState(false);
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
-		// dispatch(fetchFreelanceById(data.id))
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
 
@@ -52,7 +51,6 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		setIsProfileAvatarClicked(true);
 	};
 
-	console.log(data);
 	useEffect(() => {
 		if (
 			data &&

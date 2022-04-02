@@ -44,9 +44,9 @@ import Messenger from "./presentation/pages/messenger/Messenger";
 import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 import ViewProfile from "./presentation/pages/profile/ViewProfile";
 
-if (localStorage.token) {
-	setAuthToken(localStorage.token);
-}
+// if (localStorage.token) {
+// 	setAuthToken(localStorage.token);
+// }
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
@@ -55,9 +55,11 @@ const App = () => {
 
 	let dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(checkUser());
-		dispatch(setFreelanceIdListByStatus("Applied"));
-		dispatch(setFreelanceIdListByStatus("Saved"));
+		if (localStorage.LLtoken) {
+			dispatch(checkUser());
+			dispatch(setFreelanceIdListByStatus("Applied"));
+			dispatch(setFreelanceIdListByStatus("Saved"));
+		}
 	}, []);
 
 	return (
