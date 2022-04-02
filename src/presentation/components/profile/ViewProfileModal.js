@@ -27,12 +27,12 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 		e.preventDefault();
 		navigate(`/viewprofile/${id}`);
 	};
-	
+
 	let dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setViewProfile());
+		dispatch(setViewProfile(id));
 	}, []);
-	
+
 	return (
 		<div>
 			{profile && (
