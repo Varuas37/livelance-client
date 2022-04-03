@@ -2,7 +2,10 @@
 import { StarIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setReviews } from "../../../application/redux/action/profileActions";
+import {
+	setReviews,
+	setReviewsData,
+} from "../../../application/redux/action/profileActions";
 import EachReview from "./EachReview";
 import ReviewsStatistics from "./ReviewsStatistics";
 import ShareYourThoughts from "./ShareYourThoughts";
@@ -12,11 +15,15 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function ProfileScreenReviews({ id, reviewsData }) {
+function ProfileScreenReviews({ id }) {
 	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
 	const dispatch = useDispatch();
+
+	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
+
 	useEffect(() => {
 		dispatch(setReviews(id));
+		dispatch(setReviewsData(id));
 	}, []);
 
 	// const reviewsData

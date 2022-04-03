@@ -19,6 +19,7 @@ function classNames(...classes) {
 }
 function ViewProfile() {
 	const { id } = useParams();
+	// console.log(id);
 	const [tabs, setTabs] = useState({
 		Profile: { name: "Profile", href: "/myjobs", current: false },
 		Reviews: { name: "Reviews", href: "/myjobs/saved", current: true },

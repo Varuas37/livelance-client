@@ -89,9 +89,18 @@ export const setReviews = (profileId) => async (dispatch) => {
 		console.log(err.message);
 	}
 };
-export const setReviewsData = () => async (dispatch) => {
-	const response = fetchDummyReviewsData();
-	dispatch({ type: SET_REVIEWS_DATA, payload: response.data });
+export const setReviewsData = (id) => async (dispatch) => {
+	try {
+		const response = await MainApi.get(`/review/${id}/summary`, {
+			headers: { Authorization: AuthStr },
+		});
+
+		if (response.status === 200 || response.status === 201) {
+			dispatch({ type: SET_REVIEWS_DATA, payload: response.data.data });
+		}
+	} catch (err) {
+		console.log(err.message);
+	}
 };
 export const submitReview = (review) => async (dispatch) => {
 	try {

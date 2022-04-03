@@ -17,6 +17,7 @@ const GetSidebar = () => {
 		"/profile",
 		"/profile/edit",
 		"/onboarding",
+		"/viewprofile"
 		// "/categories",
 	];
 	return (
