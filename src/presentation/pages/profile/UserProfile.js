@@ -11,6 +11,7 @@ import {
 import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
 
 import ProfileScreenReviews from "../../components/profile/ProfileScreenReviews";
+import OwnReviews from "../../components/reviews/OwnReviews";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -22,8 +23,6 @@ function UserProfile() {
 	});
 
 	const profile = useSelector((state) => state.profileReducer.profile);
-	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
-	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -95,8 +94,7 @@ function UserProfile() {
 												</div>
 
 												<div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-													
-														{/* <Link
+													{/* <Link
 														to={`#`}
 														// to={`/coolchat/${profile.fields.Email}`}
 														className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
@@ -185,10 +183,11 @@ function UserProfile() {
 								)}
 
 								{/* Reviews */}
-								{tabs["Reviews"].current && reviewsList && (
-									<ProfileScreenReviews
-										reviewsList={reviewsList}
-										reviewsData={reviewsData}
+								{tabs["Reviews"].current && (
+									<OwnReviews
+										id={profile.userProfileId}
+										// reviewsList={reviewsList}
+										// reviewsData={reviewsData}
 									/>
 								)}
 							</article>

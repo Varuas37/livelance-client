@@ -21,8 +21,8 @@ function ViewProfile() {
 	const { id } = useParams();
 	// console.log(id);
 	const [tabs, setTabs] = useState({
-		Profile: { name: "Profile", href: "/myjobs", current: false },
-		Reviews: { name: "Reviews", href: "/myjobs/saved", current: true },
+		Profile: { name: "Profile", href: "/myjobs", current: true },
+		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
 	});
 
 	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
