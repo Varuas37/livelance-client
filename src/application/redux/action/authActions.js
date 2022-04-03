@@ -52,6 +52,7 @@ export const checkUser = () => async (dispatch) => {
 			});
 
 			if (response.status === 200) {
+				
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
 				// return true;

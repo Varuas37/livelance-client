@@ -20,8 +20,8 @@ function classNames(...classes) {
 function ViewProfile() {
 	const { id } = useParams();
 	const [tabs, setTabs] = useState({
-		Profile: { name: "Profile", href: "/myjobs", current: true },
-		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
+		Profile: { name: "Profile", href: "/myjobs", current: false },
+		Reviews: { name: "Reviews", href: "/myjobs/saved", current: true },
 	});
 
 	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
@@ -179,12 +179,7 @@ function ViewProfile() {
 								)}
 
 								{/* Reviews */}
-								{tabs["Reviews"].current && reviewsList && (
-									<ProfileScreenReviews
-										reviewsList={reviewsList}
-										reviewsData={reviewsData}
-									/>
-								)}
+								{tabs["Reviews"].current && <ProfileScreenReviews id={id} />}
 							</article>
 						</main>
 					</div>
