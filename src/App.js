@@ -39,9 +39,9 @@ import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
 import Messenger from "./presentation/pages/messenger/Messenger";
 
-if (localStorage.token) {
-	setAuthToken(localStorage.token);
-}
+//if (localStorage.token) {
+//	setAuthToken(localStorage.token);
+//}
 import SearchPage from "./presentation/pages/search/SearchPage";
 import SignIn from "./presentation/pages/auth/Signin";
 import { checkUser } from "./application/redux/action/authActions";
