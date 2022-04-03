@@ -21,10 +21,14 @@ function JobDetailModal() {
 	};
 
 	const dispatch = useDispatch();
-	const applyJob = () => {
-		dispatch(applyToJob(id));
-		setOpen(!open);
-		navigate(`/home`);
+	const applyJob = async () => {
+		const response = await dispatch(applyToJob(id));
+		if (response === true) {
+			setOpen(!open);
+			navigate(`/home`);
+		} else {
+			alert("Unsuccessful in Applying!")
+		}
 	};
 	const selectedFreelance = useSelector(
 		(state) => state.freelanceReducer.selectedFreelance
@@ -147,7 +151,11 @@ function JobDetailModal() {
 												</svg>
 												<span>
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy}
+														selectedFreelance.postedBy.firstName &&
+														selectedFreelance.postedBy.firstName}{" "}
+													{selectedFreelance.postedBy &&
+														selectedFreelance.postedBy.lastName &&
+														selectedFreelance.postedBy.lastName}
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">

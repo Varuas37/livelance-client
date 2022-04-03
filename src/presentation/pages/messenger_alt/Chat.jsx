@@ -1,41 +1,65 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {useParams} from "react-router";
 import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
-import ChatContainer from "../../components/messenger/ChatContainer";
-import Contacts from "../../components/messenger/Contacts";
-import Welcome from "../../components/messenger/Welcome";
-import Chattile from "./chattile";
 
-const mapUserToChat = (user => {
-  console.log("user", user)
-  return {
-    ...user,
-    _id: `id-${user.email}`
-  }
-});
+import ChatContainer from "../components/ChatContainer";
+import Contacts from "../components/Contacts";
+import Welcome from "../components/Welcome";
+
+import {
+	setFreelanceById,
+	setFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
+import { useSelector } from "react-redux";
+import { checkUser } from "../../../application/redux/action/authActions";
+import { useDispatch } from "react-redux";
+
+
+
 
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const { email } = useParams();
-  console.log("chatting with ", email)
-  useEffect(async () => {
-    console.log("chat mounted")
-  }, []);
+  //const [currentUser, setCurrentUser] = useState(undefined);
 
-  useEffect(() => {
-    const chat = mapUserToChat({email})
-    console.log("chat", chat)
-    setCurrentChat(chat);
-    // TODO: create function / use redux to findfind user youre chatting w/ from email
-  }, [email])
+  const freelanceList = useSelector(
+		(state) => state.freelanceReducer.freelanceList
+	);
+	const appliedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.appliedFreelanceIdList
+	);
+
+  const currentUser = useSelector((state) => state.authReducer.user);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(checkUser());
+
+		dispatch(setFreelanceList());
+	}, []);
+
+  //useEffect(async () => {
+  // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+  //    navigate("/signin");
+  // } else {
+  //   setCurrentUser(
+  //      await JSON.parse(
+  //        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+  //      )
+  //    );
+  //  }
+//  }, []);
+
+
+
+
+
 
   useEffect(() => {
     if (currentUser) {
@@ -46,21 +70,23 @@ export default function Chat() {
 
   useEffect(async () => {
     if (currentUser) {
-      if (currentUser.isAvatarImageSet) {
+      
         const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
         setContacts(data.data);
-      } else {
-        console.log("would redirect you to set your avatar"); //shouldnt execute
+   
         
-      }
+     
     }
   }, [currentUser]);
+
+
+
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
   return (
     <>
-      <Container className='md:pl-64 h-1/2'>
+      <Container>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {currentChat === undefined ? (
@@ -74,18 +100,16 @@ export default function Chat() {
   );
 }
 
-
 const Container = styled.div`
-  //height: 100vh;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: white;
-  height: 100vh;
+  background-color: #F5F5F5;
   .container {
-    position:relative; left:100px;
     height: 85vh;
     width: 85vw;
     background-color: #00000076;

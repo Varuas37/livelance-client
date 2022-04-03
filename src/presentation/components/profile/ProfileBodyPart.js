@@ -32,7 +32,7 @@ const ProfileBodyPart = ({ profile }) => {
 				)}
 				{profile.categories.length > 0 && (
 					<div className="sm:col-span-1">
-						<dt className="text-sm font-medium text-gray-500">categories</dt>
+						<dt className="text-sm font-medium text-gray-500">Categories</dt>
 						<dd className="mt-1 text-sm text-gray-900">
 							{profile.categories.map((each) => (
 								<p key={each}>{each} </p>
@@ -42,7 +42,7 @@ const ProfileBodyPart = ({ profile }) => {
 				)}
 				{profile.subCategories.length > 0 && (
 					<div className="sm:col-span-1">
-						<dt className="text-sm font-medium text-gray-500">subCategories</dt>
+						<dt className="text-sm font-medium text-gray-500">Sub-Categories</dt>
 						<dd className="mt-1 text-sm text-gray-900">
 							{profile.subCategories.map((each) => (
 								<p key={each}>{each} </p>

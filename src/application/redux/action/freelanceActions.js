@@ -86,19 +86,50 @@ export const applyToJob = (id) => async (dispatch) => {
 				headers: { Authorization: AuthStr },
 			}
 		);
-		console.log(response);
-		if (response.status === 200 || response.status === 201) {
-			alert("Successfully Applied!");
-		}
+
+		return true;
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
+		return false;
+	}
+};
+export const saveJob = (id) => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		await MainApi.post(
+			`/jobs/save/${id}`,
+			{},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);
+		return true;
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+		return false;
 	}
 };
 
 export const setSavedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummySavedFreelanceList();
-	dispatch({ type: SET_SAVED_FREELANCE_LIST, payload: response.data });
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+		headers: {
+			Authorization: AuthStr,
+			data: JSON.stringify({ status: "Saved" }),
+		},
+	});
+
+	dispatch({
+		type: SET_SAVED_FREELANCE_LIST,
+		payload: responseJobStatus.data.status,
+	});
 };
 
 export const setOfferedFreelanceList = () => async (dispatch) => {
@@ -110,9 +141,23 @@ export const setOngoingFreelanceList = () => async (dispatch) => {
 	dispatch({ type: SET_ACCEPTED_FREELANCE_LIST, payload: response.data });
 };
 export const setAppliedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyAppliedFreelanceList();
-	dispatch({ type: SET_APPLIED_FREELANCE_LIST, payload: response.data });
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+		headers: {
+			Authorization: AuthStr,
+			data: JSON.stringify({ status: "Applied" }),
+		},
+	});
+
+	dispatch({
+		type: SET_APPLIED_FREELANCE_LIST,
+		payload: responseJobStatus.data.status,
+	});
 };
+
 export const setPostedFreelanceList = () => async (dispatch) => {
 	const response = fetchdummyPostedFreelanceList();
 	dispatch({ type: SET_POSTED_FREELANCE_LIST, payload: response.data });

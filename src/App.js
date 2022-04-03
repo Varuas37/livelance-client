@@ -9,6 +9,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import history from "./presentation/utils/history";
 import LandingPage from "./presentation/pages/Landing/LandingPage";
 import { Provider, useDispatch, useSelector } from "react-redux";
+import SearchPage from "./presentation/pages/search/SearchPage";
+import SignIn from "./presentation/pages/auth/Signin";
+import { checkUser } from "./application/redux/action/authActions";
 import { store, persistor } from "./application/redux/store/store";
 import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
@@ -37,14 +40,12 @@ import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
 import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
-import Messenger from "./presentation/pages/messenger/Messenger";
+import Messenger from "./presentation/pages/messenger_alt/Chat";
 
-//if (localStorage.token) {
-//	setAuthToken(localStorage.token);
-//}
-import SearchPage from "./presentation/pages/search/SearchPage";
-import SignIn from "./presentation/pages/auth/Signin";
-import { checkUser } from "./application/redux/action/authActions";
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
+
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
@@ -66,8 +67,7 @@ const App = () => {
 						<GetSidebar />
 						<GetMyJobsNavigation />
 						<Routes>
-							{/* TODO: figure out how to get cool avatar  */}
-        					<Route exact path="/setAvatar" element={<SetAvatar />} />
+
 
 							{/*messenger page old ver*/ }
         					<Route exact path="/messenger" element={<Messenger />} />
