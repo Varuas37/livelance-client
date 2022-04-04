@@ -191,23 +191,7 @@ function Onboarding() {
 														<option value="Other">Other</option>
 													</select>
 												</div>
-												{/* <div>
-													<label className="block text-sm font-medium text-gray-700">
-														Zip Code
-													</label>
-													<div className="mt-1">
-														<input
-															id="zipcode"
-															name="ZipCode"
-															value={user.ZipCode}
-															onChange={(e) => onHandleChange(e)}
-															type="text"
-															autoComplete="postal-code"
-															required
-															className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-														/>
-													</div>
-												</div> */}
+
 												<div>
 													<label className="block text-sm font-medium text-gray-700">
 														Contact Number
