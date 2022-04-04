@@ -687,13 +687,13 @@ function LandingPage() {
                                 <div className="mt-12 md:mt-0">
                                     <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase"></h3>
                                     <ul role="list" className="mt-4 space-y-4">
-                                        {footerNavigation.legal.map((item) => (
+                                        {/* {footerNavigation.legal.map((item) => (
                                             <li key={item.name}>
                                                 <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
                                                     {item.name}
                                                 </a>
                                             </li>
-                                        ))}
+                                        ))} */}
                                     </ul>
                                 </div>
                             </div>

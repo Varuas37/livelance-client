@@ -187,13 +187,29 @@ export const setAppliedFreelanceList = () => async (dispatch) => {
 };
 
 export const setPostedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyPostedFreelanceList();
-	dispatch({ type: SET_POSTED_FREELANCE_LIST, payload: response.data });
+	// const response = fetchdummyPostedFreelanceList();
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.get(`/jobs/listed`, {
+			headers: { Authorization: AuthStr },
+		});
+		if (response.status === 200 || response.status === 201) {
+			
+			dispatch({
+				type: SET_POSTED_FREELANCE_LIST,
+				payload: response.data.jobs,
+			});
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+	}
 };
 
 export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
 	try {
-		console.log(postedFreelance);
 		const token = localStorage.LLtoken;
 		const AuthStr = "Bearer ".concat(token);
 
