@@ -28,7 +28,6 @@ export const signUpUser = (user) => async (dispatch) => {
 			accountType: user.role,
 		});
 		if (response.data.auth_token) {
-			// console.log(response.data.auth_token)
 			dispatch({ type: SET_AUTH, payload: true });
 			localStorage.setItem("LLtoken", response.data.auth_token);
 			return true;
@@ -45,25 +44,20 @@ export const checkUser = () => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
 		if (token) {
-			// console.log("here");
 			const AuthStr = "Bearer ".concat(token);
 			const response = await MainApi.get("/profile/current", {
 				headers: { Authorization: AuthStr },
 			});
 
 			if (response.status === 200) {
-				
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
-				// return true;
 			} else if (response.status === 404) {
 				console.log("here");
 			}
 		}
 	} catch (err) {
-		// alert("Unsuccessful!");
 		console.log(err);
-		// return false;
 	}
 };
 export const getAccountType = () => async (dispatch) => {
@@ -78,12 +72,9 @@ export const getAccountType = () => async (dispatch) => {
 			if (response.status === 200) {
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
-				// return true;
 			}
 		}
 	} catch (err) {
-		// alert("Unsuccessful!");
 		console.log(err.message);
-		// return false;
 	}
 };

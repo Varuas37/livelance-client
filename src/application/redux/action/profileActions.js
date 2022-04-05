@@ -18,7 +18,7 @@ import {
 const token = localStorage.LLtoken;
 const AuthStr = "Bearer ".concat(token);
 
-export const getProfile = (profile) => async (dispatch) => {
+export const getProfile = () => async (dispatch) => {
 	try {
 		const response = await MainApi.get(`/profile/current`, {
 			headers: { Authorization: AuthStr },
