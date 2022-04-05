@@ -9,11 +9,18 @@ function PostedJobCard({ data }) {
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
-	const [candidatesList, setCandidatesList] = useState([]);
+	const [candidatesNum, setCandidatesNum] = useState("0");
+	let navigate = useNavigate();
+
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
+
+	const viewCandidates = (e)=>{
+		e.preventDefault();
+		navigate(`/viewcandidates/${data._id}`)
+	}
 
 	useEffect(() => {
 		const fetch = async () => {
@@ -24,7 +31,8 @@ function PostedJobCard({ data }) {
 				const response = await MainApi.get(`/jobs/${data._id}/candidates`, {
 					headers: { Authorization: AuthStr },
 				});
-				setCandidatesList(response.data.candidates);
+				
+				setCandidatesNum(response.data.candidates.length);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -172,9 +180,9 @@ function PostedJobCard({ data }) {
 								{data.state && data.state}
 							</span>
 						</div>
-						<div className="font-light text-gray-600 flex flex-row space-x-1">
+						<div className="font-light text-gray-600 flex flex-row space-x-1" onClick={(e)=>viewCandidates(e)}>
 							<span style={{ color: "red" }}>
-								{candidatesList && candidatesList.length}{" "}
+								{candidatesNum && candidatesNum}{" "}
 							</span>
 							<span> Candidates</span>
 						</div>
