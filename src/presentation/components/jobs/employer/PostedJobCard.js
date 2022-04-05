@@ -9,11 +9,28 @@ function PostedJobCard({ data }) {
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
-
+	const [candidatesList, setCandidatesList] = useState([]);
 	const handleReadMoreClick = (e) => {
 		e.preventDefault();
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
+
+	useEffect(() => {
+		const fetch = async () => {
+			try {
+				const token = localStorage.LLtoken;
+				const AuthStr = "Bearer ".concat(token);
+
+				const response = await MainApi.get(`/jobs/${data._id}/candidates`, {
+					headers: { Authorization: AuthStr },
+				});
+				setCandidatesList(response.data.candidates);
+			} catch (err) {
+				console.log(err.message);
+			}
+		};
+		fetch();
+	}, []);
 
 	return (
 		<>
@@ -154,6 +171,12 @@ function PostedJobCard({ data }) {
 								{data.city && data.city}, {data.zipcode && data.zipcode},{" "}
 								{data.state && data.state}
 							</span>
+						</div>
+						<div className="font-light text-gray-600 flex flex-row space-x-1">
+							<span style={{ color: "red" }}>
+								{candidatesList && candidatesList.length}{" "}
+							</span>
+							<span> Candidates</span>
 						</div>
 						{/* <div>
 							<div className="flex items-center" href="#">

@@ -6,9 +6,7 @@ import {
 	signUpUser,
 } from "../../../application/redux/action/authActions";
 
-function SignUp() {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
+function SignUp() {	
 	const [passwordsMatch, setPasswordsMatch] = useState(false);
 	const [user, setUser] = useState({
 		role: "freelancer",

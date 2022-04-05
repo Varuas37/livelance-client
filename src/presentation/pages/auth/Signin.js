@@ -24,15 +24,7 @@ function SignIn() {
 		// }
 	};
 	return (
-		<>
-			{/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-gray-50">
-          <body class="h-full">
-          ```
-        */}
+		<>			
 			<div className="h-screen">
 				<div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 					<div className="sm:mx-auto sm:w-full sm:max-w-md">

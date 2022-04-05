@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-	loginUser,
-	signUpUser,
-} from "../../../application/redux/action/authActions";
 import HandleJobSkillsList from "../../components/jobs/HandleJobSkillsList";
 import ImageHandler from "../../utils/ImageHandler";
 import { setProfile } from "../../../application/redux/action/profileActions";
