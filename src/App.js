@@ -43,7 +43,7 @@ import SortPage from "./presentation/pages/sort/SortPage";
 import Messenger from "./presentation/pages/messenger/Messenger";
 import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 import ViewProfile from "./presentation/pages/profile/ViewProfile";
-
+import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -109,6 +109,7 @@ const App = () => {
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
+						<Route exact path="/viewcandidates/:jobId" element={<ViewCandidates />} />
 						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}
 						{/* <Route
 							exact
