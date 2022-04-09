@@ -11,16 +11,24 @@ import {
 	SET_SEARCH_QUERY_LIST,
 	SET_APPLIED_FREELANCE_ID_LIST,
 	SET_SAVED_FREELANCE_ID_LIST,
+	SET_CANDIDATE_LIST,
+	SET_ACCEPTED_FREELANCERS_ID_LIST,
+	SET_REJECTED_FREELANCERS_ID_LIST,
+	SET_FREELANCERS_LIST_FOR_HOMEPAGE,
 } from "../action/types";
 
 const initialState = {
 	freelanceList: [],
+	freelancersListForHomePage: [],
 	savedFreelanceList: [],
 	offeredFreelanceList: [],
 	ongoingFreelanceList: [],
 	appliedFreelanceList: [],
+	acceptedFreelancersIdList: [],
+	rejectedFreelancersIdList: [],
 	selectedFreelance: {},
 	postedFreelanceList: [],
+	candidateList: [],
 	postedFreelance: {},
 	categoryList: [],
 	searchQueryList: [],
@@ -35,6 +43,8 @@ export default function (state = initialState, action) {
 			return { ...state, freelanceList: payload };
 		case SET_FREELANCE_LIST:
 			return { ...state, freelanceList: payload };
+		case SET_FREELANCERS_LIST_FOR_HOMEPAGE:
+			return { ...state, freelancersListForHomePage: payload };
 		case SET_APPLIED_FREELANCE_ID_LIST:
 			return { ...state, appliedFreelanceIdList: payload };
 		case SET_SAVED_FREELANCE_ID_LIST:
@@ -51,10 +61,16 @@ export default function (state = initialState, action) {
 			return { ...state, appliedFreelanceList: payload };
 		case SET_POSTED_FREELANCE_LIST:
 			return { ...state, postedFreelanceList: payload };
+		case SET_CANDIDATE_LIST:
+			return { ...state, candidateList: payload };
 		case SET_CATEGORY_LIST:
 			return { ...state, categoryList: payload };
 		case SET_SEARCH_QUERY_LIST:
 			return { ...state, searchQueryList: payload };
+		case SET_ACCEPTED_FREELANCERS_ID_LIST:
+			return { ...state, acceptedFreelancersIdList: payload };
+		case SET_REJECTED_FREELANCERS_ID_LIST:
+			return { ...state, rejectedFreelancersIdList: payload };
 		default:
 			return state;
 	}
