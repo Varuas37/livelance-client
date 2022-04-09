@@ -17,7 +17,7 @@ import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
 import SignUp from "./presentation/pages/auth/Signup";
 import Login from "./presentation/pages/auth/Signin";
-import Home from "./presentation/pages/home/Home";
+
 import CategoryGrid from "./presentation/components/core/CategoryGrid";
 import CategoryDetails from "./presentation/pages/categories/CategoryDetails";
 import UserProfile from "./presentation/pages/profile/UserProfile";
@@ -44,6 +44,7 @@ import Messenger from "./presentation/pages/messenger/Messenger";
 import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 import ViewProfile from "./presentation/pages/profile/ViewProfile";
 import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
+import HomeFeed from "./presentation/pages/home/HomeFeed";
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -101,7 +102,7 @@ const App = () => {
 						<Route
 							exact
 							path="/home"
-							element={isUserAuthenticated ? <Home /> : <SignIn />}
+							element={isUserAuthenticated ? <HomeFeed /> : <SignIn />}
 						/>
 
 						<Route exact path="/search" element={<SearchPage />} />
@@ -109,7 +110,11 @@ const App = () => {
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
-						<Route exact path="/viewcandidates/:jobId" element={<ViewCandidates />} />
+						<Route
+							exact
+							path="/viewcandidates/:jobId"
+							element={<ViewCandidates />}
+						/>
 						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}
 						{/* <Route
 							exact
