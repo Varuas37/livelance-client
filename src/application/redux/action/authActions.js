@@ -3,6 +3,7 @@ import { verifyUser, verifyUserForSignUp } from "../../../repository/dummyUser";
 import { SET_AUTH, SET_PROFILE, SET_USER } from "./types";
 import MainApi from "../../../repository/MainApi";
 import axios from "axios";
+
 import React, { useState, useEffect } from "react";
 
 export const loginUser = (user) => async (dispatch) => {
@@ -14,10 +15,6 @@ export const loginUser = (user) => async (dispatch) => {
 
 		});
 
-
-
-
-
 		if (response.data.auth_token) {
 
 		//	const signin = {
@@ -27,16 +24,13 @@ export const loginUser = (user) => async (dispatch) => {
 		//	};
 	
 
-
-	
-
 			localStorage.setItem("LLtoken", response.data.auth_token);
 			dispatch({ type: SET_AUTH, payload: true });
 			//Messenger stuff
-		//	localStorage.setItem(
-		//		process.env.REACT_APP_LOCALHOST_KEY,
-		//		JSON.stringify(signin)
-		//	  );
+			//localStorage.setItem(
+			//	process.env.REACT_APP_LOCALHOST_KEY,
+			//	JSON.stringify(response)
+			//  );
 	
 		}
 	} catch (err) {
@@ -72,6 +66,9 @@ export const signUpUser = (user) => async (dispatch) => {
 export const checkUser = () => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
+
+		//const [values, setValues] = useState({ email: "", password: "" });
+
 		if (token) {
 			const AuthStr = "Bearer ".concat(token);
 			const response = await MainApi.get("/profile/current", {
@@ -81,6 +78,19 @@ export const checkUser = () => async (dispatch) => {
 			if (response.status === 200) {
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
+				//
+				//console.log(response.data)
+				// currently assigns email and _id from checkuser variables
+				const values = {
+					email: response.data.profile.firstName,
+					_id: response.data.profile.userId
+				}
+
+
+				localStorage.setItem(
+					process.env.REACT_APP_LOCALHOST_KEY,
+					JSON.stringify(values)
+				  );
 
 			} else if (response.status === 404) {
 				console.log("here");
@@ -108,3 +118,7 @@ export const getAccountType = () => async (dispatch) => {
 		console.log(err.message);
 	}
 };
+
+
+
+

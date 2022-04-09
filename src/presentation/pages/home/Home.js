@@ -10,6 +10,11 @@ import { useSelector } from "react-redux";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 import { checkUser } from "../../../application/redux/action/authActions";
+//temp
+
+import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
+
+
 
 function Home() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,14 +28,26 @@ function Home() {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
+
+
 	const dispatch = useDispatch();
 			//temp setting localstorage info
 			const tempSignin = {
 				email: "user10@gmail.com",
 				password: "user10",
 				_id: "624a011ddf00bf27080fc4ef",
-				__v:0,
+				//__v:0,
 			};
+
+			const tempSignin1 = {
+				email: "shivam@gmail.com",
+				password: "user10",
+				_id: "6238d4b791b08437f3b065a3",
+				//__v:0,
+			};
+
+
+
 
 	useEffect(() => {
 		const fetch = async () => {
@@ -40,10 +57,10 @@ function Home() {
 				dispatch(setFreelanceIdListByStatus("Saved"));
 				dispatch(setFreelanceList());
 
-			localStorage.setItem(
-				process.env.REACT_APP_LOCALHOST_KEY,
-				JSON.stringify(tempSignin)
-			  );
+			//localStorage.setItem(
+			//	process.env.REACT_APP_LOCALHOST_KEY,
+			//	JSON.stringify(tempSignin)
+			//  );
 
 
 				  
