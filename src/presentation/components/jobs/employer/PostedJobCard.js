@@ -180,7 +180,7 @@ function PostedJobCard({ data }) {
 								{data.state && data.state}
 							</span>
 						</div>
-						<div className="font-light text-gray-600 flex flex-row space-x-1" onClick={(e)=>viewCandidates(e)}>
+						<div className="cursor-pointer font-light text-gray-600 flex flex-row space-x-1" onClick={(e)=>viewCandidates(e)}>
 							<span style={{ color: "red" }}>
 								{candidatesNum && candidatesNum}{" "}
 							</span>
