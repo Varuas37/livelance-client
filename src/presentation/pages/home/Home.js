@@ -39,14 +39,6 @@ function Home() {
 				dispatch(setFreelanceIdListByStatus("Applied"));
 				dispatch(setFreelanceIdListByStatus("Saved"));
 				dispatch(setFreelanceList());
-
-			localStorage.setItem(
-				process.env.REACT_APP_LOCALHOST_KEY,
-				JSON.stringify(tempSignin)
-			  );
-
-
-				  
 			}
 		};
 		fetch();
