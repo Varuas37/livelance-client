@@ -13,7 +13,7 @@ import SearchPage from "./presentation/pages/search/SearchPage";
 import SignIn from "./presentation/pages/auth/Signin";
 import { checkUser } from "./application/redux/action/authActions";
 import { store, persistor } from "./application/redux/store/store";
-import { loadUser, checkUser } from "./application/redux/action/auth";
+import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
 import SignUp from "./presentation/pages/auth/Signup";
 import Login from "./presentation/pages/auth/Signin";
@@ -77,7 +77,7 @@ const App = () => {
 
 
 						{/*messenger page old ver*/}
-						<Route exact path="/messenger" element={<Messenger />} />
+						<Route exact path="/messengeralt" element={<Chat />} />
 						{/* TODO: make this conditional i foreget how */}
 
 

@@ -15,9 +15,8 @@ export default function Chat() {
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
- // const [currentUser, setCurrentUser] = useState(undefined);
  const [currentUser, setCurrentUser] = useState(undefined);
- //const currentUser = "624a011ddf00bf27080fc4ef"
+ currentUser = "624a011ddf00bf27080fc4ef"
 
   //624a011ddf00bf27080fc4ef
  useEffect(async () => {
