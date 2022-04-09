@@ -1,23 +1,31 @@
 import React, { useState } from "react";
 import { StarIcon } from "@heroicons/react/solid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { submitReview } from "../../../application/redux/action/profileActions";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 const WriteReviewForm = ({ props }) => {
+	const viewProfileId = useSelector(
+		(state) => state.profileReducer.viewProfile.userProfileId
+	);
+	const userProfileId = useSelector(
+		(state) => state.authReducer.user.userProfileId
+	);
+
+	// console.log(viewProfile);
 	const [review, setReview] = useState({
-		postedOn: Date.now(),
-		authorId: "",
+		// postedOn: Date.now(),
+		profileId: viewProfileId,
+		authorId: userProfileId,
 		title: "",
 		content: "",
 		rating: "",
 	});
 	const onHandleChange = (e) => {
 		setReview({
-			...review,
-			postedOn: Date.now(),
+			...review,			
 			[e.target.name]: e.target.value,
 		});
 	};

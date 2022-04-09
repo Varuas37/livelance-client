@@ -1,27 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import {
-	BellIcon,
-	HomeIcon,
-	MenuAlt2Icon,
-	XIcon,
-	BriefcaseIcon,
-} from "@heroicons/react/outline";
-import { SearchIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Dialog, Transition } from "@headlessui/react";
 import JobCard from "../../components/core/JobCard";
-import Modal from "../../components/core/modal";
-import CategoryGrid from "../../components/core/CategoryGrid";
-import CategoryDetails from "../categories/CategoryDetails";
 import { useDispatch } from "react-redux";
 import {
-	setFreelanceById,
+	setFreelanceIdListByStatus,
 	setFreelanceList,
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
-import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
-import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
-import GetSearchPart from "../../components/search/GetSearchPart";
 import SortOptions from "../../components/sort/SortOptions";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 import { checkUser } from "../../../application/redux/action/authActions";
@@ -34,15 +19,37 @@ function Home() {
 	const appliedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.appliedFreelanceIdList
 	);
-
-	const user = useSelector((state) => state.authReducer.user);
+	const savedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.savedFreelanceIdList
+	);
 
 	const dispatch = useDispatch();
+			//temp setting localstorage info
+			const tempSignin = {
+				email: "user10@gmail.com",
+				password: "user10",
+				_id: "624a011ddf00bf27080fc4ef",
+				__v:0,
+			};
 
 	useEffect(() => {
-		dispatch(checkUser());
+		const fetch = async () => {
+			if (localStorage.LLtoken) {
+				dispatch(checkUser());
+				dispatch(setFreelanceIdListByStatus("Applied"));
+				dispatch(setFreelanceIdListByStatus("Saved"));
+				dispatch(setFreelanceList());
 
-		dispatch(setFreelanceList());
+			localStorage.setItem(
+				process.env.REACT_APP_LOCALHOST_KEY,
+				JSON.stringify(tempSignin)
+			  );
+
+
+				  
+			}
+		};
+		fetch();
 	}, []);
 
 	return (
@@ -160,7 +167,9 @@ function Home() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											{ freelanceList &&
+											{appliedFreelanceIdList &&
+												savedFreelanceIdList &&
+												freelanceList &&
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
@@ -169,6 +178,7 @@ function Home() {
 															appliedFreelanceIdList={
 																appliedFreelanceIdList.Applied
 															}
+															savedFreelanceIdList={savedFreelanceIdList.Saved}
 														/>
 													);
 												})}

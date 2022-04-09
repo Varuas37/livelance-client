@@ -32,10 +32,10 @@ const solutions = [
         href: '#',
         icon: AnnotationIcon,
     },
-    { name: 'Live Chat', description: "Your customers' data will be safe and secure.", href: '#', icon: ChatAlt2Icon },
+    { name: 'Live Chat', description: "Talk with our customer help desk 24hrs.", href: '#', icon: ChatAlt2Icon },
     {
         name: 'Knowledge Base',
-        description: "Connect with third-party tools that you're already using.",
+        description: "Be informed with free qoutes, offers and listing.",
         href: '#',
         icon: QuestionMarkCircleIcon,
     },
@@ -43,75 +43,75 @@ const solutions = [
 const features = [
     {
         name: 'Unlimited Inboxes',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'The best and most effective way to get in touch with our customer support.',
         icon: InboxIcon,
     },
     {
-        name: 'Manage Team Members',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        name: 'Effective Team Members',
+        description: 'We have the most reliable team member.',
         icon: UsersIcon,
     },
     {
         name: 'Spam Report',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'Our dedicated team members are ready to deal with malicious and unsuspected emails .',
         icon: TrashIcon,
     },
     {
         name: 'Compose in Markdown',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'Our website content and photos created to be a user friendly.',
         icon: PencilAltIcon,
     },
     {
         name: 'Team Reporting',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'Our effective reporting management helps improve on our business decision.',
         icon: DocumentReportIcon,
     },
     {
         name: 'Saved Replies',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'For easy and quick recap to building a healthy customer relationship.',
         icon: ReplyIcon,
     },
     {
         name: 'Email Commenting',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'Updating and getting in touch with our customer in the timely manner.',
         icon: ChatAltIcon,
     },
     {
         name: 'Connect with Customers',
-        description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+        description: 'By use of social media and supportive customer care.',
         icon: HeartIcon,
     },
 ]
 const metrics = [
-    { id: 1, stat: '8K+', emphasis: 'Companies', rest: 'use laoreet amet lacus nibh integer quis.' },
-    { id: 2, stat: '25K+', emphasis: 'Countries around the globe', rest: 'lacus nibh integer quis.' },
-    { id: 3, stat: '98%', emphasis: 'Customer satisfaction', rest: 'laoreet amet lacus nibh integer quis.' },
-    { id: 4, stat: '12M+', emphasis: 'Issues resolved', rest: 'lacus nibh integer quis.' },
+    { id: 1, stat: 'Events', emphasis: '', rest: 'collaborating with small and upcoming business for healthy development .' },
+    { id: 2, stat: 'Market Target', emphasis: 'States around the US', rest: 'remote and non remotes cities.' },
+    { id: 3, stat: 'Customer Care', emphasis: 'Customer satisfaction', rest: 'meeting our customer Expectation is our goal.' },
+    { id: 4, stat: 'Customer Support', emphasis: 'Problem Solving', rest: 'raising issuing between clients and consumers are handled amicably.' },
 ]
 const footerNavigation = {
     solutions: [
-        { name: 'Marketing', href: '#' },
-        { name: 'Analytics', href: '#' },
-        { name: 'Commerce', href: '#' },
-        { name: 'Insights', href: '#' },
+        { name: 'How to hire', href: '#' },
+        { name: 'Payment services', href: '#' },
+        { name: 'Forms of contracts', href: '#' },
+        { name: '', href: '#' },
     ],
     support: [
-        { name: 'Pricing', href: '#' },
-        { name: 'Documentation', href: '#' },
-        { name: 'Guides', href: '#' },
-        { name: 'API Status', href: '#' },
+        { name: 'How to use Livelance', href: '#' },
+        { name: 'Jobs near me', href: '#' },
+        { name: 'Qustions & Answers', href: '#' },
+        { name: '', href: '#' },
     ],
     company: [
-        { name: 'About', href: '#' },
-        { name: 'Blog', href: '#' },
-        { name: 'Jobs', href: '#' },
+        { name: 'About Us', href: '#' },
         { name: 'Press', href: '#' },
-        { name: 'Partners', href: '#' },
+        { name: 'Jobs', href: '#' },
+        { name: 'Terms and Services', href: '#' },
+        { name: '', href: '#' },
     ],
     legal: [
-        { name: 'Claim', href: '#' },
-        { name: 'Privacy', href: '#' },
-        { name: 'Terms', href: '#' },
+        { name: '', href: '#' },
+        { name: '', href: '#' },
+        { name: '', href: '#' },
     ],
     social: [
         {
@@ -204,7 +204,7 @@ function LandingPage() {
                                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
                             </Popover.Button>
                         </div>
-                        <Popover.Group as="nav" className="hidden md:flex space-x-10">
+                        {/* <Popover.Group as="nav" className="hidden md:flex space-x-10">
                             <Popover className="relative">
                                 {({ open }) => (
                                     <>
@@ -260,15 +260,15 @@ function LandingPage() {
                             </Popover>
 
                             <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Pricing
+                                
                             </a>
                             <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Partners
+                                
                             </a>
                             <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Company
+                                
                             </a>
-                        </Popover.Group>
+                        </Popover.Group> */}
                         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                             <Link to="/signin" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
                                 Sign in
@@ -378,11 +378,11 @@ function LandingPage() {
                             </div>
                             <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                                 <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                                    <span className="block text-white">Find the right people</span>
-                                    <span className="block text-indigo-200">for your work</span>
+                                    <span className="block text-white">For All Your Livelihood</span>
+                                    <span className="block text-indigo-200">Connecting Us together</span>
                                 </h1>
                                 <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-                                    Livelance connects you to local people with various skills. Thousands of people are finding jobs and allocating jobs here.
+                                    Livelance is empowering community of local people with various skills. Thousands of people are finding jobs and allocating jobs here.
                                 </p>
                                 <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                                     <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
@@ -406,42 +406,36 @@ function LandingPage() {
                 </div>
 
                 {/* Logo Cloud */}
-                <div className="bg-gray-100">
+                {/* <div className="bg-gray-100">
                     <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
                         <p className="text-center text-sm font-semibold uppercase text-gray-500 tracking-wide">
-                            Trusted by over 5 very average small businesses
+                        
                         </p>
                         <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
                             <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img className="h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple" />
                             </div>
                             <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                                <img className="h-12" src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg" alt="Mirage" />
                             </div>
                             <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
                                 <img
                                     className="h-12"
-                                    src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
-                                    alt="StaticKit"
                                 />
                             </div>
                             <div className="col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1">
                                 <img
                                     className="h-12"
-                                    src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
-                                    alt="Transistor"
+                                    
                                 />
                             </div>
                             <div className="col-span-2 flex justify-center md:col-span-2 md:col-start-4 lg:col-span-1">
                                 <img
                                     className="h-12"
-                                    src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg"
-                                    alt="Workcation"
+                                    
                                 />
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Alternating Feature Sections */}
                 <div className="relative pt-16 pb-32 overflow-hidden">
@@ -476,7 +470,7 @@ function LandingPage() {
                                     <blockquote>
                                         <div>
                                             <p className="text-base text-gray-500">
-                                                &ldquo;We needed additional help to finish work in time for a new project. We were able to find a really good designer within few minutes. The work we were doing was very collaborative so we were glad to find someone locally. &rdquo;
+                                                &ldquo;With the change and growth of technology, we want to build the most realiable website that will inspire, empower and connect our communities together and assist each individual to live healthy and better life. &rdquo;
                                             </p>
                                         </div>
                                         <footer className="mt-3">
@@ -484,12 +478,12 @@ function LandingPage() {
                                                 <div className="flex-shrink-0">
                                                     <img
                                                         className="h-6 w-6 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+                                                        src="https://media.istockphoto.com/photos/portrait-of-mature-hispanic-man-picture-id805012064?s=612x612"
                                                         alt=""
                                                     />
                                                 </div>
                                                 <div className="text-base font-medium text-gray-700">
-                                                    Marcia Hill, Digital Marketing Manager
+                                                    Geoffrey Huuri, Digital Marketing Manager
                                                 </div>
                                             </div>
                                         </footer>
@@ -501,7 +495,7 @@ function LandingPage() {
                                 <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                                     <img
                                         className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                                        src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
+                                        src="/images/Mowing service.jpg"
                                         alt="Inbox user interface"
                                     />
                                 </div>
@@ -539,7 +533,7 @@ function LandingPage() {
                                 <div className="pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                                     <img
                                         className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
-                                        src="https://tailwindui.com/img/component-images/inbox-app-screenshot-2.jpg"
+                                        src="/images/house moving.jpg"
                                         alt="Customer profile user interface"
                                     />
                                 </div>
@@ -553,8 +547,7 @@ function LandingPage() {
                     <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
                         <h2 className="text-3xl font-extrabold text-white tracking-tight">Inbox support built for efficiency</h2>
                         <p className="mt-4 max-w-3xl text-lg text-purple-200">
-                            Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit
-                            aliquam sit nisl euismod mattis in.
+                            For any kind of support and inquiry email,text or call us, we are available 24hrs.
                         </p>
                         <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
                             {features.map((feature) => (
@@ -595,16 +588,14 @@ function LandingPage() {
                         <div className="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
                             <h2 className="text-sm font-semibold tracking-wide uppercase">
                                 <span className="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">
-                                    Valuable Metrics
+                                
                                 </span>
                             </h2>
                             <p className="mt-3 text-3xl font-extrabold text-white">
-                                Get actionable data that will help grow your business
+                                Get the best talent that will help grow your business
                             </p>
                             <p className="mt-5 text-lg text-gray-300">
-                                Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare
-                                feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet
-                                lacus nibh integer quis. Eu vulputate diam sit tellus quis at.
+                                Working with our most reliable clients will help you build and advance your skills to greater heights .
                             </p>
                             <div className="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
                                 {metrics.map((item) => (
@@ -656,7 +647,7 @@ function LandingPage() {
                         <div className="grid grid-cols-2 gap-8 xl:col-span-2">
                             <div className="md:grid md:grid-cols-2 md:gap-8">
                                 <div>
-                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Solutions</h3>
+                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Clients</h3>
                                     <ul role="list" className="mt-4 space-y-4">
                                         {footerNavigation.solutions.map((item) => (
                                             <li key={item.name}>
@@ -668,7 +659,7 @@ function LandingPage() {
                                     </ul>
                                 </div>
                                 <div className="mt-12 md:mt-0">
-                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Customers</h3>
                                     <ul role="list" className="mt-4 space-y-4">
                                         {footerNavigation.support.map((item) => (
                                             <li key={item.name}>
@@ -694,15 +685,15 @@ function LandingPage() {
                                     </ul>
                                 </div>
                                 <div className="mt-12 md:mt-0">
-                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase"></h3>
                                     <ul role="list" className="mt-4 space-y-4">
-                                        {footerNavigation.legal.map((item) => (
+                                        {/* {footerNavigation.legal.map((item) => (
                                             <li key={item.name}>
                                                 <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
                                                     {item.name}
                                                 </a>
                                             </li>
-                                        ))}
+                                        ))} */}
                                     </ul>
                                 </div>
                             </div>

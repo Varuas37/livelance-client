@@ -3,64 +3,34 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
-
+//import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 
-import {
-	setFreelanceById,
-	setFreelanceList,
-} from "../../../application/redux/action/freelanceActions";
-import { useSelector } from "react-redux";
-import { checkUser } from "../../../application/redux/action/authActions";
-import { useDispatch } from "react-redux";
-
-
-
+import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
 
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
-  //const [currentUser, setCurrentUser] = useState(undefined);
+ // const [currentUser, setCurrentUser] = useState(undefined);
+ const [currentUser, setCurrentUser] = useState(undefined);
+ //const currentUser = "624a011ddf00bf27080fc4ef"
 
-  const freelanceList = useSelector(
-		(state) => state.freelanceReducer.freelanceList
-	);
-	const appliedFreelanceIdList = useSelector(
-		(state) => state.freelanceReducer.appliedFreelanceIdList
-	);
-
-  const currentUser = useSelector((state) => state.authReducer.user);
-
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(checkUser());
-
-		dispatch(setFreelanceList());
-	}, []);
-
-  //useEffect(async () => {
-  // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-  //    navigate("/signin");
-  // } else {
-  //   setCurrentUser(
-  //      await JSON.parse(
-  //        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-  //      )
-  //    );
-  //  }
-//  }, []);
-
-
-
-
-
-
+  //624a011ddf00bf27080fc4ef
+ useEffect(async () => {
+    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+      navigate("/signin");
+    } else {
+      setCurrentUser(
+        await JSON.parse(
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+        )
+      );
+    }
+  }, []);
   useEffect(() => {
     if (currentUser) {
       socket.current = io(host);

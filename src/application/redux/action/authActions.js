@@ -2,16 +2,42 @@ import { useNavigate } from "react-router-dom";
 import { verifyUser, verifyUserForSignUp } from "../../../repository/dummyUser";
 import { SET_AUTH, SET_PROFILE, SET_USER } from "./types";
 import MainApi from "../../../repository/MainApi";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 export const loginUser = (user) => async (dispatch) => {
 	try {
 		const response = await MainApi.post("/auth/signin", {
 			email: user.email,
 			password: user.password,
+			//_id: "624a011ddf00bf27080fc4ef"
+
 		});
+
+
+
+
+
 		if (response.data.auth_token) {
+
+		//	const signin = {
+		//		email: "user10@gmail.com",
+		//		password: "user10",
+		//		_id: "624a011ddf00bf27080fc4ef"
+		//	};
+	
+
+
+	
+
 			localStorage.setItem("LLtoken", response.data.auth_token);
 			dispatch({ type: SET_AUTH, payload: true });
+			//Messenger stuff
+		//	localStorage.setItem(
+		//		process.env.REACT_APP_LOCALHOST_KEY,
+		//		JSON.stringify(signin)
+		//	  );
+	
 		}
 	} catch (err) {
 		alert("Wrong Credentials Entered!");
@@ -28,13 +54,15 @@ export const signUpUser = (user) => async (dispatch) => {
 			accountType: user.role,
 		});
 		if (response.data.auth_token) {
-			// console.log(response.data.auth_token)
 			dispatch({ type: SET_AUTH, payload: true });
 			localStorage.setItem("LLtoken", response.data.auth_token);
+
+
 			return true;
+
 		}
 	} catch (err) {
-		alert("Wrong Credentials Entered!");
+		alert("Task Unsuccessful!");
 		dispatch({ type: SET_AUTH, payload: false });
 		console.log(err.message);
 		return false;
@@ -53,13 +81,13 @@ export const checkUser = () => async (dispatch) => {
 			if (response.status === 200) {
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
-				// return true;
+
+			} else if (response.status === 404) {
+				console.log("here");
 			}
 		}
 	} catch (err) {
-		// alert("Unsuccessful!");
-		console.log(err.message);
-		// return false;
+		console.log(err);
 	}
 };
 export const getAccountType = () => async (dispatch) => {
@@ -74,12 +102,9 @@ export const getAccountType = () => async (dispatch) => {
 			if (response.status === 200) {
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
-				// return true;
 			}
 		}
 	} catch (err) {
-		// alert("Unsuccessful!");
 		console.log(err.message);
-		// return false;
 	}
 };

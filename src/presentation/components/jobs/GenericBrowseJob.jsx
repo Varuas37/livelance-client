@@ -24,6 +24,12 @@ import GenericJobCard from "./GenericJobCard";
 
 function GenericBrowseJob({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const appliedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.appliedFreelanceIdList
+	);
+	const savedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.savedFreelanceIdList
+	);
 
 	return (
 		<>
@@ -108,13 +114,19 @@ function GenericBrowseJob({ props }) {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
-											{props.dataList &&
+											{appliedFreelanceIdList &&
+												savedFreelanceIdList &&
+												props.dataList &&
 												props.dataList.map((eachFreelance) => {
 													return (
 														<GenericJobCard
 															key={eachFreelance._id}
 															data={eachFreelance}
 															myJobType={props.myJobType}
+															appliedFreelanceIdList={
+																appliedFreelanceIdList.Applied
+															}
+															savedFreelanceIdList={savedFreelanceIdList.Saved}
 														/>
 													);
 												})}

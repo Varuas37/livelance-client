@@ -19,6 +19,7 @@ import {
 	SET_CATEGORY_LIST,
 	SET_SEARCH_QUERY_LIST,
 	SET_APPLIED_FREELANCE_ID_LIST,
+	SET_SAVED_FREELANCE_ID_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
@@ -35,30 +36,55 @@ export const setFreelanceList = () => async (dispatch) => {
 		headers: { Authorization: AuthStr },
 	});
 
-	if (response.data.jobs) {
-		const responseRole = await MainApi.get("/profile/current", {
-			headers: { Authorization: AuthStr },
+	dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
+};
+export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	const responseRole = await MainApi.get("/profile/current", {
+		headers: { Authorization: AuthStr },
+	});
+
+	if (responseRole.data.profile.accountType === "freelancer") {
+		const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+			headers: {
+				Authorization: AuthStr,
+				data: JSON.stringify({ status: jobStatus }),
+			},
 		});
 
-		if (responseRole.data.profile.accountType === "freelancer") {
-			const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
-				headers: {
-					Authorization: AuthStr,
-					data: JSON.stringify({ status: "Applied" }),
-				},
-			});
-
-			dispatch({
-				type: SET_APPLIED_FREELANCE_ID_LIST,
-				payload: groupBy(responseJobStatus.data.status, "status"),
-			});
+		if (jobStatus === "Applied") {
+			if (responseJobStatus.data.status.length > 0) {
+				dispatch({
+					type: SET_APPLIED_FREELANCE_ID_LIST,
+					payload: groupBy(responseJobStatus.data.status, "status"),
+				});
+			} else {
+				dispatch({
+					type: SET_APPLIED_FREELANCE_ID_LIST,
+					payload: [],
+				});
+			}
+		} else if (jobStatus === "Saved") {
+			if (responseJobStatus.data.status.length > 0) {
+				dispatch({
+					type: SET_SAVED_FREELANCE_ID_LIST,
+					payload: groupBy(responseJobStatus.data.status, "status"),
+				});
+			} else {
+				dispatch({
+					type: SET_SAVED_FREELANCE_ID_LIST,
+					payload: [],
+				});
+			}
 		}
-
-		dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
 	}
 };
 
 export const setFreelanceById = (id) => async (dispatch) => {
+	dispatch({ type: SET_FREELANCE_BY_ID, payload: {} });
 	try {
 		const token = localStorage.LLtoken;
 		const AuthStr = "Bearer ".concat(token);
@@ -87,7 +113,9 @@ export const applyToJob = (id) => async (dispatch) => {
 			}
 		);
 
-		return true;
+		if (response.status === 200 || response.status === 201) {
+			return true;
+		}
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
@@ -133,8 +161,8 @@ export const setSavedFreelanceList = () => async (dispatch) => {
 };
 
 export const setOfferedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyOfferedFreelanceList();
-	dispatch({ type: SET_OFFERED_FREELANCE_LIST, payload: response.data });
+	// const response = fetchdummyOfferedFreelanceList();
+	// dispatch({ type: SET_OFFERED_FREELANCE_LIST, payload: response.data });
 };
 export const setOngoingFreelanceList = () => async (dispatch) => {
 	const response = fetchdummyAcceptedFreelanceList();
@@ -159,13 +187,29 @@ export const setAppliedFreelanceList = () => async (dispatch) => {
 };
 
 export const setPostedFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyPostedFreelanceList();
-	dispatch({ type: SET_POSTED_FREELANCE_LIST, payload: response.data });
+	// const response = fetchdummyPostedFreelanceList();
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.get(`/jobs/listed`, {
+			headers: { Authorization: AuthStr },
+		});
+		if (response.status === 200 || response.status === 201) {
+			
+			dispatch({
+				type: SET_POSTED_FREELANCE_LIST,
+				payload: response.data.jobs,
+			});
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+	}
 };
 
 export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
 	try {
-		console.log(postedFreelance);
 		const token = localStorage.LLtoken;
 		const AuthStr = "Bearer ".concat(token);
 

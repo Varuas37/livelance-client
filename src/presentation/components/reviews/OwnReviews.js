@@ -3,27 +3,35 @@ import { StarIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+	setOwnReviews,
+	setOwnReviewsData,
 	setReviews,
 	setReviewsData,
 } from "../../../application/redux/action/profileActions";
-import EachReview from "./EachReview";
-import ReviewsStatistics from "./ReviewsStatistics";
-import ShareYourThoughts from "./ShareYourThoughts";
+import EachReview from "../profile/EachReview";
+import ReviewsStatistics from "../profile/ReviewsStatistics";
+import ShareYourThoughts from "../profile/ShareYourThoughts";
 
 // the whole code below is for review on the profile screen
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function ProfileScreenReviews({ id }) {
-	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
+function OwnReviews({ id }) {
+	const reviewsList = useSelector(
+		(state) => state.profileReducer.ownReviewsList
+	);
+
+	console.log(reviewsList)
 	const dispatch = useDispatch();
 
-	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
+	const reviewsData = useSelector(
+		(state) => state.profileReducer.ownReviewsData
+	);
 
 	useEffect(() => {
-		dispatch(setReviews(id));
-		dispatch(setReviewsData(id));
+		dispatch(setOwnReviews(id));
+		dispatch(setOwnReviewsData(id));
 	}, []);
 
 	// const reviewsData
@@ -31,9 +39,11 @@ function ProfileScreenReviews({ id }) {
 		<div className="bg-white">
 			<div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:py-32 lg:px-8 lg:grid lg:grid-cols-12 lg:gap-x-8">
 				<div className="lg:col-span-4">
-					{reviewsData && <ReviewsStatistics reviewsData={reviewsData} />}
+					{reviewsData && reviewsData.totalCount > 0 && (
+						<ReviewsStatistics reviewsData={reviewsData} />
+					)}
 
-					<ShareYourThoughts />
+					{/* <ShareYourThoughts /> */}
 				</div>
 
 				<div className="mt-16 lg:mt-0 lg:col-start-6 lg:col-span-7">
@@ -52,4 +62,4 @@ function ProfileScreenReviews({ id }) {
 		</div>
 	);
 }
-export default ProfileScreenReviews;
+export default OwnReviews;

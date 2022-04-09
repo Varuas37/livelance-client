@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {useParams} from "react-router";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
+import { allUsersRoute, host } from "../../utils/APIRoutes";
 import ChatContainer from "../../components/messenger/ChatContainer";
 import Contacts from "../../components/messenger/Contacts";
 import Welcome from "../../components/messenger/Welcome";

@@ -6,9 +6,7 @@ import {
 	signUpUser,
 } from "../../../application/redux/action/authActions";
 
-function SignUp() {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
+function SignUp() {	
 	const [passwordsMatch, setPasswordsMatch] = useState(false);
 	const [user, setUser] = useState({
 		role: "freelancer",
@@ -16,6 +14,11 @@ function SignUp() {
 		password: "",
 		confirmPassword: "",
 	});
+	// Messenger stuff
+	//useEffect(() => {
+	//	if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+	//	}
+	 // }, []);
 
 	let dispatch = useDispatch();
 	let navigate = useNavigate();
@@ -38,7 +41,6 @@ function SignUp() {
 	const onSignUpFormSubmit = async (e) => {
 		e.preventDefault();
 		const responseBool = await dispatch(signUpUser(user));
-		console.log(responseBool);
 		if (responseBool) {
 			navigate("/onboarding");
 		}

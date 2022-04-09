@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { loginUser } from "../../../application/redux/action/authActions";
 import { useDispatch, useSelector } from "react-redux";
 function SignIn() {
+
+	const navigate = useNavigate();
 	const [signin, setSignin] = useState({
 		email: "",
 		password: "",
+	//	_id: "624a011ddf00bf27080fc4ef"
 	});
+
 
 	const onHandleChange = (e) => {
 		setSignin({
@@ -15,24 +19,31 @@ function SignIn() {
 		});
 	};
 
+	//var _id = "624a011ddf00bf27080fc4ef";
+
+
 	let dispatch = useDispatch();
 	const onSignInFormSubmit = async (e) => {
 		e.preventDefault();
 		dispatch(loginUser(signin));
+
+		//		localStorage.setItem(
+		//		process.env.REACT_APP_LOCALHOST_KEY,
+		//		JSON.stringify(signin)
+		//	  );
+			  
+			//  localStorage.setItem(
+			//	process.env.REACT_APP_LOCALHOST_KEY,
+			//	JSON.stringify("_id", "624a011ddf00bf27080fc4ef")
+			  //);	
 		// if (resp) {
 		// 	navigate("/home");
 		// }
+
+		
 	};
 	return (
-		<>
-			{/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full bg-gray-50">
-          <body class="h-full">
-          ```
-        */}
+		<>			
 			<div className="h-screen">
 				<div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
 					<div className="sm:mx-auto sm:w-full sm:max-w-md">

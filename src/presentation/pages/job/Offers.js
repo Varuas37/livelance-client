@@ -9,6 +9,8 @@ const Offers = () => {
 		(state) => state.freelanceReducer.offeredFreelanceList
 	);
 
+	console.log(offeredFreelanceList)
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(setOfferedFreelanceList());

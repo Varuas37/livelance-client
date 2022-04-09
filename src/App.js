@@ -40,12 +40,14 @@ import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
 import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
+//import Messenger from "./presentation/pages/messenger/Messenger";
 import Messenger from "./presentation/pages/messenger_alt/Chat";
-
-if (localStorage.token) {
-	setAuthToken(localStorage.token);
-}
-
+import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
+import ViewProfile from "./presentation/pages/profile/ViewProfile";
+import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
+// if (localStorage.token) {
+// 	setAuthToken(localStorage.token);
+// }
 
 const App = () => {
 	const isUserAuthenticated = useSelector(
@@ -54,26 +56,30 @@ const App = () => {
 
 	let dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(checkUser());
+		if (localStorage.LLtoken) {
+			dispatch(checkUser());
+			dispatch(setFreelanceIdListByStatus("Applied"));
+			dispatch(setFreelanceIdListByStatus("Saved"));
+		}
 	}, []);
-
+	console.log(localStorage);
 	return (
 		<Router history={history}>
 			<PersistGate persistor={persistor}>
 				<Fragment>
 					{/* <StaticSidebar /> */}
 
-						{/* <Sidebar/> */}
-						<GetSidebar />
-						<GetMyJobsNavigation />
-						<Routes>
+					{/* <Sidebar/> */}
+					<GetSidebar />
+					<GetMyJobsNavigation />
+					<Routes>
+						{/* TODO: figure out how to get cool avatar  */}
 
 
-							{/*messenger page old ver*/ }
-        					<Route exact path="/messenger" element={<Messenger />} />
-							{/* TODO: make this conditional i foreget how */}
-							<Route exact path="/coolchat" element={<Chat />} />
-							<Route exact path="/coolchat/:email" element={<Chat />} />
+						{/*messenger page old ver*/}
+						<Route exact path="/messenger" element={<Messenger />} />
+						{/* TODO: make this conditional i foreget how */}
+
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />
@@ -102,12 +108,14 @@ const App = () => {
 						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
-						<Route exact path="/jobdetail/:id" element={<JobDetailModal />} />
-						<Route
+						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
+						<Route exact path="/viewcandidates/:jobId" element={<ViewCandidates />} />
+						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}
+						{/* <Route
 							exact
 							path="/jobdetail/:myjobtype/:id"
 							element={<GenericJobDetailModal />}
-						/>
+						/> */}
 						<Route exact path="/onboarding" element={<Onboarding />} />
 						<Route exact path="/profile/edit" element={<EditProfileModal />} />
 
