@@ -10,19 +10,22 @@ const GetSidebar = () => {
 
 	const location = useLocation();
 
+	console.log(location.pathname);
 	let excludeSidebarScreenList = [
-		"/",
 		"/signup",
 		"/signin",
 		"/profile",
 		"/profile/edit",
 		"/onboarding",
-		"/viewprofile"
+		"/viewprofile",
 		// "/categories",
 	];
 	return (
 		<>
-			{!excludeSidebarScreenList.includes(location.pathname) &&
+			{location.pathname !== "/" &&
+				!excludeSidebarScreenList.find((each) =>
+					location.pathname.includes(each)
+				) &&
 				isUserAuthenticated && <StaticSidebar />}
 		</>
 	);

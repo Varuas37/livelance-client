@@ -161,8 +161,21 @@ export const setSavedFreelanceList = () => async (dispatch) => {
 };
 
 export const setOfferedFreelanceList = () => async (dispatch) => {
-	// const response = fetchdummyOfferedFreelanceList();
-	// dispatch({ type: SET_OFFERED_FREELANCE_LIST, payload: response.data });
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+		headers: {
+			Authorization: AuthStr,
+			data: JSON.stringify({ status: "Offered" }),
+		},
+	});
+
+	dispatch({
+		type: SET_OFFERED_FREELANCE_LIST,
+		payload: responseJobStatus.data.status,
+	});
 };
 export const setOngoingFreelanceList = () => async (dispatch) => {
 	const response = fetchdummyAcceptedFreelanceList();
@@ -196,7 +209,6 @@ export const setPostedFreelanceList = () => async (dispatch) => {
 			headers: { Authorization: AuthStr },
 		});
 		if (response.status === 200 || response.status === 201) {
-			
 			dispatch({
 				type: SET_POSTED_FREELANCE_LIST,
 				payload: response.data.jobs,

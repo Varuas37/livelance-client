@@ -208,7 +208,7 @@ function PostedJobCard({ data }) {
 							className="cursor-pointer font-light text-gray-600 flex flex-row space-x-1"
 							onClick={(e) => viewCandidates(e, "Applied")}
 						>
-							<span> Applied Candidates: </span>
+							<span> Applied Candidates (Waiting for Decision): </span>
 							<span style={{ color: "red" }}>
 								{appliedCandidatesNum && appliedCandidatesNum}{" "}
 							</span>
