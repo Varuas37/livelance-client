@@ -112,7 +112,7 @@ const App = () => {
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
 						<Route
 							exact
-							path="/viewcandidates/:jobId"
+							path="/viewcandidates/:jobId/:status"
 							element={<ViewCandidates />}
 						/>
 						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}

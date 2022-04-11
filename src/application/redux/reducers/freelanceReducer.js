@@ -15,6 +15,8 @@ import {
 	SET_ACCEPTED_FREELANCERS_ID_LIST,
 	SET_REJECTED_FREELANCERS_ID_LIST,
 	SET_FREELANCERS_LIST_FOR_HOMEPAGE,
+	SET_OFFERED_FREELANCERS_ID_LIST,
+	SET_DENIED_FREELANCERS_ID_LIST,
 } from "../action/types";
 
 const initialState = {
@@ -24,8 +26,6 @@ const initialState = {
 	offeredFreelanceList: [],
 	ongoingFreelanceList: [],
 	appliedFreelanceList: [],
-	acceptedFreelancersIdList: [],
-	rejectedFreelancersIdList: [],
 	selectedFreelance: {},
 	postedFreelanceList: [],
 	candidateList: [],
@@ -67,10 +67,10 @@ export default function (state = initialState, action) {
 			return { ...state, categoryList: payload };
 		case SET_SEARCH_QUERY_LIST:
 			return { ...state, searchQueryList: payload };
-		case SET_ACCEPTED_FREELANCERS_ID_LIST:
-			return { ...state, acceptedFreelancersIdList: payload };
-		case SET_REJECTED_FREELANCERS_ID_LIST:
-			return { ...state, rejectedFreelancersIdList: payload };
+		case SET_OFFERED_FREELANCERS_ID_LIST:
+			return { ...state, offeredFreelancersIdList: payload };
+		case SET_DENIED_FREELANCERS_ID_LIST:
+			return { ...state, deniedFreelancersIdList: payload };
 		default:
 			return state;
 	}

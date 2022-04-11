@@ -1,6 +1,16 @@
-import React from "react";
+import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const CandidateCard = ({ data }) => {
+	let { status } = useParams();
+
+	useEffect(() => {}, []);
+
+	const handleJobDecision = (e)=>{
+		e.preventDefault();
+		
+	}
 	return (
 		<>
 			<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
@@ -62,6 +72,31 @@ const CandidateCard = ({ data }) => {
 								</div>
 							</>
 						)}
+
+						<div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+							{/* <Link
+								to={`#`}
+								// to={`/coolchat/${profile.fields.Email}`}
+								className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+							>
+								<MailIcon
+									className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+									aria-hidden="true"
+								/>
+								<span>Message</span>
+							</Link> */}
+							<Link
+								to={`#`}
+								// to={`/coolchat/${profile.fields.Email}`}
+								className="inline-flex justify-center px-4 py-2  shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+							>
+								<PhoneIcon
+									className="-ml-1 mr-2 h-5 w-5 text-gray-400"
+									aria-hidden="true"
+								/>
+								<span>{data.contactNumber && data.contactNumber}</span>
+							</Link>
+						</div>
 					</div>
 
 					{/* <div className="flex flex-row  space-x-5 ">
@@ -119,32 +154,36 @@ const CandidateCard = ({ data }) => {
 							</span>
 						</div> */}
 
-						<div>
-							<a className="flex items-center" href="#">
-								<img
-									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-									src={data.avatar && data.avatar}
-									alt="avatar"
-								/>
-								{/* show accept button only for saved, offered, and posted jobs */}
-								<button
-									type="button"
-									className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-								>
-									Accept
-								</button>
+						{status === "Applied" && (
+							<div>
+								<a className="flex items-center" href="#">
+									<img
+										className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+										src={data.avatar && data.avatar}
+										alt="avatar"
+									/>
+									{/* show accept button only for saved, offered, and posted jobs */}
+									<button
+										type="button"
+										className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+										onClick={(e) => handleJobDecision(e, "accept")}
+									>
+										Accept
+									</button>
 
-								<button
-									type="button"
-									className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-									// onClick={(e) => handleApplyClick(e, data.jobId._id)}
-								>
-									Reject
-								</button>
+									<button
+										type="button"
+										className="m-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+										// onClick={(e) => handleApplyClick(e, data.jobId._id)}
+										onClick={(e) => handleJobDecision(e, "deny")}
+									>
+										Deny
+									</button>
 
-								{/* show reject button only for applied, ongoing, and offered jobs */}
-							</a>
-						</div>
+									{/* show reject button only for applied, ongoing, and offered jobs */}
+								</a>
+							</div>
+						)}
 					</div>
 				</div>
 			</li>

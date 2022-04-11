@@ -1,11 +1,12 @@
 import {
-	SET_ACCEPTED_FREELANCERS_ID_LIST,
+	SET_OFFERED_FREELANCERS_ID_LIST,
 	SET_CANDIDATE_LIST,
-	SET_REJECTED_FREELANCERS_ID_LIST,
+	SET_DENIED_FREELANCERS_ID_LIST,
 	SET_FREELANCERS_LIST_FOR_HOMEPAGE,
+	SET_ACCEPTED_FREELANCE_LIST,
 } from "./types";
 import MainApi from "../../../repository/MainApi";
-import { groupBy } from "../../helper/groupBy";
+import { groupByForCandidates } from "../../helper/groupByForCandidates";
 
 export const setFreelancersListForHomeFeed = () => async (dispatch) => {
 	try {
@@ -74,17 +75,60 @@ export const setFreelancersListForHomeFeed = () => async (dispatch) => {
 		console.log(err.message);
 	}
 };
-export const setCandidateList = (jobId) => async (dispatch) => {
+export const setCandidateList = (jobId, status) => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
 		const AuthStr = "Bearer ".concat(token);
 
-		const response = await MainApi.get(`/jobs/${jobId}/candidates`, {
-			headers: { Authorization: AuthStr },
-		});
+		const response = await MainApi.post(
+			`/jobs/${jobId}/candidates`,
+			{
+				status,
+			},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);
 		if (response.status === 200 || response.status === 201) {
-			dispatch({ type: SET_CANDIDATE_LIST, payload: response.data.candidates });
+			dispatch({
+				type: SET_CANDIDATE_LIST,
+				payload: response.data.candidates,
+			});
 		}
+		// if (status === "Applied") {
+		// 	if (response.status === 200 || response.status === 201) {
+		// 		dispatch({
+		// 			type: SET_CANDIDATE_LIST,
+		// 			payload: response.data.candidates,
+		// 		});
+		// 	}
+		// } else if (status === "Offered") {
+		// 	if (response.data.candidates.length > 0) {
+		// 		dispatch({
+		// 			type: SET_OFFERED_FREELANCERS_ID_LIST,
+		// 			payload: groupByForCandidates(response.data.candidates, "status")
+		// 				.Offered,
+		// 		});
+		// 	} else {
+		// 		dispatch({
+		// 			type: SET_OFFERED_FREELANCERS_ID_LIST,
+		// 			payload: [],
+		// 		});
+		// 	}
+		// } else if (status === "Denied") {
+		// 	if (response.data.candidates.length > 0) {
+		// 		dispatch({
+		// 			type: SET_DENIED_FREELANCERS_ID_LIST,
+		// 			payload: groupByForCandidates(response.data.candidates, "status")
+		// 				.Denied,
+		// 		});
+		// 	} else {
+		// 		dispatch({
+		// 			type: SET_DENIED_FREELANCERS_ID_LIST,
+		// 			payload: [],
+		// 		});
+		// 	}
+		// }
 	} catch (err) {
 		console.log(err);
 	}
@@ -105,24 +149,24 @@ export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 	if (jobStatus === "Accepted") {
 		if (responseJobStatus.data.status.length > 0) {
 			dispatch({
-				type: SET_ACCEPTED_FREELANCERS_ID_LIST,
-				payload: groupBy(responseJobStatus.data.status, "status"),
+				type: SET_OFFERED_FREELANCERS_ID_LIST,
+				payload: groupByForCandidates(responseJobStatus.data.status, "status"),
 			});
 		} else {
 			dispatch({
-				type: SET_ACCEPTED_FREELANCERS_ID_LIST,
+				type: SET_OFFERED_FREELANCERS_ID_LIST,
 				payload: [],
 			});
 		}
 	} else if (jobStatus === "Denied") {
 		if (responseJobStatus.data.status.length > 0) {
 			dispatch({
-				type: SET_REJECTED_FREELANCERS_ID_LIST,
-				payload: groupBy(responseJobStatus.data.status, "status"),
+				type: SET_DENIED_FREELANCERS_ID_LIST,
+				payload: groupByForCandidates(responseJobStatus.data.status, "status"),
 			});
 		} else {
 			dispatch({
-				type: SET_REJECTED_FREELANCERS_ID_LIST,
+				type: SET_DENIED_FREELANCERS_ID_LIST,
 				payload: [],
 			});
 		}
