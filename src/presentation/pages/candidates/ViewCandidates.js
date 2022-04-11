@@ -6,8 +6,8 @@ import CandidateCard from "../../components/candidates/CandidateCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setCandidateList } from "../../../application/redux/action/employerActions";
 const ViewCandidates = () => {
-	let { jobId } = useParams();
-	// const [candidatesList, setCandidateList] = useState([]);
+	let { jobId, status } = useParams();
+
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const candidateList = useSelector(
 		(state) => state.freelanceReducer.candidateList
@@ -15,10 +15,10 @@ const ViewCandidates = () => {
 
 	let dispatch = useDispatch();
 	useEffect(() => {
-		// dispatch(setFreelanceIdListByStatus("Applied"));
-		// dispatch(setFreelanceIdListByStatus("Saved"));
-		dispatch(setCandidateList(jobId));
+		window.scrollTo(0, 0);
+		dispatch(setCandidateList(jobId, status));
 	}, []);
+
 	return (
 		<div>
 			<>

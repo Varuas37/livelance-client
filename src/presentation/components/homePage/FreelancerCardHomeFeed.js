@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ViewProfileModal from "../profile/ViewProfileModal";
 
 const FreelancerCardHomeFeed = ({ data }) => {
-	console.log(data);
+	
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const openProfileModal = (e) => {
 		e.preventDefault();
