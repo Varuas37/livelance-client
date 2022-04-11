@@ -6,28 +6,27 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
-import BrowseOfferedJobs from "../../components/jobs/freelancer/BrowseOfferedJobs";
 
-const Offers = () => {
-	const offeredFreelanceList = useSelector(
-		(state) => state.freelanceReducer.offeredFreelanceList
+const Denied = () => {
+	const deniedFreelanceList = useSelector(
+		(state) => state.freelanceReducer.deniedFreelanceList
 	);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setFreelanceListByStatus("Offered"));
+		dispatch(setFreelanceListByStatus("Denied"));
 	}, []);
 
 	return (
 		<>
 			<SearchAndProfileAvatar />
-			{offeredFreelanceList.length > 0 && (
-				<BrowseOfferedJobs
-					props={{ dataList: offeredFreelanceList, myJobType: "offers" }}
+			{deniedFreelanceList.length > 0 && (
+				<GenericBrowseJob
+					props={{ dataList: deniedFreelanceList, myJobType: "denied" }}
 				/>
 			)}
 		</>
 	);
 };
 
-export default Offers;
+export default Denied;

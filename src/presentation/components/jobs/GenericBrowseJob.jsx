@@ -21,6 +21,8 @@ import { useSelector } from "react-redux";
 import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
 import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GenericJobCard from "./GenericJobCard";
+import OfferedJobCard from "./freelancer/OfferedJobCard";
+import NoButtonJobCard from "./freelancer/NoButtonJobCard";
 
 function GenericBrowseJob({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,6 +32,8 @@ function GenericBrowseJob({ props }) {
 	const savedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
+
+	const { myJobType } = props;
 
 	return (
 		<>
@@ -118,7 +122,14 @@ function GenericBrowseJob({ props }) {
 												savedFreelanceIdList &&
 												props.dataList &&
 												props.dataList.map((eachFreelance) => {
-													return (
+													return myJobType === "denied" ||
+														myJobType === "accepted" ? (
+														<NoButtonJobCard
+															key={eachFreelance._id}
+															data={eachFreelance}
+															myJobType={props.myJobType}
+														/>
+													) : (
 														<GenericJobCard
 															key={eachFreelance._id}
 															data={eachFreelance}

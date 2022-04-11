@@ -20,6 +20,8 @@ import {
 	SET_SEARCH_QUERY_LIST,
 	SET_APPLIED_FREELANCE_ID_LIST,
 	SET_SAVED_FREELANCE_ID_LIST,
+	SET_DENIED_FREELANCE_LIST,
+	SET_ACCEPTED_FREELANCE_ID_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
@@ -80,6 +82,19 @@ export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 				});
 			}
 		}
+		// else if (jobStatus === "Accepted") {
+		// 	if (responseJobStatus.data.status.length > 0) {
+		// 		dispatch({
+		// 			type: SET_ACCEPTED_FREELANCE_ID_LIST,
+		// 			payload: groupBy(responseJobStatus.data.status, "status").Accepted,
+		// 		});
+		// 	} else {
+		// 		dispatch({
+		// 			type: SET_ACCEPTED_FREELANCE_ID_LIST,
+		// 			payload: [],
+		// 		});
+		// 	}
+		// }
 	}
 };
 
@@ -122,6 +137,28 @@ export const applyToJob = (id) => async (dispatch) => {
 		return false;
 	}
 };
+export const acceptOffer = (id) => async (dispatch) => {
+	try {
+		const token = localStorage.LLtoken;
+		const AuthStr = "Bearer ".concat(token);
+
+		const response = await MainApi.post(
+			`/jobs/accept/${id}`,
+			{},
+			{
+				headers: { Authorization: AuthStr },
+			}
+		);
+
+		if (response.status === 200 || response.status === 201) {
+			return true;
+		}
+	} catch (err) {
+		alert("Unsuccessful!");
+		console.log(err.message);
+		return false;
+	}
+};
 export const saveJob = (id) => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
@@ -142,7 +179,25 @@ export const saveJob = (id) => async (dispatch) => {
 	}
 };
 
-export const setSavedFreelanceList = () => async (dispatch) => {
+// export const setSavedFreelanceList = () => async (dispatch) => {
+// 	const token = localStorage.LLtoken;
+
+// 	const AuthStr = "Bearer ".concat(token);
+
+// 	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+// 		headers: {
+// 			Authorization: AuthStr,
+// 			data: JSON.stringify({ status: "Saved" }),
+// 		},
+// 	});
+
+// dispatch({
+// 	type: SET_SAVED_FREELANCE_LIST,
+// 	payload: responseJobStatus.data.status,
+// });
+// };
+
+export const setFreelanceListByStatus = (status) => async (dispatch) => {
 	const token = localStorage.LLtoken;
 
 	const AuthStr = "Bearer ".concat(token);
@@ -150,54 +205,82 @@ export const setSavedFreelanceList = () => async (dispatch) => {
 	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
 		headers: {
 			Authorization: AuthStr,
-			data: JSON.stringify({ status: "Saved" }),
+			data: JSON.stringify({ status }),
 		},
 	});
 
-	dispatch({
-		type: SET_SAVED_FREELANCE_LIST,
-		payload: responseJobStatus.data.status,
-	});
+	switch (status) {
+		case "Saved":
+			dispatch({
+				type: SET_SAVED_FREELANCE_LIST,
+				payload: responseJobStatus.data.status,
+			});
+			break;
+		case "Applied":
+			dispatch({
+				type: SET_APPLIED_FREELANCE_LIST,
+				payload: responseJobStatus.data.status,
+			});
+			break;
+		case "Offered":
+			dispatch({
+				type: SET_OFFERED_FREELANCE_LIST,
+				payload: responseJobStatus.data.status,
+			});
+			break;
+		case "Denied":
+			dispatch({
+				type: SET_DENIED_FREELANCE_LIST,
+				payload: responseJobStatus.data.status,
+			});
+			break;
+		case "Accepted":
+			dispatch({
+				type: SET_ACCEPTED_FREELANCE_LIST,
+				payload: responseJobStatus.data.status,
+			});
+			break;
+		default:
+	}
 };
+// export const setOfferedFreelanceList = () => async (dispatch) => {
+// 	const token = localStorage.LLtoken;
 
-export const setOfferedFreelanceList = () => async (dispatch) => {
-	const token = localStorage.LLtoken;
+// 	const AuthStr = "Bearer ".concat(token);
 
-	const AuthStr = "Bearer ".concat(token);
+// 	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+// 		headers: {
+// 			Authorization: AuthStr,
+// 			data: JSON.stringify({ status: "Offered" }),
+// 		},
+// 	});
 
-	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
-		headers: {
-			Authorization: AuthStr,
-			data: JSON.stringify({ status: "Offered" }),
-		},
-	});
+// 	dispatch({
+// 		type: SET_OFFERED_FREELANCE_LIST,
+// 		payload: responseJobStatus.data.status,
+// 	});
+// };
+// export const setOngoingFreelanceList = () => async (dispatch) => {
+// 	const response = fetchdummyAcceptedFreelanceList();
+// 	dispatch({ type: SET_ACCEPTED_FREELANCE_LIST, payload: response.data });
+// };
+// export const setAppliedFreelanceList = () => async (dispatch) => {
+// 	const token = localStorage.LLtoken;
 
-	dispatch({
-		type: SET_OFFERED_FREELANCE_LIST,
-		payload: responseJobStatus.data.status,
-	});
-};
-export const setOngoingFreelanceList = () => async (dispatch) => {
-	const response = fetchdummyAcceptedFreelanceList();
-	dispatch({ type: SET_ACCEPTED_FREELANCE_LIST, payload: response.data });
-};
-export const setAppliedFreelanceList = () => async (dispatch) => {
-	const token = localStorage.LLtoken;
+// 	const AuthStr = "Bearer ".concat(token);
 
-	const AuthStr = "Bearer ".concat(token);
+// 	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+// 		headers: {
+// 			Authorization: AuthStr,
+// 			data: JSON.stringify({ status: "Applied" }),
+// 		},
+// 	});
 
-	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
-		headers: {
-			Authorization: AuthStr,
-			data: JSON.stringify({ status: "Applied" }),
-		},
-	});
-
-	dispatch({
-		type: SET_APPLIED_FREELANCE_LIST,
-		payload: responseJobStatus.data.status,
-	});
-};
+// dispatch({
+// 	type: SET_APPLIED_FREELANCE_LIST,
+// 	payload: responseJobStatus.data.status,
+// });
+// };
 
 export const setPostedFreelanceList = () => async (dispatch) => {
 	// const response = fetchdummyPostedFreelanceList();

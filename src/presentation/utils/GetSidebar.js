@@ -10,7 +10,6 @@ const GetSidebar = () => {
 
 	const location = useLocation();
 
-	console.log(location.pathname);
 	let excludeSidebarScreenList = [
 		"/signup",
 		"/signin",

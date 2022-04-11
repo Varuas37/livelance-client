@@ -6,28 +6,27 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
-import BrowseOfferedJobs from "../../components/jobs/freelancer/BrowseOfferedJobs";
 
-const Offers = () => {
-	const offeredFreelanceList = useSelector(
-		(state) => state.freelanceReducer.offeredFreelanceList
+const Accepted = () => {
+	const acceptedFreelanceList = useSelector(
+		(state) => state.freelanceReducer.acceptedFreelanceList
 	);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setFreelanceListByStatus("Offered"));
+		dispatch(setFreelanceListByStatus("Accepted"));
 	}, []);
 
 	return (
 		<>
 			<SearchAndProfileAvatar />
-			{offeredFreelanceList.length > 0 && (
-				<BrowseOfferedJobs
-					props={{ dataList: offeredFreelanceList, myJobType: "offers" }}
+			{acceptedFreelanceList.length > 0 && (
+				<GenericBrowseJob
+					props={{ dataList: acceptedFreelanceList, myJobType: "accepted" }}
 				/>
 			)}
 		</>
 	);
 };
 
-export default Offers;
+export default Accepted;
