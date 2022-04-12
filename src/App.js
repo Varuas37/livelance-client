@@ -75,14 +75,8 @@ const App = () => {
 					<Routes>
 
 						{/*messenger page old ver*/}
-<<<<<<< HEAD
-						<Route exact path="/messengeralt" element={<Chat />} />
-						{/* TODO: make this conditional i foreget how */}
-
-=======
 						<Route exact path="/messenger" element={<Messenger />} />
 						<Route exact path="/messengerProfile" element={<MessengerProfile />} />
->>>>>>> 93e2c54e8dbe15b2e3367ff4997aad928f66df54
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />

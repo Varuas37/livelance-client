@@ -14,11 +14,6 @@ export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-<<<<<<< HEAD:src/presentation/pages/messenger_alt/Chat.jsx
-  const [currentChat, setCurrentChat] = useState(undefined);
- const [currentUser, setCurrentUser] = useState(undefined);
- currentUser = "624a011ddf00bf27080fc4ef"
-=======
   //const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
  
@@ -34,7 +29,6 @@ export default function Chat() {
 
 
 const currentChat = values
->>>>>>> 93e2c54e8dbe15b2e3367ff4997aad928f66df54:src/presentation/pages/messenger/Chat_Profile.jsx
 
  useEffect(async () => {
    // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {

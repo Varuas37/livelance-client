@@ -12,7 +12,7 @@ export default function ChatContainer({ currentChat, socket }) {
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   var chat = messages
-  var count = Object.keys(chat).length;
+  var count = Object.keys(chat).length; //get number of messages 
 
   useEffect(async () => {
     const data = await JSON.parse(
@@ -24,7 +24,7 @@ export default function ChatContainer({ currentChat, socket }) {
     });
     setMessages(response.data);
 
-
+    //sets chat length as number of messages
     localStorage.setItem("chat-length", count)
 
   }, [currentChat]);
