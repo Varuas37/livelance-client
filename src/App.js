@@ -17,7 +17,7 @@ import { loadUser } from "./application/redux/action/auth";
 import setAuthToken from "./presentation/utils/setAuthToken";
 import SignUp from "./presentation/pages/auth/Signup";
 import Login from "./presentation/pages/auth/Signin";
-import Home from "./presentation/pages/home/Home";
+
 import CategoryGrid from "./presentation/components/core/CategoryGrid";
 import CategoryDetails from "./presentation/pages/categories/CategoryDetails";
 import UserProfile from "./presentation/pages/profile/UserProfile";
@@ -29,22 +29,22 @@ import JobDetailModal from "./presentation/pages/jobDetail/JobDetailModal";
 import Onboarding from "./presentation/pages/onboarding/Onboarding";
 import EditProfileModal from "./presentation/pages/profile/EditProfileModal";
 import Offers from "./presentation/pages/job/Offers";
-import Ongoing from "./presentation/pages/job/Ongoing";
+import Denied from "./presentation/pages/job/Denied";
 import Applied from "./presentation/pages/job/Applied";
 import GetMyJobsNavigation from "./presentation/utils/GetMyJobsNavigation";
 import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-import SetAvatar from "./presentation/components/messenger/SetAvatar";
-import Chat from "./presentation/pages/messenger/Chat";
-import AltRegister from "./presentation/pages/messenger/Register";
+
 import SortPage from "./presentation/pages/sort/SortPage";
-//import Messenger from "./presentation/pages/messenger/Messenger";
-import Messenger from "./presentation/pages/messenger_alt/Chat";
+import Messenger from "./presentation/pages/messenger/Chat";
+import MessengerProfile from "./presentation/pages/messenger/Chat_Profile";
 import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 import ViewProfile from "./presentation/pages/profile/ViewProfile";
 import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
+import HomeFeed from "./presentation/pages/home/HomeFeed";
+import Accepted from "./presentation/pages/job/Accepted";
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -62,7 +62,7 @@ const App = () => {
 			dispatch(setFreelanceIdListByStatus("Saved"));
 		}
 	}, []);
-	console.log(localStorage);
+
 	return (
 		<Router history={history}>
 			<PersistGate persistor={persistor}>
@@ -73,13 +73,10 @@ const App = () => {
 					<GetSidebar />
 					<GetMyJobsNavigation />
 					<Routes>
-						{/* TODO: figure out how to get cool avatar  */}
-
 
 						{/*messenger page old ver*/}
 						<Route exact path="/messenger" element={<Messenger />} />
-						{/* TODO: make this conditional i foreget how */}
-
+						<Route exact path="/messengerProfile" element={<MessengerProfile />} />
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />
@@ -101,7 +98,7 @@ const App = () => {
 						<Route
 							exact
 							path="/home"
-							element={isUserAuthenticated ? <Home /> : <SignIn />}
+							element={isUserAuthenticated ? <HomeFeed /> : <SignIn />}
 						/>
 
 						<Route exact path="/search" element={<SearchPage />} />
@@ -109,7 +106,11 @@ const App = () => {
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
-						<Route exact path="/viewcandidates/:jobId" element={<ViewCandidates />} />
+						<Route
+							exact
+							path="/viewcandidates/:jobId/:status"
+							element={<ViewCandidates />}
+						/>
 						{/* <Route exact path="/jobdetail" element={<JobDetailModal />} /> */}
 						{/* <Route
 							exact
@@ -121,7 +122,8 @@ const App = () => {
 
 						<Route exact path="/myjobs/saved" element={<SavedJobs />} />
 						<Route exact path="/myjobs/offers" element={<Offers />} />
-						<Route exact path="/myjobs/ongoing" element={<Ongoing />} />
+						<Route exact path="/myjobs/denied" element={<Denied />} />
+						<Route exact path="/myjobs/accepted" element={<Accepted />} />
 						<Route exact path="/myjobs/applied" element={<Applied />} />
 						<Route exact path="/postedjobs" element={<PostedJobs />} />
 						<Route exact path="/postjob" element={<PostJobModal />} />

@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import styled from "styled-components";
 //import { allUsersRoute, host } from "../utils/APIRoutes";
-import ChatContainer from "../components/ChatContainer";
-import Contacts from "../components/Contacts";
-import Welcome from "../components/Welcome";
+import ChatContainer from "../../components/messenger/ChatContainer";
+import Contacts from "../../components/messenger/Contacts";
+import Welcome from "../../components/messenger/Welcome";
 
 import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
 
@@ -14,12 +14,22 @@ export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
+  //const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
- //const [currentUser, setCurrentUser] = useState(undefined);
- //const currentUser = "624a011ddf00bf27080fc4ef"
+ 
 
-  //624a011ddf00bf27080fc4ef
+ var test_id = '623f312a3a310a16d0c28f1a'
+
+ const values = {
+  email: localStorage.getItem("Name"),
+  _id: localStorage.getItem("._id")
+}
+
+//localStorage.getItem(process.env.REACT_APP_PROFILE_KEY)
+
+
+const currentChat = values
+
  useEffect(async () => {
    // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
    //   navigate("/signin");
@@ -52,14 +62,14 @@ export default function Chat() {
 
 
 
-  const handleChatChange = (chat) => {
-    setCurrentChat(chat);
-  };
+//  const handleChatChange = (chat) => {
+ //   setCurrentChat(chat);
+ // };
   return (
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+          <Contacts contacts={contacts} /*changeChat={handleChatChange}*/ />
           {currentChat === undefined ? (
             <Welcome />
           ) : (

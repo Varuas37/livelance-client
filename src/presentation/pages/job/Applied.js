@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAppliedFreelanceList } from "../../../application/redux/action/freelanceActions";
+import { setAppliedFreelanceList, setFreelanceListByStatus } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 
@@ -11,7 +11,7 @@ const Applied = () => {
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setAppliedFreelanceList());
+		dispatch(setFreelanceListByStatus("Applied"));
 	}, []);
 
 	return (

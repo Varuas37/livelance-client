@@ -1,19 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { loginUser } from "../../../application/redux/action/authActions";
 import { useDispatch, useSelector } from "react-redux";
-
-
-
 function SignIn() {
-
-	const navigate = useNavigate();
 	const [signin, setSignin] = useState({
 		email: "",
 		password: "",
-	//	_id: "624a011ddf00bf27080fc4ef"
 	});
-	
 
 	const onHandleChange = (e) => {
 		setSignin({
@@ -22,32 +15,13 @@ function SignIn() {
 		});
 	};
 
-	//var _id = "624a011ddf00bf27080fc4ef";
-
 	let dispatch = useDispatch();
 	const onSignInFormSubmit = async (e) => {
 		e.preventDefault();
 		dispatch(loginUser(signin));
-		
-
-
-		//const { email, password, } = signin;
-	//	const { data } = await MainApi.post("/auth/signin", {
-	//		email: e.email,
-	//		password: e.password,
-	//		_id: e._id(),
-	//	});
-//
-			//	localStorage.setItem(
-			//	process.env.REACT_APP_LOCALHOST_KEY,
-			//	JSON.stringify(data)
-			//  );
-			  	
 		// if (resp) {
 		// 	navigate("/home");
 		// }
-
-		
 	};
 	return (
 		<>			

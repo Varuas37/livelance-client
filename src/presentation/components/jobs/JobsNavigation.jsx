@@ -45,9 +45,20 @@ const JobsNavigation = (props) => {
 							isActive ? "selected" : "nonSelected"
 						}
 						id="labNavLink"
-						to={`/myjobs/ongoing`}
+						to={`/myjobs/denied`}
 					>
-						Accepted
+						Denied
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						className={({ isActive }) =>
+							isActive ? "selected" : "nonSelected"
+						}
+						id="labNavLink"
+						to={`/myjobs/accepted`}
+					>
+						Accepted (By Both Parties)
 					</NavLink>
 				</li>
 			</ul>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { SET_CANDIDATE_LIST } from "../../../../application/redux/action/types";
 import MainApi from "../../../../repository/MainApi";
 
 import JobDetailModal from "../../../pages/jobDetail/JobDetailModal";
@@ -9,7 +10,10 @@ function PostedJobCard({ data }) {
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
-	const [candidatesNum, setCandidatesNum] = useState("0");
+	const [appliedCandidatesNum, setAppliedCandidatesNum] = useState("0");
+	const [offeredCandidatesNum, setOfferedCandidatesNum] = useState("0");
+	const [deniedCandidatesNum, setDeniedCandidatesNum] = useState("0");
+
 	let navigate = useNavigate();
 
 	const handleReadMoreClick = (e) => {
@@ -17,25 +21,45 @@ function PostedJobCard({ data }) {
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
 
-	const viewCandidates = (e)=>{
+	let dispatch = useDispatch();
+	const viewCandidates = (e, status) => {
 		e.preventDefault();
-		navigate(`/viewcandidates/${data._id}`)
-	}
+		dispatch({
+			type: SET_CANDIDATE_LIST,
+			payload: [],
+		});
+		navigate(`/viewcandidates/${data._id}/${status}`);
+	};
 
+	const candidateStatusList = ["Applied", "Offered", "Denied"];
 	useEffect(() => {
 		const fetch = async () => {
-			try {
-				const token = localStorage.LLtoken;
-				const AuthStr = "Bearer ".concat(token);
+			candidateStatusList.forEach(async (status) => {
+				try {
+					const token = localStorage.LLtoken;
+					const AuthStr = "Bearer ".concat(token);
 
-				const response = await MainApi.get(`/jobs/${data._id}/candidates`, {
-					headers: { Authorization: AuthStr },
-				});
-				
-				setCandidatesNum(response.data.candidates.length);
-			} catch (err) {
-				console.log(err.message);
-			}
+					const response = await MainApi.post(
+						`/jobs/${data._id}/candidates`,
+						{
+							status,
+						},
+						{
+							headers: { Authorization: AuthStr },
+						}
+					);
+
+					if (status === "Applied") {
+						setAppliedCandidatesNum(response.data.candidates.length);
+					} else if (status === "Offered") {
+						setOfferedCandidatesNum(response.data.candidates.length);
+					} else if (status === "Denied") {
+						setDeniedCandidatesNum(response.data.candidates.length);
+					}
+				} catch (err) {
+					console.log(err.message);
+				}
+			});
 		};
 		fetch();
 	}, []);
@@ -180,33 +204,35 @@ function PostedJobCard({ data }) {
 								{data.state && data.state}
 							</span>
 						</div>
-						<div className="font-light text-gray-600 flex flex-row space-x-1" onClick={(e)=>viewCandidates(e)}>
+						<div
+							className="cursor-pointer font-light text-gray-600 flex flex-row space-x-1"
+							onClick={(e) => viewCandidates(e, "Applied")}
+						>
+							<span> Applied Candidates (Waiting for Decision): </span>
 							<span style={{ color: "red" }}>
-								{candidatesNum && candidatesNum}{" "}
+								{appliedCandidatesNum && appliedCandidatesNum}{" "}
 							</span>
-							<span> Candidates</span>
 						</div>
-						{/* <div>
-							<div className="flex items-center" href="#">
-								
-								{isAppliedJob ? (
-									<button
-										type="button"
-										className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-										disabled
-									>
-										Applied
-									</button>
-								) : (
-									<button
-										type="button"
-										className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-									>
-										Apply
-									</button>
-								)}
-							</div>
-						</div> */}
+					</div>
+					<div className="flex justify-between items-center mt-4">
+						<div
+							className="cursor-pointer font-light text-gray-600 flex flex-row space-x-1"
+							onClick={(e) => viewCandidates(e, "Offered")}
+						>
+							<span> Accepted Candidates: </span>
+							<span style={{ color: "red" }}>
+								{offeredCandidatesNum && offeredCandidatesNum}{" "}
+							</span>
+						</div>
+						<div
+							className="cursor-pointer font-light text-gray-600 flex flex-row space-x-1"
+							onClick={(e) => viewCandidates(e, "Denied")}
+						>
+							<span> Denied Candidates </span>
+							<span style={{ color: "red" }}>
+								{deniedCandidatesNum && deniedCandidatesNum}{" "}
+							</span>
+						</div>
 					</div>
 				</div>
 			</li>

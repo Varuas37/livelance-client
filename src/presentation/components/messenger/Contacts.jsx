@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import ChatContainer from "./ChatContainer";
+import count from "./ChatContainer";
 
 
-// TODO: store contacts in redux, get them from redux here instead of prop
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
-  const [currentUserImage, setCurrentUserImage] = useState(undefined);
+ 
   const [currentSelected, setCurrentSelected] = useState(undefined);
+
+
   useEffect(async () => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
-    if(data){
-      setCurrentUserName(data.username);
-      setCurrentUserImage(data.avatarImage);
-    }
+    setCurrentUserName(data.email);
+
   }, []);
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -22,13 +23,14 @@ export default function Contacts({ contacts, changeChat }) {
   };
   return (
     <>
+      {(
         <Container>
           <div className="brand">
-
-            <h3></h3>
+            
+            <h3>Contacts</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
+            {contacts.map(( contact,index) => {
               return (
                 <div
                   key={contact._id}
@@ -37,38 +39,22 @@ export default function Contacts({ contacts, changeChat }) {
                   }`}
                   onClick={() => changeCurrentChat(index, contact)}
                 >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>{contact.username}</h3>
+                  
+                  <div className="email">
+                    <h3>{contact.email}</h3>
                   </div>
                 </div>
               );
             })}
           </div>
           <div className="current-user">
-          {currentUserImage && currentUserImage ? (
-            <>
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml;base64,${currentUserImage}`}
-                alt="avatar"
-              />
-            </div>
-            <div className="username">
+
+            <div className="email">
               <h2>{currentUserName}</h2>
             </div>
-            </>
-          ) :
-          <div>upload an avatar</div>
-          
-          }
           </div>
         </Container>
+      )}
     </>
   );
 }
@@ -77,6 +63,7 @@ const Container = styled.div`
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
   background-color: #DAD3D3;
+  
   .brand {
     display: flex;
     align-items: center;
@@ -105,7 +92,7 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #ffffff34;
+      background-color: #B381EA;
       min-height: 5rem;
       cursor: pointer;
       width: 90%;
@@ -115,12 +102,9 @@ const Container = styled.div`
       gap: 1rem;
       align-items: center;
       transition: 0.5s ease-in-out;
-      .avatar {
-        img {
-          height: 3rem;
-        }
-      }
-      .username {
+      
+
+      .email {
         h3 {
           color: white;
         }
@@ -132,7 +116,7 @@ const Container = styled.div`
   }
 
   .current-user {
-    background-color: #483D8B;
+    background-color: #AAA5B0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,14 +127,14 @@ const Container = styled.div`
         max-inline-size: 100%;
       }
     }
-    .username {
+    .email {
       h2 {
         color: white;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       gap: 0.5rem;
-      .username {
+      .email {
         h2 {
           font-size: 1rem;
         }

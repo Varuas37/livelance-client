@@ -1,22 +1,17 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import JobCard from "../../components/core/JobCard";
+import JobCard from "../core/JobCard";
 import { useDispatch } from "react-redux";
 import {
 	setFreelanceIdListByStatus,
 	setFreelanceList,
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
-import SortOptions from "../../components/sort/SortOptions";
-import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import SortOptions from "../sort/SortOptions";
+import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
 import { checkUser } from "../../../application/redux/action/authActions";
-//temp
 
-import { allUsersRoute, host } from "../../../application/redux/action/APIRoutes";
-
-
-
-function Home() {
+function FreelancerHomeFeed() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const freelanceList = useSelector(
 		(state) => state.freelanceReducer.freelanceList
@@ -28,42 +23,14 @@ function Home() {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
-
-
 	const dispatch = useDispatch();
-			//temp setting localstorage info
-			const tempSignin = {
-				email: "user10@gmail.com",
-				password: "user10",
-				_id: "624a011ddf00bf27080fc4ef",
-				//__v:0,
-			};
-
-			const tempSignin1 = {
-				email: "shivam@gmail.com",
-				password: "user10",
-				_id: "6238d4b791b08437f3b065a3",
-				//__v:0,
-			};
-
-
-
 
 	useEffect(() => {
 		const fetch = async () => {
 			if (localStorage.LLtoken) {
-				dispatch(checkUser());
 				dispatch(setFreelanceIdListByStatus("Applied"));
 				dispatch(setFreelanceIdListByStatus("Saved"));
 				dispatch(setFreelanceList());
-
-			//localStorage.setItem(
-			//	process.env.REACT_APP_LOCALHOST_KEY,
-			//	JSON.stringify(tempSignin)
-			//  );
-
-
-				  
 			}
 		};
 		fetch();
@@ -216,4 +183,4 @@ function Home() {
 		</>
 	);
 }
-export default Home;
+export default FreelancerHomeFeed;

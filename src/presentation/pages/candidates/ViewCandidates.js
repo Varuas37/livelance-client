@@ -3,30 +3,22 @@ import { useParams } from "react-router-dom";
 import MainApi from "../../../repository/MainApi";
 import { Dialog, Transition } from "@headlessui/react";
 import CandidateCard from "../../components/candidates/CandidateCard";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCandidateList } from "../../../application/redux/action/employerActions";
 const ViewCandidates = () => {
-	let { jobId } = useParams();
-	const [candidatesList, setCandidatesList] = useState([]);
+	let { jobId, status } = useParams();
+
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const candidateList = useSelector(
+		(state) => state.freelanceReducer.candidateList
+	);
 
+	let dispatch = useDispatch();
 	useEffect(() => {
-		const fetch = async () => {
-			try {
-				const token = localStorage.LLtoken;
-				const AuthStr = "Bearer ".concat(token);
-
-				const response = await MainApi.get(`/jobs/${jobId}/candidates`, {
-					headers: { Authorization: AuthStr },
-				});
-
-				setCandidatesList(response.data.candidates);
-				console.log(candidatesList);
-			} catch (err) {
-				console.log(err.message);
-			}
-		};
-		fetch();
+		window.scrollTo(0, 0);
+		dispatch(setCandidateList(jobId, status));
 	}, []);
+
 	return (
 		<div>
 			<>
@@ -52,8 +44,8 @@ const ViewCandidates = () => {
 										<ul role="list" className="space-y-3 mt-10">
 											{/* For the list of Jobs Map the JobCard Here */}
 											<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
-												{candidatesList &&
-													candidatesList.map((eachCandidate) => {
+												{candidateList &&
+													candidateList.map((eachCandidate) => {
 														return (
 															<CandidateCard
 																key={eachCandidate.profileId._id}
