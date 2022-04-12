@@ -4,19 +4,15 @@ import { XIcon } from "@heroicons/react/outline";
 import OfferedJobCard from "../freelancer/OfferedJobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceIdListByStatus } from "../../../../application/redux/action/freelanceActions";
+import SearchAndProfileAvatar from "../../appheader/SearchAndProfileAvatar";
 
 function BrowseOfferedJobs({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [curFreelanceList, setCurFreelanceList] = useState([]);
+	useEffect(() => {
+		setCurFreelanceList(props.dataList);
+	}, []);
 
-	// const acceptedFreelanceIdList = useSelector(
-	// 	(state) => state.freelanceReducer.acceptedFreelanceIdList
-	// );
-
-	// console.log(acceptedFreelanceIdList);
-	// let dispatch = useDispatch();
-	// useEffect(() => {
-	// 	dispatch(setFreelanceIdListByStatus("Accepted"));
-	// }, []);
 	return (
 		<>
 			<div className="h-screen">
@@ -84,6 +80,12 @@ function BrowseOfferedJobs({ props }) {
 						</div>
 					</Dialog>
 				</Transition.Root>
+
+				<SearchAndProfileAvatar
+					universalDataList={props.dataList}
+					dataList={curFreelanceList}
+					setDataList={setCurFreelanceList}
+				/>
 
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">

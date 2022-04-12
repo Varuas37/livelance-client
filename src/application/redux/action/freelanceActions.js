@@ -17,11 +17,12 @@ import {
 	SET_POSTED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE,
 	SET_CATEGORY_LIST,
-	SET_SEARCH_QUERY_LIST,
+	SET_SEARCH_QUERY_TERM,
 	SET_APPLIED_FREELANCE_ID_LIST,
 	SET_SAVED_FREELANCE_ID_LIST,
 	SET_DENIED_FREELANCE_LIST,
 	SET_ACCEPTED_FREELANCE_ID_LIST,
+	SET_SEARCH_QUERY_RESULT_FREELANCE_LIST,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
@@ -336,10 +337,12 @@ export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
 
 		if (response.status === 200 || response.status === 201) {
 			alert("successful!");
+			return true;
 		}
 	} catch (err) {
 		alert("Unsuccessful!");
 		console.log(err.message);
+		return false;
 	}
 };
 
@@ -351,10 +354,32 @@ export const setCategoryList = () => async (dispatch) => {
 export const submitCategoryFilter =
 	async (categoryFields) => async (dispatch) => {};
 
-export const searchQueries = (queryList) => async (dispatch) => {
-	const response = searchFreelanceList(queryList);
-	dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
-};
-export const setSearchTermsList = (queryList) => async (dispatch) => {
-	dispatch({ type: SET_SEARCH_QUERY_LIST, payload: queryList });
+export const searchQueryAndSetResultFreelanceList =
+	(query) => async (dispatch) => {
+		// const response = searchFreelanceList(query);
+		// dispatch({ type: SET_FREELANCE_LIST, payload: response.data });
+		try {
+			const token = localStorage.LLtoken;
+			const AuthStr = "Bearer ".concat(token);
+
+			const response = await MainApi.post(
+				`/jobs/search`,
+				{ query },
+				{
+					headers: { Authorization: AuthStr },
+				}
+			);
+
+			if (response.status === 200 || response.status === 201) {
+				dispatch({
+					type: SET_SEARCH_QUERY_RESULT_FREELANCE_LIST,
+					payload: response.data.job,
+				});
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
+	};
+export const setSearchTerm = (queryList) => async (dispatch) => {
+	dispatch({ type: SET_SEARCH_QUERY_TERM, payload: queryList });
 };

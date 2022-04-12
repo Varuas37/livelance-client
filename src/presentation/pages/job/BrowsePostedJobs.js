@@ -40,12 +40,9 @@ const BrowsePostedJobs = () => {
 										{/* For the list of Jobs Map the JobCard Here */}
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{postedFreelanceList &&
-												postedFreelanceList.map((eachFreelance) => {
+												postedFreelanceList.map((eachFreelance, idx) => {
 													return (
-														<PostedJobCard
-															key={eachFreelance._id}
-															data={eachFreelance}
-														/>
+														<PostedJobCard key={idx} data={eachFreelance} />
 													);
 												})}
 										</div>

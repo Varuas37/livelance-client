@@ -52,7 +52,6 @@ export const setProfile = (profile) => async (dispatch) => {
 				headers: { Authorization: AuthStr },
 			}
 		);
-		// console.log(response);
 		if (response.status === 200 || response.status === 201) {
 			dispatch({ type: SET_PROFILE, payload: response.data.profile });
 			return true;

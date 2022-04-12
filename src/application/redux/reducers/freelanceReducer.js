@@ -8,7 +8,7 @@ import {
 	SET_APPLIED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE_LIST,
 	SET_CATEGORY_LIST,
-	SET_SEARCH_QUERY_LIST,
+	SET_SEARCH_QUERY_TERM,
 	SET_APPLIED_FREELANCE_ID_LIST,
 	SET_SAVED_FREELANCE_ID_LIST,
 	SET_CANDIDATE_LIST,
@@ -19,6 +19,7 @@ import {
 	SET_DENIED_FREELANCERS_ID_LIST,
 	SET_DENIED_FREELANCE_LIST,
 	SET_ACCEPTED_FREELANCE_ID_LIST,
+	SET_SEARCH_QUERY_RESULT_FREELANCE_LIST,
 } from "../action/types";
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
 	postedFreelance: {},
 	categoryList: [],
 	searchQueryList: [],
+	searchQueryResultFreelanceList: [],
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -66,14 +68,16 @@ export default function (state = initialState, action) {
 			return { ...state, acceptedFreelanceList: payload };
 		case SET_APPLIED_FREELANCE_LIST:
 			return { ...state, appliedFreelanceList: payload };
+		case SET_SEARCH_QUERY_RESULT_FREELANCE_LIST:
+			return { ...state, searchQueryResultFreelanceList: payload };
 		case SET_POSTED_FREELANCE_LIST:
 			return { ...state, postedFreelanceList: payload };
 		case SET_CANDIDATE_LIST:
 			return { ...state, candidateList: payload };
 		case SET_CATEGORY_LIST:
 			return { ...state, categoryList: payload };
-		case SET_SEARCH_QUERY_LIST:
-			return { ...state, searchQueryList: payload };
+		case SET_SEARCH_QUERY_TERM:
+			return { ...state, searchQueryTerm: payload };
 		case SET_OFFERED_FREELANCERS_ID_LIST:
 			return { ...state, offeredFreelancersIdList: payload };
 		case SET_DENIED_FREELANCERS_ID_LIST:
