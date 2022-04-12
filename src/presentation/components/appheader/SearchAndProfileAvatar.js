@@ -11,7 +11,7 @@ const SearchAndProfileAvatar = ({ searchTermList }) => {
 		{ name: "Settings", href: "/settings" },
 		{
 			name: "Sign out",
-			href: "/",
+			href: "/signout",
 		},
 	];
 
@@ -55,7 +55,11 @@ const SearchAndProfileAvatar = ({ searchTermList }) => {
 											<span className="sr-only">Open user menu</span>
 											<img
 												className="h-8 w-8 rounded-full"
-												src={profile && profile.avatar && profile.avatar}
+												src={
+													profile && profile.avatar !== "#"
+														? profile.avatar
+														: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+												}
 												alt=""
 											/>
 										</Menu.Button>

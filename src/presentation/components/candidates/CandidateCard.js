@@ -121,7 +121,7 @@ const CandidateCard = ({ data }) => {
 							<a className="flex items-center" href="#">
 								<img
 									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-									src={data.avatar && data.avatar}
+									src={data.avatar !== "#" ? data.avatar : "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"}
 									alt="avatar"
 								/>
 								{/* show accept button only for saved, offered, and posted jobs */}

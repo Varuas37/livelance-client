@@ -32,10 +32,6 @@ function ViewProfile() {
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		// dispatch(setProfile());
-		// dispatch(setReviews());
-		// dispatch(setReviewsData());
-		// dispatch(getProfile());
 		dispatch(setViewProfile(id));
 	}, []);
 
@@ -79,7 +75,11 @@ function ViewProfile() {
 									<div>
 										<img
 											className="h-32 w-full object-cover lg:h-48"
-											src={profile.coverImage && profile.coverImage}
+											src={
+												profile.coverImage !== "#"
+													? profile.coverImage
+													: "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+											}
 											alt=""
 										/>
 									</div>
@@ -88,7 +88,11 @@ function ViewProfile() {
 											<div className="flex">
 												<img
 													className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-													src={profile.avatar && profile.avatar}
+													src={
+														profile && profile.avatar !== "#"
+															? profile.avatar
+															: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+													}
 													alt=""
 												/>
 											</div>
@@ -112,17 +116,6 @@ function ViewProfile() {
 														/>
 														<span>Message</span>
 													</Link>
-
-													{/* <Link
-														to={`/profile/edit`}
-														className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-													>
-														<PencilIcon
-															className="-ml-1 mr-2 h-5 w-5 text-gray-400"
-															aria-hidden="true"
-														/>
-														<span>Edit Profile</span>
-													</Link> */}
 												</div>
 											</div>
 										</div>

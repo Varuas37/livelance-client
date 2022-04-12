@@ -40,10 +40,6 @@ function PostJobModal() {
 			...postFreelance,
 			postedBy: user.userId,
 		});
-		// if (didMountRef.current) {
-
-		// }
-		// didMountRef.current = true;
 	}, [user]);
 
 	let navigate = useNavigate();
@@ -255,47 +251,13 @@ function PostJobModal() {
 																value={durationUnit}
 																onChange={(e) => onHandleChange(e)}
 															>
-																<option value="hr">hr</option>
-																<option value="day">day</option>
+																<option value="hour">hour</option>
 																<option value="week">week</option>
+																<option value="project">project</option>
+																<option value="month">month</option>
 															</select>
 														</div>
 													</div>
-
-													{/* <div className="flex flex-row md-flex-col space-x-5">
-														<div>
-															<label className="block text-sm font-medium text-gray-700">
-																Start Date
-															</label>
-															<div className="mt-1">
-																<input
-																	name="startDate"
-																	value={postFreelance.startDate}
-																	onChange={(e) => onHandleChange(e)}
-																	type="date"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div>
-													</div>
-													<div className="flex flex-row md-flex-col space-x-5">
-														<div>
-															<label className="block text-sm font-medium text-gray-700">
-																Start Time
-															</label>
-															<div className="mt-1">
-																<input
-																	name="startTime"
-																	value={postFreelance.startTime}
-																	onChange={(e) => onHandleChange(e)}
-																	type="time"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div>
-													</div> */}
 
 													<div>
 														<label
@@ -326,9 +288,10 @@ function PostJobModal() {
 																value={postFreelance.rateDuration}
 																onChange={(e) => onHandleChange(e)}
 															>
-																<option value="hour">hr</option>
-																<option value="day">day</option>
+																<option value="hour">hour</option>
 																<option value="week">week</option>
+																<option value="project">project</option>
+																<option value="month">month</option>
 															</select>
 														</div>
 													</div>

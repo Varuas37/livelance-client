@@ -25,7 +25,7 @@ function UserProfile() {
 	const profile = useSelector((state) => state.profileReducer.profile);
 
 	const dispatch = useDispatch();
-	useEffect(() => {		
+	useEffect(() => {
 		dispatch(getProfile());
 	}, []);
 
@@ -69,7 +69,11 @@ function UserProfile() {
 									<div>
 										<img
 											className="h-32 w-full object-cover lg:h-48"
-											src={profile.coverImage && profile.coverImage}
+											src={
+												profile.coverImage !== "#"
+													? profile.coverImage
+													: "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+											}
 											alt=""
 										/>
 									</div>
@@ -78,7 +82,7 @@ function UserProfile() {
 											<div className="flex">
 												<img
 													className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-													src={profile.avatar && profile.avatar}
+													src={profile.avatar && profile.avatar !== "#" ? profile.avatar : "'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'"}
 													alt=""
 												/>
 											</div>
