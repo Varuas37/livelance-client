@@ -83,7 +83,7 @@ const currentChat = values
 
 const Container = styled.div`
   height: 100vh;
-  width: 100vw;
+  padding-left: 16rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,8 +91,7 @@ const Container = styled.div`
   align-items: center;
   background-color: #F5F5F5;
   .container {
-    height: 85vh;
-    width: 85vw;
+    height: 100vh;
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
