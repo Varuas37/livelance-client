@@ -35,6 +35,7 @@ function PostJobModal() {
 	const user = useSelector((state) => state.authReducer.user);
 	const dispatch = useDispatch();
 	const didMountRef = useRef(false);
+
 	useEffect(() => {
 		setPostFreelance({
 			...postFreelance,
@@ -47,12 +48,19 @@ function PostJobModal() {
 		setOpen(!open);
 		navigate(`/postedjobs`);
 	};
-	const saveButtonClicked = (e) => {
+
+	const postedFreelanceList = useSelector(
+		(state) => state.freelanceReducer.postedFreelanceList
+	);
+	const saveButtonClicked = async (e) => {
 		e.preventDefault();
 
-		dispatch(setPostedFreelance(postFreelance));
-		setOpen(!open);
-		navigate(`/postedjobs`);
+		const resp = await dispatch(setPostedFreelance(postFreelance));
+		if (resp) {
+			setOpen(!open);
+			postedFreelanceList.push(postFreelance);
+			navigate(`/postedjobs`);
+		}
 	};
 
 	const onHandleChange = (e) => {

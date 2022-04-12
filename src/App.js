@@ -107,7 +107,7 @@ const App = () => {
 							element={isUserAuthenticated ? <HomeFeed /> : <SignIn />}
 						/>
 
-						<Route exact path="/search" element={<SearchPage />} />
+						<Route exact path="/search/:query" element={<SearchPage />} />
 						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />

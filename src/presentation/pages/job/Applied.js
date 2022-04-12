@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAppliedFreelanceList, setFreelanceListByStatus } from "../../../application/redux/action/freelanceActions";
+import {
+	setAppliedFreelanceList,
+	setFreelanceListByStatus,
+} from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 
@@ -16,12 +19,12 @@ const Applied = () => {
 
 	return (
 		<>
-			<SearchAndProfileAvatar />
-
-			{appliedFreelanceList.length > 0 && (
+			{appliedFreelanceList.length > 0 ? (
 				<GenericBrowseJob
 					props={{ dataList: appliedFreelanceList, myJobType: "applied" }}
 				/>
+			) : (
+				<SearchAndProfileAvatar />
 			)}
 		</>
 	);

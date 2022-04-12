@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	searchQueries,
+	searchQueryAndSetResultFreelanceList,
+	setSearchTermsList,
+} from "../../../application/redux/action/freelanceActions";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const GetSearchPart = ({ universalDataList, dataList, setDataList }) => {
+const GetSearchPartWithBackend = () => {
+	let navigate = useNavigate();
 	const [searchQueryTyped, setSearchQueryTyped] = useState("");
+
+	let { query } = useParams();
+
+	let dispatch = useDispatch();
 
 	const handleKeyPressed = (e) => {
 		e.preventDefault();
-		if (universalDataList) {
-			setDataList(
-				universalDataList.filter(
-					(each) =>
-						each.jobId &&
-						each.jobId.jobTitle
-							.toLowerCase()
-							.includes(searchQueryTyped.toLowerCase())
-				)
-			);
+		if (e.key === "Enter") {
+			navigate(`/search/${searchQueryTyped}`);
+			dispatch(searchQueryAndSetResultFreelanceList(searchQueryTyped));
 		}
 	};
+
+	useEffect(() => {
+		if (query) {
+			setSearchQueryTyped(query);
+		}
+	}, []);
 
 	return (
 		<>
@@ -48,4 +60,4 @@ const GetSearchPart = ({ universalDataList, dataList, setDataList }) => {
 	);
 };
 
-export default GetSearchPart;
+export default GetSearchPartWithBackend;
