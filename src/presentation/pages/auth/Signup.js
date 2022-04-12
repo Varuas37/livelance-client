@@ -14,11 +14,6 @@ function SignUp() {
 		password: "",
 		confirmPassword: "",
 	});
-	// Messenger stuff
-	//useEffect(() => {
-	//	if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-	//	}
-	 // }, []);
 
 	let dispatch = useDispatch();
 	let navigate = useNavigate();

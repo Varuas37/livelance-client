@@ -1,17 +1,17 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import JobCard from "../../components/core/JobCard";
+import JobCard from "../core/JobCard";
 import { useDispatch } from "react-redux";
 import {
 	setFreelanceIdListByStatus,
 	setFreelanceList,
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
-import SortOptions from "../../components/sort/SortOptions";
-import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import SortOptions from "../sort/SortOptions";
+import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
 import { checkUser } from "../../../application/redux/action/authActions";
 
-function Home() {
+function FreelancerHomeFeed() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const freelanceList = useSelector(
 		(state) => state.freelanceReducer.freelanceList
@@ -24,18 +24,10 @@ function Home() {
 	);
 
 	const dispatch = useDispatch();
-			//temp setting localstorage info
-			const tempSignin = {
-				email: "user10@gmail.com",
-				password: "user10",
-				_id: "624a011ddf00bf27080fc4ef",
-				__v:0,
-			};
 
 	useEffect(() => {
 		const fetch = async () => {
 			if (localStorage.LLtoken) {
-				dispatch(checkUser());
 				dispatch(setFreelanceIdListByStatus("Applied"));
 				dispatch(setFreelanceIdListByStatus("Saved"));
 				dispatch(setFreelanceList());
@@ -191,4 +183,4 @@ function Home() {
 		</>
 	);
 }
-export default Home;
+export default FreelancerHomeFeed;
