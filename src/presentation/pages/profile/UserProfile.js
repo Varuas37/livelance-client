@@ -25,7 +25,7 @@ function UserProfile() {
 	const profile = useSelector((state) => state.profileReducer.profile);
 
 	const dispatch = useDispatch();
-	useEffect(() => {		
+	useEffect(() => {
 		dispatch(getProfile());
 	}, []);
 

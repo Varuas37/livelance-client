@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import HandleJobSkillsList from "../../components/jobs/HandleJobSkillsList";
 import ImageHandler from "../../utils/ImageHandler";
@@ -7,6 +7,8 @@ import { setProfile } from "../../../application/redux/action/profileActions";
 function Onboarding() {
 	const [skillsList, setSkillsList] = useState([]);
 	const [categoriesList, setCategoriesList] = useState([]);
+
+	const currentUser = useSelector((state) => state.authReducer.user);
 
 	const [user, setUser] = useState({
 		firstName: "",
@@ -42,7 +44,6 @@ function Onboarding() {
 	const onSignUpFormSubmit = async (e) => {
 		e.preventDefault();
 		const resp = await dispatch(setProfile(user));
-		console.log(resp);
 		if (resp) {
 			navigate("/home");
 		}
@@ -207,24 +208,28 @@ function Onboarding() {
 												</div>
 											</div>
 
-											<div>
-												<label
-													htmlFor="PayRange"
-													className="block text-sm font-medium text-gray-700"
-												>
-													Skills
-												</label>
-												<HandleJobSkillsList
-													props={{
-														mutableObject: user,
-														setMutableObject: setUser,
-														skillsList: skillsList,
-														setSkillsList: setSkillsList,
-														columnName: "skills",
-														placeholder: "Type in Skills and Press Enter",
-													}}
-												/>
-											</div>
+											{currentUser &&
+												currentUser.accountType &&
+												currentUser.accountType !== "employer" && (
+													<div>
+														<label
+															htmlFor="PayRange"
+															className="block text-sm font-medium text-gray-700"
+														>
+															Skills
+														</label>
+														<HandleJobSkillsList
+															props={{
+																mutableObject: user,
+																setMutableObject: setUser,
+																skillsList: skillsList,
+																setSkillsList: setSkillsList,
+																columnName: "skills",
+																placeholder: "Type in Skills and Press Enter",
+															}}
+														/>
+													</div>
+												)}
 
 											<div>
 												<label

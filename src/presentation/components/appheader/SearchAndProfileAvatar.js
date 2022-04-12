@@ -11,7 +11,7 @@ const SearchAndProfileAvatar = ({ searchTermList }) => {
 		{ name: "Settings", href: "/settings" },
 		{
 			name: "Sign out",
-			href: "/",
+			href: "/signout",
 		},
 	];
 

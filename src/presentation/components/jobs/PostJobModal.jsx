@@ -262,41 +262,6 @@ function PostJobModal() {
 														</div>
 													</div>
 
-													{/* <div className="flex flex-row md-flex-col space-x-5">
-														<div>
-															<label className="block text-sm font-medium text-gray-700">
-																Start Date
-															</label>
-															<div className="mt-1">
-																<input
-																	name="startDate"
-																	value={postFreelance.startDate}
-																	onChange={(e) => onHandleChange(e)}
-																	type="date"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div>
-													</div>
-													<div className="flex flex-row md-flex-col space-x-5">
-														<div>
-															<label className="block text-sm font-medium text-gray-700">
-																Start Time
-															</label>
-															<div className="mt-1">
-																<input
-																	name="startTime"
-																	value={postFreelance.startTime}
-																	onChange={(e) => onHandleChange(e)}
-																	type="time"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div>
-													</div> */}
-
 													<div>
 														<label
 															htmlFor="PayRange"

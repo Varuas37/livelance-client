@@ -46,6 +46,7 @@ import ViewProfile from "./presentation/pages/profile/ViewProfile";
 import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
 import HomeFeed from "./presentation/pages/home/HomeFeed";
 import Accepted from "./presentation/pages/job/Accepted";
+import SignOut from "./presentation/pages/SignOut";
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -132,6 +133,7 @@ const App = () => {
 						<Route exact path="/myjobs/applied" element={<Applied />} />
 						<Route exact path="/postedjobs" element={<PostedJobs />} />
 						<Route exact path="/postjob" element={<PostJobModal />} />
+						<Route exact path="/signout" element={<SignOut />} />
 					</Routes>
 				</Fragment>
 			</PersistGate>

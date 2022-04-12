@@ -46,7 +46,7 @@ const HandleJobSkillsList = ({ props }) => {
 				props.mutableObject[props.columnName].map((eachSkill, idx) => {
 					return (
 						<span key={idx}>
-							<p style={{ marginTop: "-2px" }}>
+							<span style={{ margin: "-2px 4px 0" }}>
 								{eachSkill}{" "}
 								<span
 									style={{
@@ -59,7 +59,7 @@ const HandleJobSkillsList = ({ props }) => {
 									{" "}
 									X
 								</span>
-							</p>
+							</span>
 						</span>
 					);
 				})}
