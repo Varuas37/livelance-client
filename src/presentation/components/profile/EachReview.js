@@ -29,7 +29,11 @@ const EachReview = ({ review }) => {
 		<div key={review._id} className="py-12">
 			<div className="flex items-center">
 				<img
-					src={author && author.avatar}
+					src={
+						author && author.avatar && author.avatar !== "#"
+							? author.avatar
+							: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+					}
 					alt={``}
 					className="h-12 w-12 rounded-full"
 				/>

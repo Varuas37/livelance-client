@@ -251,7 +251,11 @@ function OfferedJobCard({ data, myJobType }) {
 								<div className="flex items-center" href="#">
 									<img
 										className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-										src={data.postedBy && data.postedBy.avatar}
+										src={
+											data.postedBy && data.postedBy.avatar !== "#"
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+										}
 										alt="avatar"
 									/>
 									{isAcceptBtnClicked ? (

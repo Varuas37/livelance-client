@@ -40,10 +40,6 @@ function PostJobModal() {
 			...postFreelance,
 			postedBy: user.userId,
 		});
-		// if (didMountRef.current) {
-
-		// }
-		// didMountRef.current = true;
 	}, [user]);
 
 	let navigate = useNavigate();
@@ -255,9 +251,10 @@ function PostJobModal() {
 																value={durationUnit}
 																onChange={(e) => onHandleChange(e)}
 															>
-																<option value="hr">hr</option>
-																<option value="day">day</option>
+																<option value="hour">hour</option>
 																<option value="week">week</option>
+																<option value="project">project</option>
+																<option value="month">month</option>
 															</select>
 														</div>
 													</div>
@@ -291,9 +288,10 @@ function PostJobModal() {
 																value={postFreelance.rateDuration}
 																onChange={(e) => onHandleChange(e)}
 															>
-																<option value="hour">hr</option>
-																<option value="day">day</option>
+																<option value="hour">hour</option>
 																<option value="week">week</option>
+																<option value="project">project</option>
+																<option value="month">month</option>
 															</select>
 														</div>
 													</div>

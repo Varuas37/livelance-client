@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import ViewProfileModal from "../profile/ViewProfileModal";
 
 const FreelancerCardHomeFeed = ({ data }) => {
-	
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const openProfileModal = (e) => {
 		e.preventDefault();
@@ -113,7 +112,11 @@ const FreelancerCardHomeFeed = ({ data }) => {
 							<a className="flex items-center" href="#">
 								<img
 									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-									src={data.avatar && data.avatar}
+									src={
+										data.avatar && data.avatar !== "#"
+											? data.avatar
+											: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+									}
 									alt="avatar"
 									onClick={(e) => openProfileModal(e)}
 								/>
