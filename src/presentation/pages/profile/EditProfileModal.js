@@ -12,7 +12,7 @@ import {
 import HandleSkills from "../../components/profile/HandleSkills";
 import ImageHandler from "../../utils/ImageHandler";
 
-function EditProfileModal() {
+function EditProfileModal({setIsEditProfileCardClicked}) {
 	const [open, setOpen] = useState(true);
 	const [editProfile, setEditProfile] = useState({});
 	const [payAmount, setPayAmount] = useState("0");
@@ -87,7 +87,8 @@ function EditProfileModal() {
 	let navigate = useNavigate();
 	const modalClick = () => {
 		setOpen(!open);
-		navigate(`/profile`);
+		// navigate(`/profile`);
+		setIsEditProfileCardClicked(false)
 	};
 
 	return (
@@ -133,7 +134,7 @@ function EditProfileModal() {
 									<div className="mt-3  sm:mt-5">
 										<Dialog.Title
 											as="h3"
-											className="text-lg text-center leading-6 font-medium text-gray-900"
+											className="cursor-pointer text-lg text-center leading-6 font-medium text-gray-900"
 										>
 											Edit Profile
 										</Dialog.Title>

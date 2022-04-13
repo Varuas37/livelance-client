@@ -14,7 +14,7 @@ function PostJobModal() {
 		category: "",
 		subCategory: "",
 		skills: [],
-		duration: "1 hr",
+		duration: "1 hour",
 		// startDate: "",
 		// startTime: "",
 		rate: "",

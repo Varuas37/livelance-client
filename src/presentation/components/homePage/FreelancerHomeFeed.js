@@ -9,7 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import SortOptions from "../sort/SortOptions";
 import SearchAndProfileAvatarWithBackend from "../appheader/SearchAndProfileAvatarWithBackend";
-import { checkUser } from "../../../application/redux/action/authActions";
+import CardCompleteYourProfile from "./CardCompleteYourProfile";
 
 function FreelancerHomeFeed() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +24,6 @@ function FreelancerHomeFeed() {
 	);
 
 	const dispatch = useDispatch();
-
 	useEffect(() => {
 		const fetch = async () => {
 			if (localStorage.LLtoken) {
@@ -69,8 +68,9 @@ function FreelancerHomeFeed() {
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
 											{appliedFreelanceIdList &&
-												savedFreelanceIdList &&
-												freelanceList &&
+											savedFreelanceIdList &&
+											freelanceList &&
+											freelanceList.length > 0 ? (
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
@@ -82,7 +82,10 @@ function FreelancerHomeFeed() {
 															savedFreelanceIdList={savedFreelanceIdList.Saved}
 														/>
 													);
-												})}
+												})
+											) : (
+												<CardCompleteYourProfile />
+											)}
 
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />

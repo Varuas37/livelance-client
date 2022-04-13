@@ -12,6 +12,7 @@ import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
 
 import ProfileScreenReviews from "../../components/profile/ProfileScreenReviews";
 import OwnReviews from "../../components/reviews/OwnReviews";
+import EditProfileModal from "./EditProfileModal";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -22,6 +23,9 @@ function UserProfile() {
 		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
 	});
 
+	const [isEditProfileCardClicked, setIsEditProfileCardClicked] =
+		useState(false);
+
 	const profile = useSelector((state) => state.profileReducer.profile);
 
 	const dispatch = useDispatch();
@@ -29,6 +33,10 @@ function UserProfile() {
 		dispatch(getProfile());
 	}, []);
 
+	const openEditProfileModal = (e) => {
+		e.preventDefault();
+		setIsEditProfileCardClicked(true);
+	};
 	const profileTabClick = (e, tabname) => {
 		e.preventDefault();
 
@@ -59,6 +67,12 @@ function UserProfile() {
 	};
 	return (
 		<>
+			{isEditProfileCardClicked && (
+				<EditProfileModal
+					isEditProfileCardClicked={isEditProfileCardClicked}
+					setIsEditProfileCardClicked={setIsEditProfileCardClicked}
+				/>
+			)}
 			{profile && (
 				<div className="h-full">
 					<div className="flex-1 relative z-0 flex overflow-hidden">
@@ -82,7 +96,11 @@ function UserProfile() {
 											<div className="flex">
 												<img
 													className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-													src={profile.avatar && profile.avatar !== "#" ? profile.avatar : "'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'"}
+													src={
+														profile.avatar && profile.avatar !== "#"
+															? profile.avatar
+															: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+													}
 													alt=""
 												/>
 											</div>
@@ -117,8 +135,8 @@ function UserProfile() {
 														/>
 														<span>Call</span>
 													</button> */}
-													<Link
-														to={`/profile/edit`}
+													<div
+														onClick={openEditProfileModal}
 														className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
 													>
 														<PencilIcon
@@ -126,7 +144,7 @@ function UserProfile() {
 															aria-hidden="true"
 														/>
 														<span>Edit Profile</span>
-													</Link>
+													</div>
 												</div>
 											</div>
 										</div>

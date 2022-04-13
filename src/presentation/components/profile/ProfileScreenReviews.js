@@ -41,10 +41,15 @@ function ProfileScreenReviews({ id }) {
 
 					<div className="flow-root">
 						<div className="-my-12 divide-y divide-gray-200">
-							{reviewsList &&
+							{reviewsList && reviewsList.length > 0 ? (
 								reviewsList.map((review) => (
 									<EachReview key={review._id} review={review} />
-								))}
+								))
+							) : (
+								<h1 style={{ fontSize: "32px", fontWeight: "bold" }}>
+									No reviews Yet
+								</h1>
+							)}
 						</div>
 					</div>
 				</div>

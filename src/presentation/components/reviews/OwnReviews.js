@@ -11,6 +11,7 @@ import {
 import EachReview from "../profile/EachReview";
 import ReviewsStatistics from "../profile/ReviewsStatistics";
 import ShareYourThoughts from "../profile/ShareYourThoughts";
+import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
 
 // the whole code below is for review on the profile screen
 function classNames(...classes) {
@@ -22,7 +23,6 @@ function OwnReviews({ id }) {
 		(state) => state.profileReducer.ownReviewsList
 	);
 
-	console.log(reviewsList)
 	const dispatch = useDispatch();
 
 	const reviewsData = useSelector(
@@ -34,6 +34,7 @@ function OwnReviews({ id }) {
 		dispatch(setOwnReviewsData(id));
 	}, []);
 
+	console.log(reviewsList);
 	// const reviewsData
 	return (
 		<div className="bg-white">
@@ -51,10 +52,15 @@ function OwnReviews({ id }) {
 
 					<div className="flow-root">
 						<div className="-my-12 divide-y divide-gray-200">
-							{reviewsList &&
+							{reviewsList && reviewsList.length > 0 ? (
 								reviewsList.map((review) => (
 									<EachReview key={review._id} review={review} />
-								))}
+								))
+							) : (
+								<h1 style={{ fontSize: "32px", fontWeight: "bold" }}>
+									No reviews Yet
+								</h1>
+							)}
 						</div>
 					</div>
 				</div>
