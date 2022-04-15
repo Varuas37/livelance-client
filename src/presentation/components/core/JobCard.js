@@ -67,6 +67,7 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		}
 	}, []);
 
+
 	return (
 		<>
 			{isReadMoreClicked && (

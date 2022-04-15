@@ -28,6 +28,7 @@ import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFr
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
 import MainApi from "../../../repository/MainApi";
 import { groupBy } from "../../helper/groupBy";
+import { groupByForAcceptedJobs } from "../../helper/groupByForAcceptedJobs";
 import { useSelector } from "react-redux";
 
 export const setFreelanceList = () => async (dispatch) => {
@@ -82,20 +83,19 @@ export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 					payload: [],
 				});
 			}
+		} else if (jobStatus === "Accepted") {
+			if (responseJobStatus.data.status.length > 0) {
+				dispatch({
+					type: SET_ACCEPTED_FREELANCE_ID_LIST,
+					payload: groupByForAcceptedJobs(responseJobStatus.data.status),
+				});
+			} else {
+				dispatch({
+					type: SET_ACCEPTED_FREELANCE_ID_LIST,
+					payload: [],
+				});
+			}
 		}
-		// else if (jobStatus === "Accepted") {
-		// 	if (responseJobStatus.data.status.length > 0) {
-		// 		dispatch({
-		// 			type: SET_ACCEPTED_FREELANCE_ID_LIST,
-		// 			payload: groupBy(responseJobStatus.data.status, "status").Accepted,
-		// 		});
-		// 	} else {
-		// 		dispatch({
-		// 			type: SET_ACCEPTED_FREELANCE_ID_LIST,
-		// 			payload: [],
-		// 		});
-		// 	}
-		// }
 	}
 };
 

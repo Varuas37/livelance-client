@@ -2,12 +2,19 @@ import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import MainApi from "../../../repository/MainApi";
+import ViewProfileModal from "../profile/ViewProfileModal";
 
 const CandidateCard = ({ data }) => {
 	let { jobId, status } = useParams();
 
 	const [isOfferBtnClicked, setIsOfferBtnClicked] = useState(false);
 	const [isDenyBtnClicked, setIsDenyBtnClicked] = useState(false);
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
+
+	const openProfileModal = (e) => {
+		e.preventDefault();
+		setIsProfileAvatarClicked(true);
+	};
 
 	useEffect(() => {}, []);
 
@@ -41,6 +48,14 @@ const CandidateCard = ({ data }) => {
 	};
 	return (
 		<>
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data._id}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
+				/>
+			)}
+
 			<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 				<div className="w-full px-10 my-4 py-6 bg-white ">
 					<div className="flex justify-between items-center">
@@ -118,11 +133,16 @@ const CandidateCard = ({ data }) => {
 
 					<div className="flex justify-between items-center mt-4">
 						<div>
-							<a className="flex items-center" href="#">
+							<div className="flex items-center">
 								<img
-									className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-									src={data.avatar !== "#" ? data.avatar : "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"}
+									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+									src={
+										data.avatar !== "#"
+											? data.avatar
+											: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+									}
 									alt="avatar"
+									onClick={(e) => openProfileModal(e)}
 								/>
 								{/* show accept button only for saved, offered, and posted jobs */}
 								{status === "Applied" && (
@@ -170,7 +190,7 @@ const CandidateCard = ({ data }) => {
 								)}
 
 								{/* show reject button only for applied, ongoing, and offered jobs */}
-							</a>
+							</div>
 						</div>
 					</div>
 				</div>

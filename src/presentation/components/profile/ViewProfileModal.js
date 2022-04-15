@@ -14,18 +14,27 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 	// console.log(id);
 	const cancelButtonRef = useRef(null);
 	// const [profile, setProfile] = useState();
-
+	let { status } = useParams();
 	const profile = useSelector((state) => state.profileReducer.viewProfile);
 
 	const modalClick = () => {
 		setIsProfileAvatarClicked(false);
 		setOpen(!open);
 	};
+	const user = useSelector((state) => state.authReducer.user);
 
 	let navigate = useNavigate();
 	const viewCompleteProfile = (e) => {
 		e.preventDefault();
-		navigate(`/viewprofile/${id}`);
+		if (user && user.accountType === "employer") {
+			if (status === "Offered") {
+				navigate(`/viewprofile/${id}`, { state: { reviewMode: "editable" } });
+			} else {
+				navigate(`/viewprofile/${id}`, { state: { reviewMode: "uneditable" } });
+			}
+		} else {
+			navigate(`/viewprofile/${id}`);
+		}
 	};
 
 	let dispatch = useDispatch();
@@ -89,7 +98,11 @@ function ViewProfileModal({ id, setIsProfileAvatarClicked }) {
 											<div>
 												<img
 													className="h-32 w-32"
-													src={profile.avatar && profile.avatar !== "#" ? profile.avatar : 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'}
+													src={
+														profile.avatar && profile.avatar !== "#"
+															? profile.avatar
+															: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+													}
 													alt="Workflow"
 												/>
 											</div>

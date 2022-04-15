@@ -9,6 +9,7 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 import MainApi from "../../../repository/MainApi";
 import Modal from "../core/modal";
+import ViewProfileModal from "../profile/ViewProfileModal";
 import GenericJobDetailModal from "./GenericJobDetailModal";
 
 function GenericJobCard({
@@ -21,6 +22,8 @@ function GenericJobCard({
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
 	const [isSvgClicked, setIsSvgClicked] = useState(false);
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
+
 	let dispatch = useDispatch();
 
 	const descriptionLength = myJobType === "saved" ? 150 : 300;
@@ -52,6 +55,11 @@ function GenericJobCard({
 		} else {
 			//code for unsaving job goes here
 		}
+	};
+
+	const openProfileModal = (e) => {
+		e.preventDefault();
+		setIsProfileAvatarClicked(true);
 	};
 
 	useEffect(() => {
@@ -101,6 +109,7 @@ function GenericJobCard({
 			setIsSvgClicked(true);
 		}
 	}, []);
+	console.log(data);
 	return (
 		<>
 			{isReadMoreClicked && (
@@ -109,6 +118,14 @@ function GenericJobCard({
 					setIsReadMoreClicked={setIsReadMoreClicked}
 					isAppliedJob={isAppliedJob}
 					setIsAppliedJob={setIsAppliedJob}
+				/>
+			)}
+
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data.profileId}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
 				/>
 			)}
 
@@ -278,12 +295,13 @@ function GenericJobCard({
 							</div>
 
 							<div>
-								<a className="flex items-center" href="#">
+								<div className="flex items-center" href="#">
 									{myJobType !== "posted" && (
 										<img
 											className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
 											src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
 											alt="avatar"
+											onClick={(e) => openProfileModal(e)}
 										/>
 									)}
 									{/* show accept button only for saved, offered, and posted jobs */}
@@ -333,7 +351,7 @@ function GenericJobCard({
 												: "Reject"}
 										</button>
 									)}
-								</a>
+								</div>
 							</div>
 						</div>
 					</div>

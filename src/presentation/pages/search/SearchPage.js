@@ -72,7 +72,7 @@ const SearchPage = () => {
 				<SearchAndProfileAvatar />
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
-						<SortOptions />
+						{/* <SortOptions /> */}
 
 						<main className="flex-1">
 							<div className="py-6">

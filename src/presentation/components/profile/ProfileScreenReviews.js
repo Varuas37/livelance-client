@@ -2,6 +2,9 @@
 import { StarIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { setCandidateIdListByStatus } from "../../../application/redux/action/employerActions";
+import { setFreelanceIdListByStatus } from "../../../application/redux/action/freelanceActions";
 import {
 	setReviews,
 	setReviewsData,
@@ -20,7 +23,19 @@ function ProfileScreenReviews({ id }) {
 	const dispatch = useDispatch();
 
 	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
+	const acceptedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.acceptedFreelanceIdList
+	);
 
+	let { state } = useLocation();
+
+	const user = useSelector((state) => state.authReducer.user);
+	useEffect(() => {
+		if (user && user.accountType === "freelancer") {
+			dispatch(setFreelanceIdListByStatus("Accepted"));
+		} else if (user && user.accountType === "employer") {
+		}
+	}, [user]);
 	useEffect(() => {
 		dispatch(setReviews(id));
 		dispatch(setReviewsData(id));
@@ -33,7 +48,11 @@ function ProfileScreenReviews({ id }) {
 				<div className="lg:col-span-4">
 					{reviewsData && <ReviewsStatistics reviewsData={reviewsData} />}
 
-					<ShareYourThoughts />
+					{acceptedFreelanceIdList && acceptedFreelanceIdList.includes(id) && (
+						<ShareYourThoughts />
+					)}
+
+					{state && state.reviewMode === "editable" && <ShareYourThoughts />}
 				</div>
 
 				<div className="mt-16 lg:mt-0 lg:col-start-6 lg:col-span-7">

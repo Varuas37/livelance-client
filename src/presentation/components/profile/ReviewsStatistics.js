@@ -5,7 +5,6 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 const ReviewsStatistics = ({ reviewsData }) => {
-	console.log(reviewsData)
 	return (
 		<>
 			<h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
