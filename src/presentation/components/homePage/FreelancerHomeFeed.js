@@ -23,6 +23,7 @@ function FreelancerHomeFeed() {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		const fetch = async () => {

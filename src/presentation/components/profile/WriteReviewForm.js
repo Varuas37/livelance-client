@@ -35,6 +35,7 @@ const WriteReviewForm = ({ props }) => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		dispatch(submitReview(review));
+
 		// reviewsList.push(review);
 	};
 	return (

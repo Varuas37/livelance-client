@@ -46,8 +46,8 @@ const StaticSidebar = () => {
 			current: false,
 		},
 	]);
+	
 	const user = useSelector((state) => state.authReducer.user);
-
 	useEffect(() => {
 		if (user && user.accountType === "freelancer") {
 			setNavigation(

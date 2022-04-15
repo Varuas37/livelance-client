@@ -51,29 +51,32 @@ function EditProfileModal({ setIsEditProfileCardClicked }) {
 		dispatch(setProfile(editProfile));
 		setOpen(!open);
 		setIsEditProfileCardClicked(false);
-		if (location.pathname === "/home") {
-			if (
-				currentUser &&
-				currentUser.accountType &&
-				currentUser.accountType === "freelancer"
-			) {
-				if (localStorage.LLtoken) {
-					dispatch(setFreelanceIdListByStatus("Applied"));
-					dispatch(setFreelanceIdListByStatus("Saved"));
-					dispatch(setFreelanceList());
-				}
-			} else if (
-				currentUser &&
-				currentUser.accountType &&
-				currentUser.accountType === "employer"
-			) {
-				if (localStorage.LLtoken) {
-					dispatch(setFreelancersListForHomeFeed());
-				}
-			}
-		}
+		// if (location.pathname === "/home") {
+		// 	if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "freelancer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelanceIdListByStatus("Applied"));
+		// 			dispatch(setFreelanceIdListByStatus("Saved"));
+		// 			dispatch(setFreelanceList());
+		// 		}
+		// 	} else if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "employer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelancersListForHomeFeed());
+		// 		}
+		// 	}
+		// }
 		// navigate("/");
 		// navigate(location.pathname);
+		if (location.pathname === "/home") {
+			window.location.reload(false);
+		}
 	};
 
 	const onHandleChange = (e) => {

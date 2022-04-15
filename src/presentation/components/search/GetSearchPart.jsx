@@ -1,21 +1,54 @@
 import React, { useState } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
 
-const GetSearchPart = ({ universalDataList, dataList, setDataList }) => {
+const GetSearchPart = ({
+	universalDataList,
+	dataList,
+	setDataList,
+	accountType,
+}) => {
 	const [searchQueryTyped, setSearchQueryTyped] = useState("");
 
 	const handleKeyPressed = (e) => {
 		e.preventDefault();
-		if (universalDataList) {
-			setDataList(
-				universalDataList.filter(
-					(each) =>
-						each.jobId &&
-						each.jobId.jobTitle
-							.toLowerCase()
-							.includes(searchQueryTyped.toLowerCase())
-				)
-			);
+		if (accountType === "freelancer") {
+			if (universalDataList) {
+				setDataList(
+					universalDataList.filter(
+						(each) =>
+							each.jobId &&
+							each.jobId.jobTitle
+								.toLowerCase()
+								.includes(searchQueryTyped.toLowerCase())
+					)
+				);
+			}
+		} else if (accountType === "employer") {
+			if (universalDataList) {
+				setDataList(
+					universalDataList.filter(
+						(each) =>
+							(each.categories &&
+								each.categories.some((elem) => {
+									if (
+										elem.toLowerCase().includes(searchQueryTyped.toLowerCase())
+									) {
+										return true;
+									}
+									return false;
+								})) ||
+							(each.skills &&
+								each.skills.some((elem) => {
+									if (
+										elem.toLowerCase().includes(searchQueryTyped.toLowerCase())
+									) {
+										return true;
+									}
+									return false;
+								}))
+					)
+				);
+			}
 		}
 	};
 

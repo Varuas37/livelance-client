@@ -23,7 +23,6 @@ import {
 } from "../action/types";
 
 const initialState = {
-	freelancersListForHomePage: [],
 	savedFreelanceList: [],
 	offeredFreelanceList: [],
 	deniedFreelanceList: [],

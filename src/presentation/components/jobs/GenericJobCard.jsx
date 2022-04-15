@@ -109,7 +109,7 @@ function GenericJobCard({
 			setIsSvgClicked(true);
 		}
 	}, []);
-	console.log(data);
+
 	return (
 		<>
 			{isReadMoreClicked && (
