@@ -75,6 +75,13 @@ function UserProfile() {
 			)}
 			{profile && (
 				<div className="h-full">
+					<div className="mt-5 flex-shrink-0 px-4 flex items-center">
+						<img
+							className=" h-8 w-auto"
+							src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+							alt="Workflow"
+						/>
+					</div>
 					<div className="flex-1 relative z-0 flex overflow-hidden">
 						<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
 							<article>
