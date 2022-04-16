@@ -20,12 +20,10 @@ const Offers = () => {
 
 	return (
 		<>
-			{offeredFreelanceList.length > 0 ? (
+			{offeredFreelanceList && (
 				<BrowseOfferedJobs
 					props={{ dataList: offeredFreelanceList, myJobType: "offers" }}
 				/>
-			) : (
-				<SearchAndProfileAvatar />
 			)}
 		</>
 	);

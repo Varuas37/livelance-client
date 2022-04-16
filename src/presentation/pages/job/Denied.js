@@ -16,12 +16,10 @@ const Denied = () => {
 
 	return (
 		<>
-			{deniedFreelanceList.length > 0 ? (
+			{deniedFreelanceList && (
 				<GenericBrowseJob
 					props={{ dataList: deniedFreelanceList, myJobType: "denied" }}
 				/>
-			) : (
-				<SearchAndProfileAvatar />
 			)}
 		</>
 	);

@@ -19,13 +19,16 @@ const SavedJobs = () => {
 
 	return (
 		<>
-			{savedFreelanceList.length > 0 ? (
-				<GenericBrowseJob
-					props={{ dataList: savedFreelanceList, myJobType: "saved" }}
-				/>
-			) : (
-				<SearchAndProfileAvatar />
-			)}
+			{
+				savedFreelanceList && (
+					<GenericBrowseJob
+						props={{ dataList: savedFreelanceList, myJobType: "saved" }}
+					/>
+				)
+				// : (
+				// 	<SearchAndProfileAvatar />
+				// )
+			}
 		</>
 	);
 };

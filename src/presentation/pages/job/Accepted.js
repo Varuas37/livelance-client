@@ -19,12 +19,10 @@ const Accepted = () => {
 
 	return (
 		<>
-			{acceptedFreelanceList.length > 0 ? (
+			{acceptedFreelanceList && (
 				<GenericBrowseJob
 					props={{ dataList: acceptedFreelanceList, myJobType: "accepted" }}
 				/>
-			) : (
-				<SearchAndProfileAvatar />
 			)}
 		</>
 	);

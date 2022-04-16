@@ -5,6 +5,7 @@ import OfferedJobCard from "../freelancer/OfferedJobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceIdListByStatus } from "../../../../application/redux/action/freelanceActions";
 import SearchAndProfileAvatar from "../../appheader/SearchAndProfileAvatar";
+import JobsNavigation from "../JobsNavigation";
 
 function BrowseOfferedJobs({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -87,6 +88,7 @@ function BrowseOfferedJobs({ props }) {
 					setDataList={setCurFreelanceList}
 					accountType={"freelancer"}
 				/>
+				<JobsNavigation />
 
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">

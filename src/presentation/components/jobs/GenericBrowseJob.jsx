@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import GenericJobCard from "./GenericJobCard";
 import NoButtonJobCard from "./freelancer/NoButtonJobCard";
 import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
+// import GetMyJobsNavigation from "../../utils/GetMyJobsNavigation";
+import JobsNavigation from "../../components/jobs/JobsNavigation";
 
 function GenericBrowseJob({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -98,6 +100,7 @@ function GenericBrowseJob({ props }) {
 					accountType={"freelancer"}
 				/>
 
+				<JobsNavigation />
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						<main className="flex-1">

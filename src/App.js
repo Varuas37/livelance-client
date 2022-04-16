@@ -75,7 +75,7 @@ const App = () => {
 					{/* <Sidebar/> */}
 					{isUserAuthenticated && <GetLogo />}
 					<GetSidebar />
-					<GetMyJobsNavigation />
+					{/* <GetMyJobsNavigation /> */}
 					<Routes>
 						{/* TODO: figure out how to get cool avatar  */}
 						<Route exact path="/setAvatar" element={<SetAvatar />} />
