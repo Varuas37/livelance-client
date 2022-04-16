@@ -1,9 +1,27 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
+import JobCard from "../core/JobCard";
+import { useDispatch } from "react-redux";
+import {
+	setFreelanceIdListByStatus,
+	setFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
+import { useSelector } from "react-redux";
+import SortOptions from "../sort/SortOptions";
+import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
+import { checkUser } from "../../../application/redux/action/authActions";
+
+function FreelancerHomeFeed() {
+========
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 import { XIcon } from "@heroicons/react/outline";
 import OfferedJobCard from "../freelancer/OfferedJobCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setFreelanceIdListByStatus } from "../../../../application/redux/action/freelanceActions";
+<<<<<<< HEAD
 
 function BrowseOfferedJobs({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -17,6 +35,30 @@ function BrowseOfferedJobs({ props }) {
 	// useEffect(() => {
 	// 	dispatch(setFreelanceIdListByStatus("Accepted"));
 	// }, []);
+=======
+import SearchAndProfileAvatar from "../../appheader/SearchAndProfileAvatar";
+import JobsNavigation from "../JobsNavigation";
+
+function BrowseOfferedJobs({ props }) {
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [curFreelanceList, setCurFreelanceList] = useState([]);
+	useEffect(() => {
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
+		const fetch = async () => {
+			if (localStorage.LLtoken) {
+				dispatch(setFreelanceIdListByStatus("Applied"));
+				dispatch(setFreelanceIdListByStatus("Saved"));
+				dispatch(setFreelanceList());
+			}
+		};
+		fetch();
+========
+		setCurFreelanceList(props.dataList);
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+	}, []);
+
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 	return (
 		<>
 			<div className="h-screen">
@@ -85,6 +127,17 @@ function BrowseOfferedJobs({ props }) {
 					</Dialog>
 				</Transition.Root>
 
+<<<<<<< HEAD
+=======
+				<SearchAndProfileAvatar
+					universalDataList={props.dataList}
+					dataList={curFreelanceList}
+					setDataList={setCurFreelanceList}
+					accountType={"freelancer"}
+				/>
+				<JobsNavigation />
+
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						<main className="flex-1">
@@ -131,4 +184,12 @@ function BrowseOfferedJobs({ props }) {
 		</>
 	);
 }
+<<<<<<< HEAD
 export default BrowseOfferedJobs;
+=======
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
+export default FreelancerHomeFeed;
+========
+export default BrowseOfferedJobs;
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd

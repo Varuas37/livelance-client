@@ -346,7 +346,7 @@ function LandingPage() {
                                             href="#"
                                             className="w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700"
                                         >
-                                            Sign up
+                                            Shivam Sign Up
                                         </a>
                                         <p className="mt-6 text-center text-base font-medium text-gray-500">
                                             Existing customer?
@@ -588,7 +588,7 @@ function LandingPage() {
                         <div className="relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24">
                             <h2 className="text-sm font-semibold tracking-wide uppercase">
                                 <span className="bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent">
-                                
+
                                 </span>
                             </h2>
                             <p className="mt-3 text-3xl font-extrabold text-white">

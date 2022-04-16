@@ -9,7 +9,7 @@ import {
 	ArrowCircleDownIcon,
 	ChatIcon,
 } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import GetCategoryFields from "./categories/GetCategoryFields";
 
@@ -17,6 +17,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 const StaticSidebar = () => {
+	let navigate = useNavigate();
 	const [navigation, setNavigation] = useState([
 		{ name: "Dashboard", href: "/home", icon: HomeIcon, current: false },
 		{
@@ -46,8 +47,8 @@ const StaticSidebar = () => {
 			current: false,
 		},
 	]);
-	const user = useSelector((state) => state.authReducer.user);
 
+	const user = useSelector((state) => state.authReducer.user);
 	useEffect(() => {
 		if (user && user.accountType === "freelancer") {
 			setNavigation(
@@ -76,12 +77,16 @@ const StaticSidebar = () => {
 			<div className="border-r border-gray-200 pt-5 flex flex-col flex-grow bg-white overflow-y-auto">
 				<div className="flex-shrink-0 px-4 flex items-center">
 					<img
-						className="h-8 w-auto"
-						src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
+						className="cursor-pointer h-8 w-auto"
+						src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
 						alt="Workflow"
+						onClick={(e) => {
+							e.preventDefault();
+							navigate("/home");
+						}}
 					/>
 				</div>
-				<div className="flex-grow mt-5 flex flex-col">
+				<div className="flex-grow mt-10 flex flex-col">
 					<nav className="flex-1 px-2 pb-4 space-y-1">
 						{navigation &&
 							navigation.map((item) => (

@@ -8,7 +8,7 @@ import {
 	SET_APPLIED_FREELANCE_LIST,
 	SET_POSTED_FREELANCE_LIST,
 	SET_CATEGORY_LIST,
-	SET_SEARCH_QUERY_LIST,
+	SET_SEARCH_QUERY_TERM,
 	SET_APPLIED_FREELANCE_ID_LIST,
 	SET_SAVED_FREELANCE_ID_LIST,
 	SET_CANDIDATE_LIST,
@@ -19,11 +19,18 @@ import {
 	SET_DENIED_FREELANCERS_ID_LIST,
 	SET_DENIED_FREELANCE_LIST,
 	SET_ACCEPTED_FREELANCE_ID_LIST,
+<<<<<<< HEAD
 } from "../action/types";
 
 const initialState = {
 	freelanceList: [],
 	freelancersListForHomePage: [],
+=======
+	SET_SEARCH_QUERY_RESULT_FREELANCE_LIST,
+} from "../action/types";
+
+const initialState = {
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 	savedFreelanceList: [],
 	offeredFreelanceList: [],
 	deniedFreelanceList: [],
@@ -35,6 +42,7 @@ const initialState = {
 	postedFreelance: {},
 	categoryList: [],
 	searchQueryList: [],
+	searchQueryResultFreelanceList: [],
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -52,8 +60,13 @@ export default function (state = initialState, action) {
 			return { ...state, appliedFreelanceIdList: payload };
 		case SET_SAVED_FREELANCE_ID_LIST:
 			return { ...state, savedFreelanceIdList: payload };
+<<<<<<< HEAD
 		// case SET_ACCEPTED_FREELANCE_ID_LIST:
 		// 	return { ...state, acceptedFreelanceIdList: payload };
+=======
+		case SET_ACCEPTED_FREELANCE_ID_LIST:
+			return { ...state, acceptedFreelanceIdList: payload };
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 		case SET_FREELANCE_BY_ID:
 			return { ...state, selectedFreelance: payload };
 		case SET_SAVED_FREELANCE_LIST:
@@ -66,14 +79,21 @@ export default function (state = initialState, action) {
 			return { ...state, acceptedFreelanceList: payload };
 		case SET_APPLIED_FREELANCE_LIST:
 			return { ...state, appliedFreelanceList: payload };
+		case SET_SEARCH_QUERY_RESULT_FREELANCE_LIST:
+			return { ...state, searchQueryResultFreelanceList: payload };
 		case SET_POSTED_FREELANCE_LIST:
 			return { ...state, postedFreelanceList: payload };
 		case SET_CANDIDATE_LIST:
 			return { ...state, candidateList: payload };
 		case SET_CATEGORY_LIST:
 			return { ...state, categoryList: payload };
+<<<<<<< HEAD
 		case SET_SEARCH_QUERY_LIST:
 			return { ...state, searchQueryList: payload };
+=======
+		case SET_SEARCH_QUERY_TERM:
+			return { ...state, searchQueryTerm: payload };
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 		case SET_OFFERED_FREELANCERS_ID_LIST:
 			return { ...state, offeredFreelancersIdList: payload };
 		case SET_DENIED_FREELANCERS_ID_LIST:

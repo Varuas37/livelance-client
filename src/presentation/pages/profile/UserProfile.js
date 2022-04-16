@@ -12,6 +12,7 @@ import ProfileBodyPart from "../../components/profile/ProfileBodyPart";
 
 import ProfileScreenReviews from "../../components/profile/ProfileScreenReviews";
 import OwnReviews from "../../components/reviews/OwnReviews";
+import EditProfileModal from "./EditProfileModal";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -22,13 +23,20 @@ function UserProfile() {
 		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
 	});
 
+	const [isEditProfileCardClicked, setIsEditProfileCardClicked] =
+		useState(false);
+
 	const profile = useSelector((state) => state.profileReducer.profile);
 
 	const dispatch = useDispatch();
-	useEffect(() => {		
+	useEffect(() => {
 		dispatch(getProfile());
 	}, []);
 
+	const openEditProfileModal = (e) => {
+		e.preventDefault();
+		setIsEditProfileCardClicked(!isEditProfileCardClicked);
+	};
 	const profileTabClick = (e, tabname) => {
 		e.preventDefault();
 
@@ -59,26 +67,51 @@ function UserProfile() {
 	};
 	return (
 		<>
+			{isEditProfileCardClicked && (
+				<EditProfileModal
+					isEditProfileCardClicked={isEditProfileCardClicked}
+					setIsEditProfileCardClicked={setIsEditProfileCardClicked}
+				/>
+			)}
 			{profile && (
 				<div className="h-full">
+
 					<div className="flex-1 relative z-0 flex overflow-hidden">
+
 						<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
 							<article>
 								{/* Profile header */}
 								<div>
 									<div>
+										<div className=" absolute flex-shrink-0 px-4 flex items-center">
+											<Link to="/home">
+												<img
+													className="mt-5 h-8 w-auto"
+													src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+													alt="Workflow"
+												/>
+											</Link>
+										</div>
 										<img
 											className="h-32 w-full object-cover lg:h-48"
-											src={profile.coverImage && profile.coverImage}
+											src={
+												profile.coverImage !== "#"
+													? profile.coverImage
+													: "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+											}
 											alt=""
 										/>
 									</div>
-									<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+									<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8z ">
 										<div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
 											<div className="flex">
 												<img
 													className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-													src={profile.avatar && profile.avatar}
+													src={
+														profile.avatar && profile.avatar !== "#"
+															? profile.avatar
+															: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+													}
 													alt=""
 												/>
 											</div>
@@ -113,16 +146,16 @@ function UserProfile() {
 														/>
 														<span>Call</span>
 													</button> */}
-													<Link
-														to={`/profile/edit`}
-														className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+													<div
+														onClick={openEditProfileModal}
+														className="inline-flex cursor-pointer justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
 													>
 														<PencilIcon
 															className="-ml-1 mr-2 h-5 w-5 text-gray-400"
 															aria-hidden="true"
 														/>
 														<span>Edit Profile</span>
-													</Link>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -183,8 +216,8 @@ function UserProfile() {
 								{tabs["Reviews"].current && (
 									<OwnReviews
 										id={profile.userProfileId}
-										// reviewsList={reviewsList}
-										// reviewsData={reviewsData}
+									// reviewsList={reviewsList}
+									// reviewsData={reviewsData}
 									/>
 								)}
 							</article>

@@ -10,7 +10,7 @@ const ImageHandler = ({ props }) => {
 		e.preventDefault();
 		const file = e.target.files[0];
 		const url = URL.createObjectURL(file);
-		
+
 		uploadFiles(file);
 	};
 
@@ -65,7 +65,11 @@ const ImageHandler = ({ props }) => {
 							<br />
 							<span>
 								<img
-									src={props.sectionMediaValue[props.columnName]}
+									src={
+										props.sectionMediaValue[props.columnName] !== "#"
+											? props.sectionMediaValue[props.columnName]
+											: "/images/accountPlaceholder.png"
+									}
 									alt=""
 									style={{ width: "128px", height: "128px" }}
 								/>

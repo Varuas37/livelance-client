@@ -10,6 +10,8 @@ const WriteReviewForm = ({ props }) => {
 	const viewProfileId = useSelector(
 		(state) => state.profileReducer.viewProfile.userProfileId
 	);
+	// const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
+
 	const userProfileId = useSelector(
 		(state) => state.authReducer.user.userProfileId
 	);
@@ -25,7 +27,7 @@ const WriteReviewForm = ({ props }) => {
 	});
 	const onHandleChange = (e) => {
 		setReview({
-			...review,			
+			...review,
 			[e.target.name]: e.target.value,
 		});
 	};
@@ -33,6 +35,8 @@ const WriteReviewForm = ({ props }) => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		dispatch(submitReview(review));
+
+		// reviewsList.push(review);
 	};
 	return (
 		<div className="mt-8">

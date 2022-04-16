@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import {
 	applyToJob,
@@ -10,7 +10,7 @@ import JobDetailModal from "../../pages/jobDetail/JobDetailModal";
 import ViewProfileModal from "../profile/ViewProfileModal";
 function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 	let navigate = useNavigate();
-
+	console.log(data);
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
@@ -19,7 +19,7 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		e.preventDefault();
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
-
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const handleApplyClick = async (e, id) => {
 		e.preventDefault();
@@ -106,24 +106,28 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 						)}
 					</div>
 					<div className="mt-2">
-						<a
+						<h3
 							className="text-2xl text-gray-700 font-bold hover:text-gray-600"
 							href="#"
 						>
 							{data.jobTitle}
-						</a>
+						</h3>
 						<p className="mt-2 text-gray-600">
-							{data.jobDescription.length > 150
-								? data.jobDescription.substring(0, 150) + " ....... "
-								: data.jobDescription}
+							{data.jobDescription.length > 150 ? (
+								<>
+									{data.jobDescription.substring(0, 150) + " ....... "}{" "}
+									<span
+										onClick={(e) => handleReadMoreClick(e, data._id)}
+										className="text-blue-600 hover:underline cursor-pointer"
+									>
+										{" "}
+										Read More
+									</span>
+								</>
+							) : (
+								data.jobDescription
+							)}
 
-							<span
-								onClick={(e) => handleReadMoreClick(e, data._id)}
-								className="text-blue-600 hover:underline cursor-pointer"
-							>
-								{" "}
-								Read More
-							</span>
 							{/* {data.jobDescription.length > 150 ? (
 					) : (
 						""
@@ -144,13 +148,15 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 						<h3 className="font-bold text-xs">Skills</h3>
 						{/* <!-- This is the tags / Skills container --> */}
 						<div className="my-1 flex flex-wrap -m-1">
-							{data.skills.map((skill, idx) => (
-								<div key={idx}>
-									<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
-										{skill}
-									</span>
-								</div>
-							))}
+							{
+								data.skills.map((skill, idx) => (
+									<div key={idx}>
+										<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+											{skill}
+										</span>
+									</div>
+								))
+							}
 						</div>
 
 						{data.category && (
@@ -257,7 +263,17 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 							<div className="flex items-center" href="#">
 								<img
 									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-									src={data.postedBy && data.postedBy.avatar}
+									src={
+										location.pathname.includes("/search")
+											? data.postedBy && data.postedBy.avatar
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+											: data.postedBy &&
+												data.postedBy.avatar &&
+												data.postedBy.avatar !== "#"
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+									}
 									alt="avatar"
 									onClick={(e) => openProfileModal(e)}
 								/>

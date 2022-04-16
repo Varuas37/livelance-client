@@ -15,10 +15,9 @@ import {
 	SET_OWN_PROFILE_REVIEWS_DATA,
 } from "./types";
 
-const token = localStorage.LLtoken;
-const AuthStr = "Bearer ".concat(token);
-
 export const getProfile = () => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/profile/current`, {
 			headers: { Authorization: AuthStr },
@@ -42,6 +41,9 @@ export const getProfile = () => async (dispatch) => {
 };
 
 export const setProfile = (profile) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
+
 	try {
 		const response = await MainApi.put(
 			"/profile",
@@ -61,7 +63,6 @@ export const setProfile = (profile) => async (dispatch) => {
 				headers: { Authorization: AuthStr },
 			}
 		);
-		// console.log(response);
 		if (response.status === 200 || response.status === 201) {
 			dispatch({ type: SET_PROFILE, payload: response.data.profile });
 			return true;
@@ -73,6 +74,8 @@ export const setProfile = (profile) => async (dispatch) => {
 	}
 };
 export const setViewProfile = (id) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/profile/${id}`, {
 			headers: { Authorization: AuthStr },
@@ -93,6 +96,8 @@ export const editAndSetProfile = (profile) => async (dispatch) => {
 };
 
 export const setOwnReviews = (id) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/review/${id}`, {
 			headers: { Authorization: AuthStr },
@@ -109,6 +114,8 @@ export const setOwnReviews = (id) => async (dispatch) => {
 	}
 };
 export const setReviews = (profileId) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/review/${profileId}`, {
 			headers: { Authorization: AuthStr },
@@ -122,6 +129,8 @@ export const setReviews = (profileId) => async (dispatch) => {
 	}
 };
 export const setOwnReviewsData = (id) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/review/${id}/summary`, {
 			headers: { Authorization: AuthStr },
@@ -138,6 +147,8 @@ export const setOwnReviewsData = (id) => async (dispatch) => {
 	}
 };
 export const setReviewsData = (id) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const response = await MainApi.get(`/review/${id}/summary`, {
 			headers: { Authorization: AuthStr },
@@ -151,6 +162,8 @@ export const setReviewsData = (id) => async (dispatch) => {
 	}
 };
 export const submitReview = (review) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+	const AuthStr = "Bearer ".concat(token);
 	try {
 		const token = localStorage.LLtoken;
 		const AuthStr = "Bearer ".concat(token);
@@ -172,7 +185,8 @@ export const submitReview = (review) => async (dispatch) => {
 		);
 
 		if (response.status === 200 || response.status === 201) {
-			alert("successful!");
+			dispatch(setReviews(review.profileId));
+			dispatch(setReviewsData(review.profileId));
 		}
 	} catch (err) {
 		alert("Unsuccessful!");

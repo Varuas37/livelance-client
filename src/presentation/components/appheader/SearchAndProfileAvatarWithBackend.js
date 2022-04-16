@@ -2,15 +2,10 @@ import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuAlt2Icon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
-import GetSearchPart from "../../components/search/GetSearchPart";
+import GetSearchPartWithBackend from "../search/GetSearchPartWithBackend";
 import { useSelector } from "react-redux";
 
-const SearchAndProfileAvatar = ({
-	universalDataList,
-	dataList,
-	setDataList,
-	accountType,
-}) => {
+const SearchAndProfileAvatarWithBackend = () => {
 	const userNavigation = [
 		{ name: "Your Profile", href: "/profile" },
 		// { name: "Settings", href: "/settings" },
@@ -25,7 +20,7 @@ const SearchAndProfileAvatar = ({
 	}
 
 	const [sidebarOpen, setSidebarOpen] = useState(false);
-
+	const user = useSelector((state) => state.authReducer.user);
 	const profile = useSelector((state) => state.authReducer.user);
 
 	return (
@@ -42,12 +37,7 @@ const SearchAndProfileAvatar = ({
 							<MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
 						</button>
 						<div className="flex-1 flex justify-between px-4 md:px-0">
-							<GetSearchPart
-								universalDataList={universalDataList}
-								dataList={dataList}
-								setDataList={setDataList}
-								accountType={accountType}
-							/>
+							<GetSearchPartWithBackend />
 
 							<div className="ml-4 flex items-center md:ml-6">
 								{/* <button
@@ -111,4 +101,4 @@ const SearchAndProfileAvatar = ({
 	);
 };
 
-export default SearchAndProfileAvatar;
+export default SearchAndProfileAvatarWithBackend;

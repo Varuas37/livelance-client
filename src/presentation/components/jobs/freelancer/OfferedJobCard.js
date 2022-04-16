@@ -9,10 +9,18 @@ import {
 	setFreelanceById,
 } from "../../../../application/redux/action/freelanceActions";
 import MainApi from "../../../../repository/MainApi";
+<<<<<<< HEAD
+=======
+import ViewProfileModal from "../../profile/ViewProfileModal";
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 // import GenericJobDetailModal from "./GenericJobDetailModal";
 
 function OfferedJobCard({ data, myJobType }) {
 	const [listerName, setListerName] = useState("");
+<<<<<<< HEAD
+=======
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 
 	const [isAcceptBtnClicked, setIsAcceptBtnClicked] = useState(false);
 	let dispatch = useDispatch();
@@ -82,6 +90,17 @@ function OfferedJobCard({ data, myJobType }) {
 				/>
 			)} */}
 
+<<<<<<< HEAD
+=======
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data.jobId.postedBy}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
+				/>
+			)}
+
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 			{data.jobId && (
 				<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 					<div className="w-full px-10 my-4 py-6 bg-white ">
@@ -251,7 +270,15 @@ function OfferedJobCard({ data, myJobType }) {
 								<div className="flex items-center" href="#">
 									<img
 										className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+<<<<<<< HEAD
 										src={data.postedBy && data.postedBy.avatar}
+=======
+										src={
+											data.postedBy && data.postedBy.avatar !== "#"
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+										}
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 										alt="avatar"
 									/>
 									{isAcceptBtnClicked ? (

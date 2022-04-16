@@ -1,56 +1,35 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SearchIcon } from "@heroicons/react/solid";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	searchQueries,
+	searchQueryAndSetResultFreelanceList,
+	setSearchTermsList,
+} from "../../../application/redux/action/freelanceActions";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const GetSearchPart = ({
-	universalDataList,
-	dataList,
-	setDataList,
-	accountType,
-}) => {
+const GetSearchPartWithBackend = () => {
+	let navigate = useNavigate();
 	const [searchQueryTyped, setSearchQueryTyped] = useState("");
+
+	let { query } = useParams();
+
+	let dispatch = useDispatch();
 
 	const handleKeyPressed = (e) => {
 		e.preventDefault();
-		if (accountType === "freelancer") {
-			if (universalDataList) {
-				setDataList(
-					universalDataList.filter(
-						(each) =>
-							each.jobId &&
-							each.jobId.jobTitle
-								.toLowerCase()
-								.includes(searchQueryTyped.toLowerCase())
-					)
-				);
-			}
-		} else if (accountType === "employer") {
-			if (universalDataList) {
-				setDataList(
-					universalDataList.filter(
-						(each) =>
-							(each.categories &&
-								each.categories.some((elem) => {
-									if (
-										elem.toLowerCase().includes(searchQueryTyped.toLowerCase())
-									) {
-										return true;
-									}
-									return false;
-								})) ||
-							(each.skills &&
-								each.skills.some((elem) => {
-									if (
-										elem.toLowerCase().includes(searchQueryTyped.toLowerCase())
-									) {
-										return true;
-									}
-									return false;
-								}))
-					)
-				);
-			}
+		if (e.key === "Enter") {
+			navigate(`/search/${searchQueryTyped}`);
+			dispatch(searchQueryAndSetResultFreelanceList(searchQueryTyped));
 		}
 	};
+
+	useEffect(() => {
+		if (query) {
+			setSearchQueryTyped(query);
+		}
+	}, []);
 
 	return (
 		<>
@@ -81,4 +60,4 @@ const GetSearchPart = ({
 	);
 };
 
-export default GetSearchPart;
+export default GetSearchPartWithBackend;

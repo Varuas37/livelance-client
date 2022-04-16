@@ -1,31 +1,22 @@
 import { Fragment, useEffect, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import {
-	BellIcon,
-	HomeIcon,
-	MenuAlt2Icon,
-	XIcon,
-	BriefcaseIcon,
-} from "@heroicons/react/outline";
-import { SearchIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
-import JobCard from "../../components/core/JobCard";
-import Modal from "../../components/core/modal";
-
-import { useDispatch } from "react-redux";
-import {
-	setFreelanceById,
-	setFreelanceList,
-} from "../../../application/redux/action/freelanceActions";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
 import { useSelector } from "react-redux";
-import { dummyFreelanceList } from "../../../repository/dummyFreelanceList";
-import { SET_FREELANCE_LIST } from "../../../application/redux/action/types";
 import GenericJobCard from "./GenericJobCard";
+<<<<<<< HEAD
 import OfferedJobCard from "./freelancer/OfferedJobCard";
 import NoButtonJobCard from "./freelancer/NoButtonJobCard";
+=======
+import NoButtonJobCard from "./freelancer/NoButtonJobCard";
+import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
+// import GetMyJobsNavigation from "../../utils/GetMyJobsNavigation";
+import JobsNavigation from "../../components/jobs/JobsNavigation";
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 
 function GenericBrowseJob({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [curFreelanceList, setCurFreelanceList] = useState([]);
+
 	const appliedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.appliedFreelanceIdList
 	);
@@ -33,6 +24,13 @@ function GenericBrowseJob({ props }) {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
+<<<<<<< HEAD
+=======
+	useEffect(() => {
+		setCurFreelanceList(props.dataList);
+	}, []);
+
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 	const { myJobType } = props;
 
 	return (
@@ -103,6 +101,14 @@ function GenericBrowseJob({ props }) {
 					</Dialog>
 				</Transition.Root>
 
+				<SearchAndProfileAvatar
+					universalDataList={props.dataList}
+					dataList={curFreelanceList}
+					setDataList={setCurFreelanceList}
+					accountType={"freelancer"}
+				/>
+
+				<JobsNavigation />
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						<main className="flex-1">
@@ -120,18 +126,27 @@ function GenericBrowseJob({ props }) {
 											{/* <Modal /> */}
 											{appliedFreelanceIdList &&
 												savedFreelanceIdList &&
+<<<<<<< HEAD
 												props.dataList &&
 												props.dataList.map((eachFreelance) => {
 													return myJobType === "denied" ||
 														myJobType === "accepted" ? (
 														<NoButtonJobCard
 															key={eachFreelance._id}
+=======
+												curFreelanceList &&
+												curFreelanceList.map((eachFreelance, idx) => {
+													return myJobType === "denied" ||
+														myJobType === "accepted" ? (
+														<NoButtonJobCard
+															key={idx}
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 															data={eachFreelance}
 															myJobType={props.myJobType}
 														/>
 													) : (
 														<GenericJobCard
-															key={eachFreelance._id}
+															key={idx}
 															data={eachFreelance}
 															myJobType={props.myJobType}
 															appliedFreelanceIdList={

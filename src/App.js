@@ -45,6 +45,11 @@ import ViewProfile from "./presentation/pages/profile/ViewProfile";
 import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
 import HomeFeed from "./presentation/pages/home/HomeFeed";
 import Accepted from "./presentation/pages/job/Accepted";
+<<<<<<< HEAD
+=======
+import SignOut from "./presentation/pages/SignOut";
+import GetLogo from "./presentation/components/appheader/GetLogo";
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -70,8 +75,9 @@ const App = () => {
 					{/* <StaticSidebar /> */}
 
 					{/* <Sidebar/> */}
+					{isUserAuthenticated && <GetLogo />}
 					<GetSidebar />
-					<GetMyJobsNavigation />
+					{/* <GetMyJobsNavigation /> */}
 					<Routes>
 
 						{/*messenger page old ver*/}
@@ -101,8 +107,8 @@ const App = () => {
 							element={isUserAuthenticated ? <HomeFeed /> : <SignIn />}
 						/>
 
-						<Route exact path="/search" element={<SearchPage />} />
-						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
+						<Route exact path="/search/:query" element={<SearchPage />} />
+						<Route exact path="/home/sort/:sortterm" element={<SortPage />} />
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />
@@ -127,6 +133,7 @@ const App = () => {
 						<Route exact path="/myjobs/applied" element={<Applied />} />
 						<Route exact path="/postedjobs" element={<PostedJobs />} />
 						<Route exact path="/postjob" element={<PostJobModal />} />
+						<Route exact path="/signout" element={<SignOut />} />
 					</Routes>
 				</Fragment>
 			</PersistGate>

@@ -95,6 +95,7 @@ export const setCandidateList = (jobId, status) => async (dispatch) => {
 				payload: response.data.candidates,
 			});
 		}
+<<<<<<< HEAD
 		// if (status === "Applied") {
 		// 	if (response.status === 200 || response.status === 201) {
 		// 		dispatch({
@@ -129,10 +130,13 @@ export const setCandidateList = (jobId, status) => async (dispatch) => {
 		// 		});
 		// 	}
 		// }
+=======
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 	} catch (err) {
 		console.log(err);
 	}
 };
+<<<<<<< HEAD
 
 export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 	const token = localStorage.LLtoken;
@@ -172,3 +176,5 @@ export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
 		}
 	}
 };
+=======
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd

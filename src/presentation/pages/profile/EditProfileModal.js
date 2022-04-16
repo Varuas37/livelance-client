@@ -1,9 +1,13 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
+import {
+	setFreelanceById,
+	setFreelanceIdListByStatus,
+	setFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
 import {
 	editAndSetProfile,
 	getProfile,
@@ -11,8 +15,9 @@ import {
 } from "../../../application/redux/action/profileActions";
 import HandleSkills from "../../components/profile/HandleSkills";
 import ImageHandler from "../../utils/ImageHandler";
+import { setFreelancersListForHomeFeed } from "../../../application/redux/action/employerActions";
 
-function EditProfileModal() {
+function EditProfileModal({ setIsEditProfileCardClicked }) {
 	const [open, setOpen] = useState(true);
 	const [editProfile, setEditProfile] = useState({});
 	const [payAmount, setPayAmount] = useState("0");
@@ -22,6 +27,8 @@ function EditProfileModal() {
 
 	const profile = useSelector((state) => state.profileReducer.profile);
 	const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.authReducer.user);
+
 	useEffect(() => {
 		setEditProfile(profile);
 		const payRange = profile && profile.fields && profile.fields.PayRange;
@@ -38,11 +45,38 @@ function EditProfileModal() {
 		dispatch(getProfile());
 	}, []);
 
+	const location = useLocation();
 	const saveButtonClicked = (e) => {
 		e.preventDefault();
 		dispatch(setProfile(editProfile));
 		setOpen(!open);
-		navigate(`/profile`);
+		setIsEditProfileCardClicked(false);
+		// if (location.pathname === "/home") {
+		// 	if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "freelancer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelanceIdListByStatus("Applied"));
+		// 			dispatch(setFreelanceIdListByStatus("Saved"));
+		// 			dispatch(setFreelanceList());
+		// 		}
+		// 	} else if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "employer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelancersListForHomeFeed());
+		// 		}
+		// 	}
+		// }
+		// navigate("/");
+		// navigate(location.pathname);
+		if (location.pathname === "/home") {
+			window.location.reload(false);
+		}
 	};
 
 	const onHandleChange = (e) => {
@@ -85,7 +119,8 @@ function EditProfileModal() {
 	let navigate = useNavigate();
 	const modalClick = () => {
 		setOpen(!open);
-		navigate(`/profile`);
+		// navigate(`/profile`);
+		setIsEditProfileCardClicked(false);
 	};
 
 	return (
@@ -131,7 +166,7 @@ function EditProfileModal() {
 									<div className="mt-3  sm:mt-5">
 										<Dialog.Title
 											as="h3"
-											className="text-lg text-center leading-6 font-medium text-gray-900"
+											className="cursor-pointer text-lg text-center leading-6 font-medium text-gray-900"
 										>
 											Edit Profile
 										</Dialog.Title>
@@ -218,7 +253,8 @@ function EditProfileModal() {
 																	Gender
 																</label>
 																<div className="mt-1">
-																	<input
+																	<select
+																		id="gender"
 																		name="gender"
 																		value={
 																			editProfile.gender
@@ -226,10 +262,15 @@ function EditProfileModal() {
 																				: ""
 																		}
 																		onChange={(e) => onHandleChange(e)}
-																		type="text"
-																		required
 																		className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																	/>
+																	>
+																		<option value="" disabled>
+																			Select
+																		</option>
+																		<option value="Man">Man</option>
+																		<option value="Woman">Woman</option>
+																		<option value="Other">Other</option>
+																	</select>
 																</div>
 															</div>
 														</div>
@@ -279,132 +320,26 @@ function EditProfileModal() {
 																/>
 															</div>
 														</div>
-														{/* <div>
-															<label
-																htmlFor="Title"
-																className="block text-sm font-medium text-gray-700"
-															>
-																Title
-															</label>
-															<div className="mt-1">
-																<input
-																	id="Title"
-																	name="Title"
-																	type="Title"
-																	onChange={(e) => onHandleChange(e)}
-																	value={
-																		editProfile.fields &&
-																		editProfile.fields.Title
-																			? editProfile.fields.Title
-																			: ""
-																	}
-																	autoComplete="Title"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div> */}
-														{/* <div>
-															<label
-																htmlFor="Location"
-																className="block text-sm font-medium text-gray-700"
-															>
-																Location
-															</label>
-															<div className="mt-1">
-																<input
-																	id="Location"
-																	name="Location"
-																	type="text"
-																	onChange={(e) => onHandleChange(e)}
-																	value={
-																		editProfile &&
-																		editProfile.fields &&
-																		editProfile.fields.Location
-																			? editProfile.fields.Location
-																			: ""
-																	}
-																	autoComplete="Location"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div> */}
-														{/* <div>
-															<label
-																htmlFor="ZipCode"
-																className="block text-sm font-medium text-gray-700"
-															>
-																ZipCode
-															</label>
-															<div className="mt-1">
-																<input
-																	id="ZipCode"
-																	name="ZipCode"
-																	type="text"
-																	onChange={(e) => onHandleChange(e)}
-																	value={
-																		editProfile.fields &&
-																		editProfile.fields.ZipCode
-																			? editProfile.fields.ZipCode
-																			: ""
-																	}
-																	autoComplete="ZipCode"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-															</div>
-														</div> */}
-														{/* <div>
-															<label
-																htmlFor="PayRange"
-																className="block text-sm font-medium text-gray-700"
-															>
-																PayRange
-															</label>
-															<div className="mt-1">
-																<input
-																	id="PayAmount"
-																	name="PayAmount"
-																	type="text"
-																	onChange={(e) => onHandleChange(e)}
-																	value={payAmount}
-																	autoComplete="PayAmount"
-																	required
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
-																<label className="block text-sm font-sm text-gray-700">
-																	Per
-																</label>
-																<select
-																	id="period"
-																	name="period"
-																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																	value={payPeriod}
-																	onChange={(e) => onHandleChange(e)}
-																>
-																	<option value="hr">hr</option>
-																	<option value="day">day</option>
-																	<option value="week">week</option>
-																</select>
-															</div>
-														</div> */}
 
-														<>
-															<label
-																htmlFor="PayRange"
-																className="block text-sm font-medium text-gray-700"
-															>
-																Skills
-															</label>
-															<HandleSkills
-																props={{
-																	mutableObject: editProfile,
-																	setMutableObject: setEditProfile,
-																	field: "skills",
-																}}
-															/>
-														</>
+														{currentUser &&
+															currentUser.accountType &&
+															currentUser.accountType !== "employer" && (
+																<>
+																	<label
+																		htmlFor="PayRange"
+																		className="block text-sm font-medium text-gray-700"
+																	>
+																		Skills
+																	</label>
+																	<HandleSkills
+																		props={{
+																			mutableObject: editProfile,
+																			setMutableObject: setEditProfile,
+																			field: "skills",
+																		}}
+																	/>
+																</>
+															)}
 														<>
 															<label
 																htmlFor="PayRange"

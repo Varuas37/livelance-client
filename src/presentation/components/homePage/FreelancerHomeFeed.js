@@ -1,5 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
+=======
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 import JobCard from "../core/JobCard";
 import { useDispatch } from "react-redux";
 import {
@@ -8,8 +12,29 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 import { useSelector } from "react-redux";
 import SortOptions from "../sort/SortOptions";
+<<<<<<< HEAD
 import SearchAndProfileAvatar from "../appheader/SearchAndProfileAvatar";
 import { checkUser } from "../../../application/redux/action/authActions";
+
+function FreelancerHomeFeed() {
+========
+import { XIcon } from "@heroicons/react/outline";
+import OfferedJobCard from "../freelancer/OfferedJobCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setFreelanceIdListByStatus } from "../../../../application/redux/action/freelanceActions";
+import SearchAndProfileAvatar from "../../appheader/SearchAndProfileAvatar";
+import JobsNavigation from "../JobsNavigation";
+
+function BrowseOfferedJobs({ props }) {
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [curFreelanceList, setCurFreelanceList] = useState([]);
+	useEffect(() => {
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
+=======
+import SearchAndProfileAvatarWithBackend from "../appheader/SearchAndProfileAvatarWithBackend";
+import CardCompleteYourProfile from "./CardCompleteYourProfile";
+import Banner from "../banner/Banner";
 
 function FreelancerHomeFeed() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,9 +48,10 @@ function FreelancerHomeFeed() {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
-	const dispatch = useDispatch();
 
+	const dispatch = useDispatch();
 	useEffect(() => {
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 		const fetch = async () => {
 			if (localStorage.LLtoken) {
 				dispatch(setFreelanceIdListByStatus("Applied"));
@@ -34,6 +60,12 @@ function FreelancerHomeFeed() {
 			}
 		};
 		fetch();
+<<<<<<< HEAD
+========
+		setCurFreelanceList(props.dataList);
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+=======
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 	}, []);
 
 	return (
@@ -45,8 +77,8 @@ function FreelancerHomeFeed() {
 						className="fixed inset-0 z-40 flex md:hidden"
 						onClose={setSidebarOpen}
 					>
-						{/* Commenting Transition.Child below for testing */}
-						{/* <Transition.Child
+<<<<<<< HEAD
+						<Transition.Child
 							as={Fragment}
 							enter="transition-opacity ease-linear duration-300"
 							enterFrom="opacity-0"
@@ -56,10 +88,8 @@ function FreelancerHomeFeed() {
 							leaveTo="opacity-0"
 						>
 							<Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
-						</Transition.Child> */}
-
-						{/* Commenting Transition.Child below for testing */}
-						{/* <Transition.Child
+						</Transition.Child>
+						<Transition.Child
 							as={Fragment}
 							enter="transition ease-in-out duration-300 transform"
 							enterFrom="-translate-x-full"
@@ -99,51 +129,33 @@ function FreelancerHomeFeed() {
 										alt="Workflow"
 									/>
 								</div>
-								<div className="mt-5 flex-1 h-0 overflow-y-auto">
-									<nav className="px-2 space-y-1">
-										{navigation.map((item) => (
-											<Link
-												key={item.name}
-												to={item.href}
-												className={classNames(
-													item.current
-														? "bg-gray-100 text-gray-900"
-														: "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-													"group rounded-md py-2 px-2 flex items-center text-base font-medium"
-												)}
-											>
-												<item.icon
-													className={classNames(
-														item.current
-															? "text-gray-500"
-															: "text-gray-400 group-hover:text-gray-500",
-														"mr-4 flex-shrink-0 h-6 w-6"
-													)}
-													aria-hidden="true"
-												/>
-												{item.name}
-											</Link>
-										))}
-									</nav>
-								</div>
 							</div>
-						</Transition.Child> */}
+						</Transition.Child>
+=======
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 						<div className="flex-shrink-0 w-14">
 							{/* Dummy element to force sidebar to shrink to fit close icon */}
 						</div>
 					</Dialog>
 				</Transition.Root>
+<<<<<<< HEAD
 
-				<SearchAndProfileAvatar />
+				<SearchAndProfileAvatar
+					universalDataList={props.dataList}
+					dataList={curFreelanceList}
+					setDataList={setCurFreelanceList}
+					accountType={"freelancer"}
+				/>
+				<JobsNavigation />
+
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
-						<SortOptions />
-
 						<main className="flex-1">
 							<div className="py-6">
 								{/* <div className="px-4 sm:px-6 md:px-0">
                                     <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
                                 </div> */}
+
 								<div className="px-4 sm:px-6 md:px-0">
 									{/* Start putting items*/}
 									<ul role="list" className="space-y-3 mt-10">
@@ -151,9 +163,40 @@ function FreelancerHomeFeed() {
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
+											{
+												// acceptedFreelanceIdList &&
+												props.dataList &&
+													props.dataList.map((eachFreelance) => {
+														return (
+															<OfferedJobCard
+																key={eachFreelance._id}
+																data={eachFreelance}
+																myJobType={props.myJobType}
+																// acceptedFreelanceIdList = {acceptedFreelanceIdList}
+															/>
+														);
+													})
+											}
+=======
+				<SearchAndProfileAvatarWithBackend />
+				<div className="md:pl-64">
+					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
+						<span className="mt-10"></span>
+						<SortOptions />
+						<main className="flex-1">
+							<div className="py-6">
+
+								<div className="px-4 sm:px-6 md:px-0">
+									{/* Start putting items*/}
+									<ul role="list" className="space-y-3 mt-5 mb-5">
+										{/* For the list of Jobs Map the JobCard Here */}
+										<div className="bg-white overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
+											{/* Just for illustration. All these will come from database. */}
+											{/* <Modal /> */}
 											{appliedFreelanceIdList &&
 												savedFreelanceIdList &&
 												freelanceList &&
+												freelanceList.length > 0 ? (
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
@@ -165,7 +208,11 @@ function FreelancerHomeFeed() {
 															savedFreelanceIdList={savedFreelanceIdList.Saved}
 														/>
 													);
-												})}
+												})
+											) : (
+												<CardCompleteYourProfile />
+											)}
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
 
 											{/* {listofdata.map((data) => <>
                                                 <JobCard data={data} />
@@ -183,4 +230,12 @@ function FreelancerHomeFeed() {
 		</>
 	);
 }
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/presentation/components/homePage/FreelancerHomeFeed.js
 export default FreelancerHomeFeed;
+========
+export default BrowseOfferedJobs;
+>>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd:src/presentation/components/jobs/freelancer/BrowseOfferedJobs.js
+=======
+export default FreelancerHomeFeed;
+>>>>>>> 136ff2e52a86e0c019e985bdfbc1942c0ba135fd
