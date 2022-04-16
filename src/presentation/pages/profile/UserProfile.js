@@ -35,7 +35,7 @@ function UserProfile() {
 
 	const openEditProfileModal = (e) => {
 		e.preventDefault();
-		setIsEditProfileCardClicked(true);
+		setIsEditProfileCardClicked(!isEditProfileCardClicked);
 	};
 	const profileTabClick = (e, tabname) => {
 		e.preventDefault();
