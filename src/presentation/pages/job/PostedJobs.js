@@ -5,14 +5,12 @@ import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileA
 import ViewProfile from "../profile/ViewProfile";
 
 const PostedJobs = () => {
-	
+
 	return (
 		<>
 			<SearchAndProfileAvatar />
-
 			<PostJob />
 			<BrowsePostedJobs />
-			
 		</>
 	);
 };

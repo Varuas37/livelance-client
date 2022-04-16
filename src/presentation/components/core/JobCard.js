@@ -148,13 +148,15 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 						<h3 className="font-bold text-xs">Skills</h3>
 						{/* <!-- This is the tags / Skills container --> */}
 						<div className="my-1 flex flex-wrap -m-1">
-							{data.skills.map((skill, idx) => (
-								<div key={idx}>
-									<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
-										{skill}
-									</span>
-								</div>
-							))}
+							{
+								data.skills.map((skill, idx) => (
+									<div key={idx}>
+										<span className="m-1 bg-indigo-200 hover:bg-indigo-300 rounded-full px-2 font-bold text-sm leading-loose cursor-pointer">
+											{skill}
+										</span>
+									</div>
+								))
+							}
 						</div>
 
 						{data.category && (
@@ -267,10 +269,10 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 												? data.postedBy.avatar
 												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
 											: data.postedBy &&
-											  data.postedBy.avatar &&
-											  data.postedBy.avatar !== "#"
-											? data.postedBy.avatar
-											: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+												data.postedBy.avatar &&
+												data.postedBy.avatar !== "#"
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
 									}
 									alt="avatar"
 									onClick={(e) => openProfileModal(e)}

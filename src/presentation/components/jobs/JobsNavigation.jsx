@@ -4,12 +4,13 @@ import "../../styling/jobsNavigationStyle.css";
 
 const JobsNavigation = (props) => {
 	return (
-		<div>
-			<ul className="labNavList">
+		<div className="mt-10 items-baseline ">
+			{/* space-x-4 */}
+			<ul className="max-w-5xl flex justify-end space-x-8">
 				<li>
 					<NavLink
 						className={({ isActive }) =>
-							isActive ? "selected" : "nonSelected"
+							isActive ? "selected m-1 px-4 py-2 bg-indigo-200 hover:bg-indigo-300 rounded-full font-bold text-sm leading-loose cursor-pointer " : "nonSelected"
 						}
 						id="labNavLink"
 						to={`/myjobs/saved`}
@@ -20,7 +21,7 @@ const JobsNavigation = (props) => {
 				<li>
 					<NavLink
 						className={({ isActive }) =>
-							isActive ? "selected" : "nonSelected"
+							isActive ? "selected m-1 px-4 py-2 bg-indigo-200 hover:bg-indigo-300 rounded-full font-bold text-sm leading-loose cursor-pointer " : "nonSelected"
 						}
 						id="labNavLink"
 						to={`/myjobs/applied`}
@@ -31,7 +32,7 @@ const JobsNavigation = (props) => {
 				<li>
 					<NavLink
 						className={({ isActive }) =>
-							isActive ? "selected" : "nonSelected"
+							isActive ? "selected m-1 px-4 py-2 bg-indigo-200 hover:bg-indigo-300 rounded-full font-bold text-sm leading-loose cursor-pointer " : "nonSelected"
 						}
 						id="labNavLink"
 						to={`/myjobs/offers`}
@@ -42,7 +43,7 @@ const JobsNavigation = (props) => {
 				<li>
 					<NavLink
 						className={({ isActive }) =>
-							isActive ? "selected" : "nonSelected"
+							isActive ? "selected m-1 px-4 py-2 bg-indigo-200 hover:bg-indigo-300 rounded-full font-bold text-sm leading-loose cursor-pointer " : "nonSelected"
 						}
 						id="labNavLink"
 						to={`/myjobs/denied`}
@@ -53,7 +54,7 @@ const JobsNavigation = (props) => {
 				<li>
 					<NavLink
 						className={({ isActive }) =>
-							isActive ? "selected" : "nonSelected"
+							isActive ? "selected m-1 px-4 py-2 bg-indigo-200 hover:bg-indigo-300 rounded-full font-bold text-sm leading-loose cursor-pointer " : "nonSelected"
 						}
 						id="labNavLink"
 						to={`/myjobs/accepted`}
