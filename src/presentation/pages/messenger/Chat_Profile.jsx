@@ -8,18 +8,28 @@ import ChatContainer from "../../components/messenger/ChatContainer";
 import Contacts from "../../components/messenger/Contacts";
 import Welcome from "../../components/messenger/Welcome";
 
-import { allUsersRoute, host } from "../../../presentation/utils/APIRoutes";
+import { allUsersRoute, host } from "../../../presentation/utils/APIRoutes"
 
 export default function Chat() {
   const navigate = useNavigate();
   const socket = useRef();
   const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
+  //const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-  //const [currentUser, setCurrentUser] = useState(undefined);
-  //const currentUser = "624a011ddf00bf27080fc4ef"
 
-  //624a011ddf00bf27080fc4ef
+
+  var test_id = '623f312a3a310a16d0c28f1a'
+
+  const values = {
+    email: localStorage.getItem("Name"),
+    _id: localStorage.getItem("._id")
+  }
+
+  //localStorage.getItem(process.env.REACT_APP_PROFILE_KEY)
+
+
+  const currentChat = values
+
   useEffect(async () => {
     // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
     //   navigate("/signin");
@@ -52,14 +62,14 @@ export default function Chat() {
 
 
 
-  const handleChatChange = (chat) => {
-    setCurrentChat(chat);
-  };
+  //  const handleChatChange = (chat) => {
+  //   setCurrentChat(chat);
+  // };
   return (
     <>
       <Container>
         <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
+
           {currentChat === undefined ? (
             <Welcome />
           ) : (
@@ -84,7 +94,7 @@ const Container = styled.div`
     height: 100vh;
     background-color: #00000076;
     display: grid;
-    grid-template-columns: 25% 75%;
+    
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
     }

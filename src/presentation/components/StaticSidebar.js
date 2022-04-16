@@ -42,7 +42,7 @@ const StaticSidebar = () => {
 			name: "Chats",
 
 			// put your route below
-			href: "/coolchat",
+			href: "/messenger",
 			icon: ChatIcon,
 			current: false,
 		},

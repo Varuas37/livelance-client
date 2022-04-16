@@ -72,10 +72,15 @@ export const setViewProfile = (id) => async (dispatch) => {
 			headers: { Authorization: AuthStr },
 		});
 		dispatch({ type: SET_VIEW_PROFILE, payload: response.data.profile });
+
+		localStorage.setItem("._id", response.data.profile.userId);
+		localStorage.setItem("Name", response.data.profile.firstName);
+
 	} catch (err) {
 		console.log(err.message);
 	}
 };
+
 
 export const editAndSetProfile = (profile) => async (dispatch) => {
 	dispatch({ type: EDIT_AND_SAVE_PROFILE, payload: profile });

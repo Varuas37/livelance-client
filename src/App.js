@@ -36,11 +36,8 @@ import SavedJobs from "./presentation/pages/job/SavedJobs";
 import GenericJobDetailModal from "./presentation/components/jobs/GenericJobDetailModal";
 import PostedJobs from "./presentation/pages/job/PostedJobs";
 import PostJobModal from "./presentation/components/jobs/PostJobModal";
-import SetAvatar from "./presentation/components/messenger/SetAvatar";
 import Chat from "./presentation/pages/messenger/Chat";
-import AltRegister from "./presentation/pages/messenger/Register";
 import SortPage from "./presentation/pages/sort/SortPage";
-import Messenger from "./presentation/pages/messenger/Messenger";
 import { setFreelanceIdListByStatus } from "./application/redux/action/freelanceActions";
 import ViewProfile from "./presentation/pages/profile/ViewProfile";
 import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
@@ -48,6 +45,10 @@ import HomeFeed from "./presentation/pages/home/HomeFeed";
 import Accepted from "./presentation/pages/job/Accepted";
 import SignOut from "./presentation/pages/SignOut";
 import GetLogo from "./presentation/components/appheader/GetLogo";
+
+import Messenger from "./presentation/pages/messenger/Chat";
+import MessengerProfile from "./presentation/pages/messenger/Chat_Profile";
+
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -78,13 +79,11 @@ const App = () => {
 					{/* <GetMyJobsNavigation /> */}
 					<Routes>
 						{/* TODO: figure out how to get cool avatar  */}
-						<Route exact path="/setAvatar" element={<SetAvatar />} />
+
 
 						{/*messenger page old ver*/}
 						<Route exact path="/messenger" element={<Messenger />} />
-						{/* TODO: make this conditional i foreget how */}
-						<Route exact path="/coolchat" element={<Chat />} />
-						<Route exact path="/coolchat/:email" element={<Chat />} />
+						<Route exact path="/messengerProfile" element={<MessengerProfile />} />
 
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/signup" element={<SignUp />} />

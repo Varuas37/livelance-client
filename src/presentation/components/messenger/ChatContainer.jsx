@@ -1,64 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
-import Logout from "./Logout";
+
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { sendMessageRoute, recieveMessageRoute } from "../../utils/APIRoutes";
-
-const mockedMessages = [
-
-]
+import { sendMessageRoute, recieveMessageRoute } from "../../../presentation/utils/APIRoutes";
 
 export default function ChatContainer({ currentChat, socket }) {
-  console.log("chat container mounted", currentChat)
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
+  var chat = messages
+  var count = Object.keys(chat).length; //get number of messages 
+
   useEffect(async () => {
-    // const data = await JSON.parse(
-    //   localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    // );
-    // TODO: get logged in user's data here
-    const userData = {
-      _id: "62368838e65b618794bed0af"
-    }
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
     const response = await axios.post(recieveMessageRoute, {
-      from: userData._id,
-      email: currentChat.email,
+      from: data._id,
+      to: currentChat._id,
     });
-    console.log("response", response)
-    
-    // TODO: remove once above is created and real messages can be fetched
-    setMessages(mockedMessages)
-    
-    // setMessages(response.data);
+    setMessages(response.data);
+
+    //sets chat length as number of messages
+    localStorage.setItem("chat-length", count)
+
   }, [currentChat]);
 
-  // why
-  // useEffect(() => {
-  //   const getCurrentChat = async () => {
-  //     if (currentChat) {
-  //       await JSON.parse(
-  //         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-  //       )._id;
-  //     }
-  //   };
-  //   getCurrentChat();
-  // }, [currentChat]);
+  useEffect(() => {
+    const getCurrentChat = async () => {
+      if (currentChat) {
+        await JSON.parse(
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+        )._id;
+      }
+    };
+    getCurrentChat();
+  }, [currentChat]);
 
-  // TODO: memoize this function
-  // https://reactjs.org/docs/hooks-reference.html#usecallback
+  //var chat = currentChat
+  //var count = Object(chat).length;
+  //localStorage.setItem("chat-length", count)
+
   const handleSendMsg = async (msg) => {
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
-
-    // TODO: change all of this client side logic to be email
-    // and then change corresponding server side to accept email
-  
-    // or get the id on the frontend
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: data._id,
@@ -74,6 +63,7 @@ export default function ChatContainer({ currentChat, socket }) {
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
   };
+
 
   useEffect(() => {
     if (socket.current) {
@@ -97,24 +87,23 @@ export default function ChatContainer({ currentChat, socket }) {
         <div className="user-details">
           <div className="avatar">
             <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+              src={`data:image/svg+xml;base64,${currentChat.avatar}`}
               alt=""
             />
           </div>
-          <div className="username">
-            <h3>{currentChat.username}</h3>
+          <div className="email">
+            <h3>{currentChat.email}</h3>
           </div>
         </div>
-        <Logout />
+
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
           return (
             <div ref={scrollRef} key={uuidv4()}>
               <div
-                className={`message ${
-                  message.fromSelf ? "sended" : "recieved"
-                }`}
+                className={`message ${message.fromSelf ? "sended" : "recieved"
+                  }`}
               >
                 <div className="content ">
                   <p>{message.message}</p>
@@ -132,13 +121,14 @@ export default function ChatContainer({ currentChat, socket }) {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 80% 10%;
-  gap: 0.1rem;
+ 
   overflow: hidden;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
     display: flex;
+    background-color: #F5F5F5;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
@@ -151,9 +141,9 @@ const Container = styled.div`
           height: 3rem;
         }
       }
-      .username {
+      .email {
         h3 {
-          color: white;
+          color: black;
         }
       }
     }
@@ -162,6 +152,7 @@ const Container = styled.div`
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
+    background-color: #F5F5F5;
     gap: 1rem;
     overflow: auto;
     &::-webkit-scrollbar {
@@ -190,13 +181,13 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: #761FCD;
       }
     }
     .recieved {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: #42A72B;
       }
     }
   }

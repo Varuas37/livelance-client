@@ -53,6 +53,17 @@ export const checkUser = () => async (dispatch) => {
 			if (response.status === 200) {
 				dispatch({ type: SET_AUTH, payload: true });
 				dispatch({ type: SET_USER, payload: response.data.profile });
+
+				const values = {
+					email: response.data.profile.firstName,
+					_id: response.data.profile.userId
+				}
+
+				localStorage.setItem(
+					process.env.REACT_APP_LOCALHOST_KEY,
+					JSON.stringify(values)
+				);
+
 			} else if (response.status === 404) {
 				console.log("here");
 			}
@@ -61,6 +72,8 @@ export const checkUser = () => async (dispatch) => {
 		console.log(err);
 	}
 };
+
+
 export const getAccountType = () => async (dispatch) => {
 	try {
 		const token = localStorage.LLtoken;
