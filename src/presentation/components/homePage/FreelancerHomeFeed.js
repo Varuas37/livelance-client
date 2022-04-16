@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import SortOptions from "../sort/SortOptions";
 import SearchAndProfileAvatarWithBackend from "../appheader/SearchAndProfileAvatarWithBackend";
 import { checkUser } from "../../../application/redux/action/authActions";
+import { Link } from "react-router-dom";
+import Banner from "../banner/Banner";
 
 function FreelancerHomeFeed() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -61,6 +63,9 @@ function FreelancerHomeFeed() {
 								{/* <div className="px-4 sm:px-6 md:px-0">
                                     <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
                                 </div> */}
+								<Banner alert={"Your Profile is not complete"} buttonText={"Setup Profile"} link={"/profile"} />
+								<div>
+								</div>
 								<div className="px-4 sm:px-6 md:px-0">
 									{/* Start putting items*/}
 									<ul role="list" className="space-y-3 mt-10">
