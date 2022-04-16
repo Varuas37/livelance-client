@@ -87,7 +87,7 @@ export default function ChatContainer({ currentChat, socket }) {
         <div className="user-details">
           <div className="avatar">
             <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+              src={`data:image/svg+xml;base64,${currentChat.avatar}`}
               alt=""
             />
           </div>
@@ -122,13 +122,14 @@ export default function ChatContainer({ currentChat, socket }) {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 80% 10%;
-  gap: 0.1rem;
+ 
   overflow: hidden;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
     display: flex;
+    background-color: #F5F5F5;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
@@ -143,7 +144,7 @@ const Container = styled.div`
       }
       .email {
         h3 {
-          color: white;
+          color: black;
         }
       }
     }
@@ -152,6 +153,7 @@ const Container = styled.div`
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
+    background-color: #F5F5F5;
     gap: 1rem;
     overflow: auto;
     &::-webkit-scrollbar {

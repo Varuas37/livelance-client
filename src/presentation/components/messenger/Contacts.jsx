@@ -15,7 +15,7 @@ export default function Contacts({ contacts, changeChat }) {
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
     setCurrentUserName(data.email);
-
+   
   }, []);
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
@@ -42,13 +42,20 @@ export default function Contacts({ contacts, changeChat }) {
                   
                   <div className="email">
                     <h3>{contact.email}</h3>
+                    
                   </div>
                 </div>
               );
             })}
           </div>
           <div className="current-user">
-
+          {/* { <div>
+												<img
+													className="avatar"
+													src={currentUserName.avatar}
+													alt="img"
+												/>
+											</div> } */}
             <div className="email">
               <h2>{currentUserName}</h2>
             </div>
@@ -62,7 +69,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #DAD3D3;
+  background-color: #F5F5F5;
   
   .brand {
     display: flex;
@@ -73,7 +80,7 @@ const Container = styled.div`
       height: 2rem;
     }
     h3 {
-      color: white;
+      color: black;
       text-transform: uppercase;
     }
   }
@@ -106,7 +113,7 @@ const Container = styled.div`
 
       .email {
         h3 {
-          color: white;
+          color: black;
         }
       }
     }
@@ -116,7 +123,7 @@ const Container = styled.div`
   }
 
   .current-user {
-    background-color: #AAA5B0;
+    background-color: #B381EA;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -129,7 +136,7 @@ const Container = styled.div`
     }
     .email {
       h2 {
-        color: white;
+        color: black;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
