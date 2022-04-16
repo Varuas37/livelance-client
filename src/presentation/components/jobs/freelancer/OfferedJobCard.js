@@ -9,10 +9,12 @@ import {
 	setFreelanceById,
 } from "../../../../application/redux/action/freelanceActions";
 import MainApi from "../../../../repository/MainApi";
+import ViewProfileModal from "../../profile/ViewProfileModal";
 // import GenericJobDetailModal from "./GenericJobDetailModal";
 
 function OfferedJobCard({ data, myJobType }) {
 	const [listerName, setListerName] = useState("");
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 
 	const [isAcceptBtnClicked, setIsAcceptBtnClicked] = useState(false);
 	let dispatch = useDispatch();
@@ -81,6 +83,14 @@ function OfferedJobCard({ data, myJobType }) {
 					setIsAppliedJob={setIsAppliedJob}
 				/>
 			)} */}
+
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data.jobId.postedBy}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
+				/>
+			)}
 
 			{data.jobId && (
 				<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">

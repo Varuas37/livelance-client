@@ -28,9 +28,9 @@ export const signUpUser = (user) => async (dispatch) => {
 			accountType: user.role,
 		});
 		if (response.data.auth_token) {
-			dispatch({ type: SET_AUTH, payload: true });
 			localStorage.setItem("LLtoken", response.data.auth_token);
 			checkUser();
+			dispatch({ type: SET_AUTH, payload: true });
 			return true;
 		}
 	} catch (err) {

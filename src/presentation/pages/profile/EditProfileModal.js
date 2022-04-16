@@ -1,9 +1,13 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFreelanceById } from "../../../application/redux/action/freelanceActions";
+import {
+	setFreelanceById,
+	setFreelanceIdListByStatus,
+	setFreelanceList,
+} from "../../../application/redux/action/freelanceActions";
 import {
 	editAndSetProfile,
 	getProfile,
@@ -11,8 +15,9 @@ import {
 } from "../../../application/redux/action/profileActions";
 import HandleSkills from "../../components/profile/HandleSkills";
 import ImageHandler from "../../utils/ImageHandler";
+import { setFreelancersListForHomeFeed } from "../../../application/redux/action/employerActions";
 
-function EditProfileModal() {
+function EditProfileModal({ setIsEditProfileCardClicked }) {
 	const [open, setOpen] = useState(true);
 	const [editProfile, setEditProfile] = useState({});
 	const [payAmount, setPayAmount] = useState("0");
@@ -40,11 +45,38 @@ function EditProfileModal() {
 		dispatch(getProfile());
 	}, []);
 
+	const location = useLocation();
 	const saveButtonClicked = (e) => {
 		e.preventDefault();
 		dispatch(setProfile(editProfile));
 		setOpen(!open);
-		navigate(`/profile`);
+		setIsEditProfileCardClicked(false);
+		// if (location.pathname === "/home") {
+		// 	if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "freelancer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelanceIdListByStatus("Applied"));
+		// 			dispatch(setFreelanceIdListByStatus("Saved"));
+		// 			dispatch(setFreelanceList());
+		// 		}
+		// 	} else if (
+		// 		currentUser &&
+		// 		currentUser.accountType &&
+		// 		currentUser.accountType === "employer"
+		// 	) {
+		// 		if (localStorage.LLtoken) {
+		// 			dispatch(setFreelancersListForHomeFeed());
+		// 		}
+		// 	}
+		// }
+		// navigate("/");
+		// navigate(location.pathname);
+		if (location.pathname === "/home") {
+			window.location.reload(false);
+		}
 	};
 
 	const onHandleChange = (e) => {
@@ -87,7 +119,8 @@ function EditProfileModal() {
 	let navigate = useNavigate();
 	const modalClick = () => {
 		setOpen(!open);
-		navigate(`/profile`);
+		// navigate(`/profile`);
+		setIsEditProfileCardClicked(false);
 	};
 
 	return (
@@ -133,7 +166,7 @@ function EditProfileModal() {
 									<div className="mt-3  sm:mt-5">
 										<Dialog.Title
 											as="h3"
-											className="text-lg text-center leading-6 font-medium text-gray-900"
+											className="cursor-pointer text-lg text-center leading-6 font-medium text-gray-900"
 										>
 											Edit Profile
 										</Dialog.Title>

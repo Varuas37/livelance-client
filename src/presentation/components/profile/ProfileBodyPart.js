@@ -37,8 +37,8 @@ const ProfileBodyPart = ({ profile }) => {
 					<div className="sm:col-span-1">
 						<dt className="text-sm font-medium text-gray-500">Categories</dt>
 						<dd className="mt-1 text-sm text-gray-900">
-							{profile.categories.map((each) => (
-								<p key={each}>{each} </p>
+							{profile.categories.map((each, idx) => (
+								<p key={idx}>{each} </p>
 							))}
 						</dd>
 					</div>
@@ -58,7 +58,7 @@ const ProfileBodyPart = ({ profile }) => {
 				{currentUser &&
 					currentUser.accountType &&
 					currentUser.accountType !== "employer" &&
-					profile.skills && (
+					profile.skills.length > 0 && (
 						<div className="sm:col-span-1">
 							<dt className="text-sm font-medium text-gray-500">Skills</dt>
 							<dd className="mt-1 text-sm text-gray-900">

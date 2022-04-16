@@ -85,6 +85,7 @@ function BrowseOfferedJobs({ props }) {
 					universalDataList={props.dataList}
 					dataList={curFreelanceList}
 					setDataList={setCurFreelanceList}
+					accountType={"freelancer"}
 				/>
 
 				<div className="md:pl-64">

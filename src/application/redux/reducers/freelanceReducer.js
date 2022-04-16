@@ -23,8 +23,6 @@ import {
 } from "../action/types";
 
 const initialState = {
-	freelanceList: [],
-	freelancersListForHomePage: [],
 	savedFreelanceList: [],
 	offeredFreelanceList: [],
 	deniedFreelanceList: [],
@@ -54,8 +52,8 @@ export default function (state = initialState, action) {
 			return { ...state, appliedFreelanceIdList: payload };
 		case SET_SAVED_FREELANCE_ID_LIST:
 			return { ...state, savedFreelanceIdList: payload };
-		// case SET_ACCEPTED_FREELANCE_ID_LIST:
-		// 	return { ...state, acceptedFreelanceIdList: payload };
+		case SET_ACCEPTED_FREELANCE_ID_LIST:
+			return { ...state, acceptedFreelanceIdList: payload };
 		case SET_FREELANCE_BY_ID:
 			return { ...state, selectedFreelance: payload };
 		case SET_SAVED_FREELANCE_LIST:

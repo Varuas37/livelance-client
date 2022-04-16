@@ -9,10 +9,11 @@ const SearchAndProfileAvatar = ({
 	universalDataList,
 	dataList,
 	setDataList,
+	accountType,
 }) => {
 	const userNavigation = [
 		{ name: "Your Profile", href: "/profile" },
-		{ name: "Settings", href: "/settings" },
+		// { name: "Settings", href: "/settings" },
 		{
 			name: "Sign out",
 			href: "/signout",
@@ -45,16 +46,17 @@ const SearchAndProfileAvatar = ({
 								universalDataList={universalDataList}
 								dataList={dataList}
 								setDataList={setDataList}
+								accountType={accountType}
 							/>
 
 							<div className="ml-4 flex items-center md:ml-6">
-								<button
+								{/* <button
 									type="button"
 									className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 								>
 									<span className="sr-only">View notifications</span>
 									<BellIcon className="h-6 w-6" aria-hidden="true" />
-								</button>
+								</button> */}
 
 								{/* Profile dropdown */}
 								<Menu as="div" className="ml-3 relative">

@@ -89,7 +89,7 @@ function SignIn() {
 									</div>
 								</div>
 
-								<div className="flex items-center justify-between">
+								{/* <div className="flex items-center justify-between">
 									<div className="flex items-center">
 										<input
 											id="remember-me"
@@ -105,12 +105,12 @@ function SignIn() {
 										</label>
 									</div>
 
-									{/* <div className="text-sm">
+									<div className="text-sm">
                                         <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                                             Forgot your password?
                                         </a>
-                                    </div> */}
-								</div>
+                                    </div>
+								</div> */}
 
 								<div>
 									<button

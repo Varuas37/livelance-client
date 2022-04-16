@@ -3,16 +3,22 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { acceptOffer } from "../../../../application/redux/action/freelanceActions";
 import MainApi from "../../../../repository/MainApi";
+import ViewProfileModal from "../../profile/ViewProfileModal";
 
 function NoButtonJobCard({ data, myJobType }) {
 	const [listerName, setListerName] = useState("");
+	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
+	const [listerPic, setListerPic] = useState("#");
 
 	const [isAcceptBtnClicked, setIsAcceptBtnClicked] = useState(false);
 	let dispatch = useDispatch();
 
 	const descriptionLength = myJobType === "saved" ? 150 : 300;
 
-
+	const openProfileModal = (e) => {
+		e.preventDefault();
+		setIsProfileAvatarClicked(true);
+	};
 	useEffect(() => {
 		const fetch = async () => {
 			if (data.jobId && data.jobId.postedBy) {
@@ -31,6 +37,8 @@ function NoButtonJobCard({ data, myJobType }) {
 							" " +
 							response.data.profile.lastName
 					);
+					setListerPic(response.data.profile.avatar);
+
 					// if (response.status === 200 || response.status === 201) {
 					// 	return true;
 					// }
@@ -54,6 +62,13 @@ function NoButtonJobCard({ data, myJobType }) {
 				/>
 			)} */}
 
+			{isProfileAvatarClicked && (
+				<ViewProfileModal
+					id={data.jobId.postedBy}
+					isProfileAvatarClicked={isProfileAvatarClicked}
+					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
+				/>
+			)}
 			{data.jobId && (
 				<li className="bg-white shadow overflow-hidden mt-5 px-4 py-4 sm:px-6 sm:rounded-md">
 					<div className="w-full px-10 my-4 py-6 bg-white ">
@@ -217,6 +232,21 @@ function NoButtonJobCard({ data, myJobType }) {
 								<span>
 									{data.jobId.city}, {data.jobId.state}, {data.jobId.zipcode}
 								</span>
+							</div>
+						</div>
+
+						<div>
+							<div className="flex items-center mt-4">
+								<img
+									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
+									src={
+										listerPic === "#"
+											? "https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+											: listerPic
+									}
+									alt="avatar"
+									onClick={(e) => openProfileModal(e)}
+								/>
 							</div>
 						</div>
 					</div>

@@ -47,6 +47,7 @@ import ViewCandidates from "./presentation/pages/candidates/ViewCandidates";
 import HomeFeed from "./presentation/pages/home/HomeFeed";
 import Accepted from "./presentation/pages/job/Accepted";
 import SignOut from "./presentation/pages/SignOut";
+import GetLogo from "./presentation/components/appheader/GetLogo";
 // if (localStorage.token) {
 // 	setAuthToken(localStorage.token);
 // }
@@ -72,6 +73,7 @@ const App = () => {
 					{/* <StaticSidebar /> */}
 
 					{/* <Sidebar/> */}
+					{isUserAuthenticated && <GetLogo />}
 					<GetSidebar />
 					<GetMyJobsNavigation />
 					<Routes>
@@ -108,7 +110,7 @@ const App = () => {
 						/>
 
 						<Route exact path="/search/:query" element={<SearchPage />} />
-						{/* <Route exact path="/home/sort/:sortterm" element={<SortPage />} /> */}
+						<Route exact path="/home/sort/:sortterm" element={<SortPage />} />
 						<Route exact path="/categories" element={<CategoryDetails />} />
 						<Route exact path="/profile" element={<UserProfile />} />
 						<Route exact path="/viewprofile/:id" element={<ViewProfile />} />

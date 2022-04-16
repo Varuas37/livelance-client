@@ -1,7 +1,7 @@
 import { MailIcon, PhoneIcon, PencilIcon } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
 	getProfile,
 	setProfile,
@@ -19,14 +19,15 @@ function classNames(...classes) {
 }
 function ViewProfile() {
 	const { id } = useParams();
-	// console.log(id);
+	// const { state } = useLocation();
+	// console.log(state);
 	const [tabs, setTabs] = useState({
 		Profile: { name: "Profile", href: "/myjobs", current: true },
 		Reviews: { name: "Reviews", href: "/myjobs/saved", current: false },
 	});
 
-	const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
-	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
+	// const reviewsList = useSelector((state) => state.profileReducer.reviewsList);
+	// const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
 
 	const profile = useSelector((state) => state.profileReducer.viewProfile);
 

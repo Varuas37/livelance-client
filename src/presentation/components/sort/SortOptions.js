@@ -9,20 +9,19 @@ import {
 	ViewGridIcon,
 } from "@heroicons/react/solid";
 import CategoryGrid from "../../components/core/CategoryGrid";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const sortOptions = [
-	{ name: "Most Popular", href: "/home/sort/mostpopular", current: true },
-	{ name: "Best Rating", href: "/home/sort/bestrating", current: false },
-	{ name: "New Workers", href: "/home/sort/newworkers", current: false },
+	{ name: "Pay: Low to High", href: "/home/sort/paylowtohigh", current: false },
+	{ name: "Pay: High to Low", href: "/home/sort/payhightolow", current: false },
 	{
-		name: "Price: Low to High",
-		href: "/home/sort/pricelowtohigh",
+		name: "Duration: Ascending",
+		href: "/home/sort/durationascending",
 		current: false,
 	},
 	{
-		name: "Price: High to Low",
-		href: "/home/sort/privehightolow",
+		name: "Duration: Descending",
+		href: "/home/sort/durationdescending",
 		current: false,
 	},
 ];
@@ -32,7 +31,15 @@ function classNames(...classes) {
 }
 
 const SortOptions = () => {
+	const { sortterm } = useParams();
 	const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+	const sortNameMapping = {
+		paylowtohigh: "Pay: Low to High",
+		payhightolow: "Pay: High to Low",
+		durationascending: "Duration: Ascending",
+		durationdescending: "Duration: Descending",
+	};
 
 	return (
 		<>
@@ -46,7 +53,7 @@ const SortOptions = () => {
 						<Menu as="div" className="relative inline-block text-left ">
 							<div>
 								<Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900 ml-64">
-									Sort
+									{sortterm ? sortNameMapping[sortterm] : "Arrange"}
 									<ChevronDownIcon
 										className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
 										aria-hidden="true"

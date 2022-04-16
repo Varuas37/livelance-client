@@ -15,7 +15,6 @@ import {
 	SET_OWN_PROFILE_REVIEWS_DATA,
 } from "./types";
 
-
 export const getProfile = () => async (dispatch) => {
 	const token = localStorage.LLtoken;
 	const AuthStr = "Bearer ".concat(token);
@@ -172,7 +171,8 @@ export const submitReview = (review) => async (dispatch) => {
 		);
 
 		if (response.status === 200 || response.status === 201) {
-			alert("successful!");
+			dispatch(setReviews(review.profileId));
+			dispatch(setReviewsData(review.profileId));
 		}
 	} catch (err) {
 		alert("Unsuccessful!");
