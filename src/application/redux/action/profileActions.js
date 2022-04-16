@@ -34,6 +34,7 @@ export const getProfile = () => async (dispatch) => {
 export const setProfile = (profile) => async (dispatch) => {
 	const token = localStorage.LLtoken;
 	const AuthStr = "Bearer ".concat(token);
+
 	try {
 		const response = await MainApi.put(
 			"/profile",
