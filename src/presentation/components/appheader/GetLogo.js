@@ -26,6 +26,16 @@ const GetLogo = () => {
 
 	return (
 		<>
+			{/* <div className="flex justify-start lg:w-0 lg:flex-1 z-100">
+				<a href="#">
+					<span className="sr-only">Workflow</span>
+					<img
+						className="h-8 w-auto sm:h-10"
+						src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+						alt=""
+					/>
+				</a>
+			</div> */}
 			{location.pathname !== "/" && location.pathname !== "/onboarding" && (
 				<div
 					style={
@@ -36,13 +46,7 @@ const GetLogo = () => {
 
 						navigate("/home");
 					}}
-				>
-					<img
-						style={imgStyle}
-						src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
-						alt=""
-					/>
-				</div>
+				></div>
 			)}
 		</>
 	);
