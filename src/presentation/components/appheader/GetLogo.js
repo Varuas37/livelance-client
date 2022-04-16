@@ -37,7 +37,11 @@ const GetLogo = () => {
 						navigate("/home");
 					}}
 				>
-					<img style={imgStyle} src="/images/logo.png" alt="" />
+					<img
+						style={imgStyle}
+						src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+						alt=""
+					/>
 				</div>
 			)}
 		</>

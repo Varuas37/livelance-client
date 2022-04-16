@@ -6,6 +6,7 @@ export const categoriesList = [
 	"Office Services",
 	"Parties & Events",
 	"Shopping & Delivery",
+	"Software Engineering",
 	"Technical Marketing",
 	"Yardwork Services",
 	"Other",
@@ -95,6 +96,8 @@ export const categoriesObject = {
 		"Shipping",
 		"Other",
 	],
+
+	"Software Engineering": ["Frontend", "Backend", "Full-Stack"],
 	"Technical Marketing": [
 		"Telephone Support Services",
 		"Technical Support",
