@@ -48,7 +48,6 @@ const SortPage = () => {
 				dispatch(setFreelanceList());
 			}
 		};
-		console.log("this");
 		fetch();
 	}, [sortterm]);
 

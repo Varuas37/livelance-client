@@ -9,6 +9,7 @@ import {
 	setFreelanceIdListByStatus,
 } from "../../../application/redux/action/freelanceActions";
 import JobCard from "../../components/core/JobCard";
+import SearchAndProfileAvatarWithBackend from "../../components/appheader/SearchAndProfileAvatarWithBackend";
 
 const SearchPage = () => {
 	let { query } = useParams();
@@ -69,7 +70,7 @@ const SearchPage = () => {
 					</Dialog>
 				</Transition.Root>
 
-				<SearchAndProfileAvatar />
+				<SearchAndProfileAvatarWithBackend />
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						{/* <SortOptions /> */}

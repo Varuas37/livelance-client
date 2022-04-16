@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./modal";
 import {
 	applyToJob,
@@ -10,7 +10,7 @@ import JobDetailModal from "../../pages/jobDetail/JobDetailModal";
 import ViewProfileModal from "../profile/ViewProfileModal";
 function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 	let navigate = useNavigate();
-
+	console.log(data);
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
@@ -19,7 +19,7 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 		e.preventDefault();
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
-
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const handleApplyClick = async (e, id) => {
 		e.preventDefault();
@@ -262,7 +262,13 @@ function JobCard({ data, appliedFreelanceIdList, savedFreelanceIdList }) {
 								<img
 									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
 									src={
-										data.postedBy && data.postedBy.avatar
+										location.pathname.includes("/search")
+											? data.postedBy && data.postedBy.avatar
+												? data.postedBy.avatar
+												: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+											: data.postedBy &&
+											  data.postedBy.avatar &&
+											  data.postedBy.avatar !== "#"
 											? data.postedBy.avatar
 											: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
 									}

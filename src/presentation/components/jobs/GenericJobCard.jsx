@@ -19,6 +19,7 @@ function GenericJobCard({
 	savedFreelanceIdList,
 }) {
 	const [listerName, setListerName] = useState("");
+	const [listerPic, setListerPic] = useState("#");
 	const [isReadMoreClicked, setIsReadMoreClicked] = useState(false);
 	const [isAppliedJob, setIsAppliedJob] = useState(false);
 	const [isSvgClicked, setIsSvgClicked] = useState(false);
@@ -80,6 +81,7 @@ function GenericJobCard({
 							" " +
 							response.data.profile.lastName
 					);
+					setListerPic(response.data.profile.avatar);
 					// if (response.status === 200 || response.status === 201) {
 					// 	return true;
 					// }
@@ -123,7 +125,7 @@ function GenericJobCard({
 
 			{isProfileAvatarClicked && (
 				<ViewProfileModal
-					id={data.profileId}
+					id={data.jobId.postedBy}
 					isProfileAvatarClicked={isProfileAvatarClicked}
 					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
 				/>
@@ -299,7 +301,11 @@ function GenericJobCard({
 									{myJobType !== "posted" && (
 										<img
 											className="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
-											src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+											src={
+												listerPic === "#"
+													? "https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+													: listerPic
+											}
 											alt="avatar"
 											onClick={(e) => openProfileModal(e)}
 										/>

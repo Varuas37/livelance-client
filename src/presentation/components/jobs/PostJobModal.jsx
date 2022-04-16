@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import HandleJobSkillsList from "./HandleJobSkillsList";
 import { setPostedFreelance } from "../../../application/redux/action/freelanceActions";
-
+import {
+	categoriesList,
+	categoriesObject,
+} from "../categories/categoriesVariables";
+import { statesList } from "../../../repository/statesList";
 function PostJobModal() {
 	const [postFreelance, setPostFreelance] = useState({
 		postedBy: "",
@@ -26,6 +30,11 @@ function PostJobModal() {
 	});
 
 	const [open, setOpen] = useState(true);
+	const [openCategoryInputBox, setOpenCategoryInputBox] = useState(false);
+	const [openSubCategoryInputBox, setOpenSubCategoryInputBox] = useState(false);
+	const [selectedCategory, setSelectedCategory] = useState("");
+	const [selectedSubCategory, setSelectedSubCategory] = useState("");
+	const didMountRef = useRef(false);
 
 	const [freelanceDurationNumber, setfreelanceDurationNumber] = useState("1");
 	const [durationUnit, setDurationUnit] = useState("hr");
@@ -34,7 +43,6 @@ function PostJobModal() {
 
 	const user = useSelector((state) => state.authReducer.user);
 	const dispatch = useDispatch();
-	const didMountRef = useRef(false);
 
 	useEffect(() => {
 		setPostFreelance({
@@ -76,27 +84,58 @@ function PostJobModal() {
 				...postFreelance,
 				duration: freelanceDurationNumber + " " + e.target.value,
 			});
-		}
-		// else if (e.target.name === "PayAmount") {
-		// 	setPayAmount(e.target.value);
-		// 	setPostFreelance({
-		// 		...postFreelance,
-		// 		rate: "$" + e.target.value + "/" + payPeriod,
-		// 	});
-		// } else if (e.target.name === "period") {
-		// 	setPayPeriod(e.target.value);
-		// 	setPostFreelance({
-		// 		...postFreelance,
-		// 		rate: "$" + payAmount + "/" + e.target.value,
-		// 	});
-		// }
-		else {
+		} else {
 			setPostFreelance({
 				...postFreelance,
 				[e.target.name]: e.target.value,
 			});
 		}
 	};
+
+	useEffect(() => {
+		if (didMountRef.current) {
+			if (selectedCategory !== "Other") {
+				setPostFreelance({
+					...postFreelance,
+					category: selectedCategory,
+					subCategory: "",
+				});
+				setSelectedSubCategory("");
+				setOpenCategoryInputBox(false);
+				setOpenSubCategoryInputBox(false);
+			} else {
+				setPostFreelance({
+					...postFreelance,
+					category: "",
+					subCategory: "",
+				});
+
+				setSelectedSubCategory("");
+				setOpenCategoryInputBox(true);
+				setOpenSubCategoryInputBox(true);
+			}
+		}
+		didMountRef.current = true;
+	}, [selectedCategory]);
+
+	useEffect(() => {
+		if (didMountRef.current) {
+			if (selectedSubCategory !== "Other") {
+				setPostFreelance({
+					...postFreelance,
+					subCategory: selectedSubCategory,
+				});
+				setOpenSubCategoryInputBox(false);
+			} else {
+				setPostFreelance({
+					...postFreelance,
+					subCategory: "",
+				});
+				setOpenSubCategoryInputBox(true);
+			}
+		}
+		didMountRef.current = true;
+	}, [selectedSubCategory]);
 
 	return (
 		<div>
@@ -189,14 +228,34 @@ function PostJobModal() {
 																Freelance Category
 															</label>
 															<div className="mt-1">
-																<input
+																<select
 																	name="category"
-																	value={postFreelance.category}
-																	onChange={(e) => onHandleChange(e)}
-																	type="text"
-																	required
+																	value={selectedCategory}
+																	onChange={(e) =>
+																		setSelectedCategory(e.target.value)
+																	}
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
+																>
+																	<option value="" disabled>
+																		Select
+																	</option>
+																	{categoriesList.map((category, idx) => (
+																		<option key={idx} value={category}>
+																			{category}
+																		</option>
+																	))}
+																</select>
+																{openCategoryInputBox && (
+																	<input
+																		name="category"
+																		value={postFreelance.category}
+																		onChange={(e) => onHandleChange(e)}
+																		type="text"
+																		required
+																		placeholder="type in the category"
+																		className="mt-4 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																	/>
+																)}
 															</div>
 														</div>
 													</div>
@@ -206,14 +265,60 @@ function PostJobModal() {
 																Freelance Sub-Category
 															</label>
 															<div className="mt-1">
-																<input
+																{/* <input
 																	name="subCategory"
 																	value={postFreelance.subCategory}
 																	onChange={(e) => onHandleChange(e)}
 																	type="text"
 																	required
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
+																/> */}
+
+																{
+																	postFreelance.category in
+																		categoriesObject && (
+																		<select
+																			name="subCategory"
+																			value={selectedSubCategory}
+																			onChange={(e) =>
+																				setSelectedSubCategory(e.target.value)
+																			}
+																			className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																		>
+																			<option value="">Select</option>
+																			{categoriesObject[
+																				postFreelance.category
+																			].map((category, idx) => (
+																				<option key={idx} value={category}>
+																					{category}
+																				</option>
+																			))}
+																		</select>
+																	)
+																	// : (
+																	// 	<input
+																	// 		name="subCategory"
+																	// 		value={postFreelance.subCategory}
+																	// 		onChange={(e) => onHandleChange(e)}
+																	// 		type="text"
+																	// 		required
+																	// 		placeholder="type in the sub category"
+																	// 		className="mt-4 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																	// 	/>
+																	// )
+																}
+
+																{openSubCategoryInputBox && (
+																	<input
+																		name="subCategory"
+																		value={postFreelance.subCategory}
+																		onChange={(e) => onHandleChange(e)}
+																		type="text"
+																		required
+																		placeholder="type in the sub category"
+																		className="mt-4 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																	/>
+																)}
 															</div>
 														</div>
 													</div>
@@ -231,6 +336,8 @@ function PostJobModal() {
 															skillsList: skillsList,
 															setSkillsList: setSkillsList,
 															columnName: "skills",
+															placeholder:
+																"Type a skill and press enter to add to the list",
 														}}
 													/>
 
@@ -344,14 +451,29 @@ function PostJobModal() {
 																Freelance State
 															</label>
 															<div className="mt-1">
-																<input
+																{/* <input
 																	name="state"
 																	value={postFreelance.state}
 																	onChange={(e) => onHandleChange(e)}
 																	type="text"
 																	required
 																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-																/>
+																/> */}
+																<select
+																	name="state"
+																	value={postFreelance.state}
+																	onChange={(e) => onHandleChange(e)}
+																	className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+																>
+																	<option value="" disabled>
+																		Select
+																	</option>
+																	{statesList.map((state, idx) => (
+																		<option key={idx} value={state}>
+																			{state}
+																		</option>
+																	))}
+																</select>
 															</div>
 														</div>
 													</div>

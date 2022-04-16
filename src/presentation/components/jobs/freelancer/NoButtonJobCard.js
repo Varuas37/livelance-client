@@ -8,6 +8,7 @@ import ViewProfileModal from "../../profile/ViewProfileModal";
 function NoButtonJobCard({ data, myJobType }) {
 	const [listerName, setListerName] = useState("");
 	const [isProfileAvatarClicked, setIsProfileAvatarClicked] = useState(false);
+	const [listerPic, setListerPic] = useState("#");
 
 	const [isAcceptBtnClicked, setIsAcceptBtnClicked] = useState(false);
 	let dispatch = useDispatch();
@@ -36,6 +37,8 @@ function NoButtonJobCard({ data, myJobType }) {
 							" " +
 							response.data.profile.lastName
 					);
+					setListerPic(response.data.profile.avatar);
+
 					// if (response.status === 200 || response.status === 201) {
 					// 	return true;
 					// }
@@ -61,7 +64,7 @@ function NoButtonJobCard({ data, myJobType }) {
 
 			{isProfileAvatarClicked && (
 				<ViewProfileModal
-					id={data.profileId}
+					id={data.jobId.postedBy}
 					isProfileAvatarClicked={isProfileAvatarClicked}
 					setIsProfileAvatarClicked={setIsProfileAvatarClicked}
 				/>
@@ -237,9 +240,9 @@ function NoButtonJobCard({ data, myJobType }) {
 								<img
 									className="cursor-pointer mx-4 w-10 h-10 object-cover rounded-full hidden sm:block"
 									src={
-										data.postedBy && data.postedBy.avatar
-											? data.postedBy.avatar
-											: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
+										listerPic === "#"
+											? "https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=373&q=80"
+											: listerPic
 									}
 									alt="avatar"
 									onClick={(e) => openProfileModal(e)}

@@ -336,7 +336,7 @@ export const setPostedFreelance = (postedFreelance) => async (dispatch) => {
 		);
 
 		if (response.status === 200 || response.status === 201) {
-			alert("successful!");
+			// alert("successful!");
 			return true;
 		}
 	} catch (err) {

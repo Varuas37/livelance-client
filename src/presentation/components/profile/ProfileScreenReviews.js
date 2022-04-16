@@ -27,6 +27,7 @@ function ProfileScreenReviews({ id }) {
 		(state) => state.freelanceReducer.acceptedFreelanceIdList
 	);
 
+	console.log(acceptedFreelanceIdList);
 	let { state } = useLocation();
 
 	const user = useSelector((state) => state.authReducer.user);

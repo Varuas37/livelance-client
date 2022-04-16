@@ -95,17 +95,20 @@ function PostedJobCard({ data }) {
 							{data.jobTitle}
 						</a>
 						<p className="mt-2 text-gray-600">
-							{data.jobDescription.length > 150
-								? data.jobDescription.substring(0, 150) + " ....... "
-								: data.jobDescription}
-
-							<span
-								onClick={(e) => handleReadMoreClick(e, data._id)}
-								className="text-blue-600 hover:underline cursor-pointer"
-							>
-								{" "}
-								Read More
-							</span>
+							{data.jobDescription.length > 150 ? (
+								<>
+									{data.jobDescription.substring(0, 150) + " ....... "}
+									<span
+										onClick={(e) => handleReadMoreClick(e, data._id)}
+										className="text-blue-600 hover:underline cursor-pointer"
+									>
+										{" "}
+										Read More
+									</span>
+								</>
+							) : (
+								data.jobDescription
+							)}
 						</p>
 					</div>
 

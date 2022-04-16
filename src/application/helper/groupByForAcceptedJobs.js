@@ -1,6 +1,8 @@
 export const groupByForAcceptedJobs = (arr) => {
 	const newObj = arr.reduce(function (acc, currentValue) {
-		currentValue.profileId && acc.push(currentValue.profileId);
+		currentValue.jobId &&
+			currentValue.jobId.postedBy &&
+			acc.push(currentValue.jobId.postedBy);
 		return acc;
 	}, []);
 	return newObj;
