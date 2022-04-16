@@ -9,6 +9,7 @@ import {
 	categoriesObject,
 } from "../categories/categoriesVariables";
 import { statesList } from "../../../repository/statesList";
+import HandleOptionSelected from "./HandleOptionSelected";
 function PostJobModal() {
 	const [postFreelance, setPostFreelance] = useState({
 		postedBy: "",
@@ -329,7 +330,7 @@ function PostJobModal() {
 													>
 														Skills
 													</label>
-													<HandleJobSkillsList
+													<HandleOptionSelected
 														props={{
 															mutableObject: postFreelance,
 															setMutableObject: setPostFreelance,

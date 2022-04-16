@@ -9,7 +9,7 @@ import {
 	ArrowCircleDownIcon,
 	ChatIcon,
 } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import GetCategoryFields from "./categories/GetCategoryFields";
 
@@ -17,6 +17,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 const StaticSidebar = () => {
+	let navigate = useNavigate();
 	const [navigation, setNavigation] = useState([
 		{ name: "Dashboard", href: "/home", icon: HomeIcon, current: false },
 		{
@@ -74,11 +75,15 @@ const StaticSidebar = () => {
 		<div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 			{/* Sidebar component, swap this element with another sidebar if you like */}
 			<div className="border-r border-gray-200 pt-5 flex flex-col flex-grow bg-white overflow-y-auto">
-				<div className="mt-5 flex-shrink-0 px-4 flex items-center">
+				<div className="flex-shrink-0 px-4 flex items-center">
 					<img
-						className="h-8 w-auto"
+						className="cursor-pointer h-8 w-auto"
 						src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
 						alt="Workflow"
+						onClick={(e) => {
+							e.preventDefault();
+							navigate("/home");
+						}}
 					/>
 				</div>
 				<div className="flex-grow mt-10 flex flex-col">
