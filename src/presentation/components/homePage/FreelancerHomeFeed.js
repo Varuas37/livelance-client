@@ -51,12 +51,10 @@ function FreelancerHomeFeed() {
 						</div>
 					</Dialog>
 				</Transition.Root>
-
 				<SearchAndProfileAvatarWithBackend />
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						<span className="mt-10"></span>
-						<Banner alert={"Your Profile is not complete"} buttonText={"Setup Profile"} link={"/profile"} />
 						<SortOptions />
 						<main className="flex-1">
 							<div className="py-6">
