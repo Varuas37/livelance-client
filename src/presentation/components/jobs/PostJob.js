@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { PlusSmIcon as PlusSmIconOutline } from '@heroicons/react/outline'
 
 const PostJob = () => {
 	let navigate = useNavigate();
@@ -23,18 +24,16 @@ const PostJob = () => {
 
 	return (
 		<>
-			<div>
-				<h1
-					style={{ textAlign: "center", fontSize: "24px", marginTop: "32px" }}
+			<div className="relative items-baseline grid justify-items-end mx-40 mt-10">
+				<button
+					onClick={handlePostJobClick}
+					type="button"
+					className="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 				>
-					Post a Non-remote Freelancing Opportunity
-				</h1>
+					Post a Job
+				</button>
 			</div>
-			<div style={postJobButtonContainerStyle}>
-				<div style={postJobButtonStyle} onClick={handlePostJobClick}>
-					<img src="/images/plus.jpg" alt=""></img>
-				</div>
-			</div>
+
 		</>
 	);
 };
