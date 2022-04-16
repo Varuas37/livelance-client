@@ -36,7 +36,7 @@ const BrowsePostedJobs = () => {
 							<div className="py-6">
 								<div className="px-4 sm:px-6 md:px-0">
 									{/* Start putting items*/}
-									<ul role="list" className="space-y-3 mt-10">
+									<ul role="list" className="space-y-3 mt-5 mb-5">
 										{/* For the list of Jobs Map the JobCard Here */}
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
 											{postedFreelanceList &&

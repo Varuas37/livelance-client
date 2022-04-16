@@ -35,7 +35,7 @@ function UserProfile() {
 
 	const openEditProfileModal = (e) => {
 		e.preventDefault();
-		setIsEditProfileCardClicked(true);
+		setIsEditProfileCardClicked(!isEditProfileCardClicked);
 	};
 	const profileTabClick = (e, tabname) => {
 		e.preventDefault();
@@ -75,19 +75,23 @@ function UserProfile() {
 			)}
 			{profile && (
 				<div className="h-full">
-					<div className="mt-5 flex-shrink-0 px-4 flex items-center">
-						<img
-							className=" h-8 w-auto"
-							src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
-							alt="Workflow"
-						/>
-					</div>
+
 					<div className="flex-1 relative z-0 flex overflow-hidden">
+
 						<main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
 							<article>
 								{/* Profile header */}
 								<div>
 									<div>
+										<div className=" absolute flex-shrink-0 px-4 flex items-center">
+											<Link to="/home">
+												<img
+													className="mt-5 h-8 w-auto"
+													src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+													alt="Workflow"
+												/>
+											</Link>
+										</div>
 										<img
 											className="h-32 w-full object-cover lg:h-48"
 											src={
@@ -98,7 +102,7 @@ function UserProfile() {
 											alt=""
 										/>
 									</div>
-									<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+									<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8z ">
 										<div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
 											<div className="flex">
 												<img
@@ -144,7 +148,7 @@ function UserProfile() {
 													</button> */}
 													<div
 														onClick={openEditProfileModal}
-														className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+														className="inline-flex cursor-pointer justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
 													>
 														<PencilIcon
 															className="-ml-1 mr-2 h-5 w-5 text-gray-400"
@@ -212,8 +216,8 @@ function UserProfile() {
 								{tabs["Reviews"].current && (
 									<OwnReviews
 										id={profile.userProfileId}
-										// reviewsList={reviewsList}
-										// reviewsData={reviewsData}
+									// reviewsList={reviewsList}
+									// reviewsData={reviewsData}
 									/>
 								)}
 							</article>
