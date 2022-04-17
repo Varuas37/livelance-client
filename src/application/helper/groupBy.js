@@ -1,4 +1,6 @@
 export const groupBy = (arr, criteria) => {
+	// console.log(criteria);
+	// console.log(arr);
 	const newObj = arr.reduce(function (acc, currentValue) {
 		if (!acc[currentValue[criteria]]) {
 			acc[currentValue[criteria]] = [];

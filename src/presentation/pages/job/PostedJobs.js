@@ -8,8 +8,8 @@ const PostedJobs = () => {
 
 	return (
 		<>
-			<SearchAndProfileAvatar />
-			<PostJob />
+			{/* <SearchAndProfileAvatar /> */}
+			
 			<BrowsePostedJobs />
 		</>
 	);

@@ -10,7 +10,6 @@ import JobsNavigation from "../../components/jobs/JobsNavigation";
 
 function GenericBrowseJob({ props }) {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
-	const [curFreelanceList, setCurFreelanceList] = useState([]);
 
 	const appliedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.appliedFreelanceIdList
@@ -19,9 +18,9 @@ function GenericBrowseJob({ props }) {
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
 
-	useEffect(() => {
-		setCurFreelanceList(props.dataList);
-	}, []);
+	// useEffect(() => {
+	// 	setCurFreelanceList(props.dataList);
+	// }, []);
 
 	const { myJobType } = props;
 
@@ -93,14 +92,7 @@ function GenericBrowseJob({ props }) {
 					</Dialog>
 				</Transition.Root>
 
-				<SearchAndProfileAvatar
-					universalDataList={props.dataList}
-					dataList={curFreelanceList}
-					setDataList={setCurFreelanceList}
-					accountType={"freelancer"}
-				/>
-
-				<JobsNavigation />
+				{/* <JobsNavigation /> */}
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">
 						<main className="flex-1">
@@ -118,8 +110,8 @@ function GenericBrowseJob({ props }) {
 											{/* <Modal /> */}
 											{appliedFreelanceIdList &&
 												savedFreelanceIdList &&
-												curFreelanceList &&
-												curFreelanceList.map((eachFreelance, idx) => {
+												props.dataList &&
+												props.dataList.map((eachFreelance, idx) => {
 													return myJobType === "denied" ||
 														myJobType === "accepted" ? (
 														<NoButtonJobCard

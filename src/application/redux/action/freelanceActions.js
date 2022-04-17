@@ -23,6 +23,9 @@ import {
 	SET_DENIED_FREELANCE_LIST,
 	SET_ACCEPTED_FREELANCE_ID_LIST,
 	SET_SEARCH_QUERY_RESULT_FREELANCE_LIST,
+	SET_OFFERED_FREELANCE_ID_LIST,
+	SET_DENIED_FREELANCE_ID_LIST,
+	SET_ACCEPTED_FREELANCE_ID_LIST_FOR_REVIEW,
 } from "./types";
 import { fetchdummyPostedFreelanceList } from "../../../repository/dummyPostedFreelance";
 import { fetchDummyCategoryList } from "../../../repository/dummyCategories";
@@ -42,59 +45,109 @@ export const setFreelanceList = () => async (dispatch) => {
 
 	dispatch({ type: SET_FREELANCE_LIST, payload: response.data.jobs });
 };
-export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
-	const token = localStorage.LLtoken;
 
-	const AuthStr = "Bearer ".concat(token);
+export const setFreelanceIdListByStatusForReview =
+	(jobStatus) => async (dispatch) => {
+		const token = localStorage.LLtoken;
 
-	const responseRole = await MainApi.get("/profile/current", {
-		headers: { Authorization: AuthStr },
-	});
-
-	if (responseRole.data.profile.accountType === "freelancer") {
+		const AuthStr = "Bearer ".concat(token);
 		const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
 			headers: {
 				Authorization: AuthStr,
 				data: JSON.stringify({ status: jobStatus }),
 			},
 		});
-
-		if (jobStatus === "Applied") {
+		if (jobStatus === "Accepted") {
+			// console.log(responseJobStatus.data);
 			if (responseJobStatus.data.status.length > 0) {
 				dispatch({
-					type: SET_APPLIED_FREELANCE_ID_LIST,
-					payload: groupBy(responseJobStatus.data.status, "status"),
-				});
-			} else {
-				dispatch({
-					type: SET_APPLIED_FREELANCE_ID_LIST,
-					payload: [],
-				});
-			}
-		} else if (jobStatus === "Saved") {
-			if (responseJobStatus.data.status.length > 0) {
-				dispatch({
-					type: SET_SAVED_FREELANCE_ID_LIST,
-					payload: groupBy(responseJobStatus.data.status, "status"),
-				});
-			} else {
-				dispatch({
-					type: SET_SAVED_FREELANCE_ID_LIST,
-					payload: [],
-				});
-			}
-		} else if (jobStatus === "Accepted") {
-			if (responseJobStatus.data.status.length > 0) {
-				dispatch({
-					type: SET_ACCEPTED_FREELANCE_ID_LIST,
+					type: SET_ACCEPTED_FREELANCE_ID_LIST_FOR_REVIEW,
 					payload: groupByForAcceptedJobs(responseJobStatus.data.status),
 				});
 			} else {
 				dispatch({
-					type: SET_ACCEPTED_FREELANCE_ID_LIST,
+					type: SET_ACCEPTED_FREELANCE_ID_LIST_FOR_REVIEW,
 					payload: [],
 				});
 			}
+		}
+	};
+export const setFreelanceIdListByStatus = (jobStatus) => async (dispatch) => {
+	const token = localStorage.LLtoken;
+
+	const AuthStr = "Bearer ".concat(token);
+
+	// const responseRole = await MainApi.get("/profile/current", {
+	// 	headers: { Authorization: AuthStr },
+	// });
+
+	// if (responseRole.data.profile.accountType === "freelancer") {
+	const responseJobStatus = await MainApi.get("/jobs/getbystatus", {
+		headers: {
+			Authorization: AuthStr,
+			data: JSON.stringify({ status: jobStatus }),
+		},
+	});
+
+	if (jobStatus === "Applied") {
+		if (responseJobStatus.data.status.length > 0) {
+			dispatch({
+				type: SET_APPLIED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		} else {
+			dispatch({
+				type: SET_APPLIED_FREELANCE_ID_LIST,
+				payload: [],
+			});
+		}
+	} else if (jobStatus === "Saved") {
+		if (responseJobStatus.data.status.length > 0) {
+			dispatch({
+				type: SET_SAVED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		} else {
+			dispatch({
+				type: SET_SAVED_FREELANCE_ID_LIST,
+				payload: [],
+			});
+		}
+	} else if (jobStatus === "Offered") {
+		if (responseJobStatus.data.status.length > 0) {
+			dispatch({
+				type: SET_OFFERED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		} else {
+			dispatch({
+				type: SET_OFFERED_FREELANCE_ID_LIST,
+				payload: [],
+			});
+		}
+	} else if (jobStatus === "Denied") {
+		if (responseJobStatus.data.status.length > 0) {
+			dispatch({
+				type: SET_DENIED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		} else {
+			dispatch({
+				type: SET_DENIED_FREELANCE_ID_LIST,
+				payload: [],
+			});
+		}
+	} else if (jobStatus === "Accepted") {
+		if (responseJobStatus.data.status.length > 0) {
+			dispatch({
+				type: SET_ACCEPTED_FREELANCE_ID_LIST,
+				payload: groupBy(responseJobStatus.data.status, "status"),
+			});
+		} else {
+			dispatch({
+				type: SET_ACCEPTED_FREELANCE_ID_LIST,
+				payload: [],
+			});
 		}
 	}
 };

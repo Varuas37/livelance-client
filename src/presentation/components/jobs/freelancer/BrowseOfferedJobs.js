@@ -82,13 +82,13 @@ function BrowseOfferedJobs({ props }) {
 					</Dialog>
 				</Transition.Root>
 
-				<SearchAndProfileAvatar
+				{/* <SearchAndProfileAvatar
 					universalDataList={props.dataList}
 					dataList={curFreelanceList}
 					setDataList={setCurFreelanceList}
 					accountType={"freelancer"}
 				/>
-				<JobsNavigation />
+				<JobsNavigation /> */}
 
 				<div className="md:pl-64">
 					<div className="max-w-4xl mx-auto flex flex-col md:px-8 xl:px-0">

@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import HandleJobSkillsList from "../../components/jobs/HandleJobSkillsList";
 import ImageHandler from "../../utils/ImageHandler";
 import { setProfile } from "../../../application/redux/action/profileActions";
+import HandleOptionSelected from "../../components/jobs/HandleOptionSelected";
+import HandleSubOptionSelected from "../../components/jobs/HandleSubOptionSelected";
 function Onboarding() {
 	const [skillsList, setSkillsList] = useState([]);
 	const [categoriesList, setCategoriesList] = useState([]);
+	const [optionSelected, setOptionSelected] = useState("");
 
 	const currentUser = useSelector((state) => state.authReducer.user);
 
@@ -238,14 +241,15 @@ function Onboarding() {
 												>
 													Categories
 												</label>
-												<HandleJobSkillsList
+												<HandleOptionSelected
 													props={{
 														mutableObject: user,
 														setMutableObject: setUser,
 														skillsList: categoriesList,
 														setSkillsList: setCategoriesList,
 														columnName: "categories",
-														placeholder: "Type in Categories and Press Enter",
+														optionSelected: optionSelected,
+														setOptionSelected: setOptionSelected,
 													}}
 												/>
 											</div>
@@ -256,15 +260,15 @@ function Onboarding() {
 												>
 													Sub-Categories
 												</label>
-												<HandleJobSkillsList
+												<HandleSubOptionSelected
 													props={{
 														mutableObject: user,
 														setMutableObject: setUser,
 														skillsList: categoriesList,
 														setSkillsList: setCategoriesList,
 														columnName: "subCategories",
-														placeholder:
-															"Type in sub-Categories and Press Enter",
+														keyName: "categories",
+														optionSelected: optionSelected,
 													}}
 												/>
 											</div>

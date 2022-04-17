@@ -23,7 +23,16 @@ function FreelancerHomeFeed() {
 	const savedFreelanceIdList = useSelector(
 		(state) => state.freelanceReducer.savedFreelanceIdList
 	);
+	const offeredFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.offeredFreelanceIdList
+	);
+	const deniedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.deniedFreelanceIdList
+	);
 
+	const acceptedFreelanceIdList = useSelector(
+		(state) => state.freelanceReducer.acceptedFreelanceIdList
+	);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -31,6 +40,9 @@ function FreelancerHomeFeed() {
 			if (localStorage.LLtoken) {
 				dispatch(setFreelanceIdListByStatus("Applied"));
 				dispatch(setFreelanceIdListByStatus("Saved"));
+				dispatch(setFreelanceIdListByStatus("Offered"));
+				dispatch(setFreelanceIdListByStatus("Denied"));
+				dispatch(setFreelanceIdListByStatus("Accepted"));
 				dispatch(setFreelanceList());
 			}
 		};
@@ -58,7 +70,6 @@ function FreelancerHomeFeed() {
 						<SortOptions />
 						<main className="flex-1">
 							<div className="py-6">
-
 								<div className="px-4 sm:px-6 md:px-0">
 									{/* Start putting items*/}
 									<ul role="list" className="space-y-3 mt-5 mb-5">
@@ -67,9 +78,13 @@ function FreelancerHomeFeed() {
 											{/* Just for illustration. All these will come from database. */}
 											{/* <Modal /> */}
 											{appliedFreelanceIdList &&
-												savedFreelanceIdList &&
-												freelanceList &&
-												freelanceList.length > 0 ? (
+											savedFreelanceIdList &&
+											// offeredFreelanceIdList &&
+											// deniedFreelanceIdList &&
+											acceptedFreelanceIdList &&
+											deniedFreelanceIdList &&
+											freelanceList &&
+											freelanceList.length > 0 ? (
 												freelanceList.map((eachFreelance) => {
 													return (
 														<JobCard
@@ -79,6 +94,15 @@ function FreelancerHomeFeed() {
 																appliedFreelanceIdList.Applied
 															}
 															savedFreelanceIdList={savedFreelanceIdList.Saved}
+															// offeredFreelanceIdList={
+															// 	offeredFreelanceIdList.Offered
+															// }
+															deniedFreelanceIdList={
+																deniedFreelanceIdList.Denied
+															}
+															acceptedFreelanceIdList={
+																acceptedFreelanceIdList.Accepted
+															}
 														/>
 													);
 												})

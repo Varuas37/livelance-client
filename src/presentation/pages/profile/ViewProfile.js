@@ -73,6 +73,15 @@ function ViewProfile() {
 							<article>
 								{/* Profile header */}
 								<div>
+									<div className=" absolute flex-shrink-0 px-4 flex items-center">
+										<Link to="/home">
+											<img
+												className="mt-5 h-8 w-auto"
+												src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
+												alt="Workflow"
+											/>
+										</Link>
+									</div>
 									<div>
 										<img
 											className="h-32 w-full object-cover lg:h-48"

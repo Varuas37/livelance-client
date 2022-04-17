@@ -38,23 +38,33 @@ const CardCompleteYourProfile = () => {
 			)}
 			{user && user.accountType === "freelancer" ? (
 				user.categories.length > 0 &&
-					user.subCategories.length > 0 &&
-					user.skills.length > 0 ? (
+				user.subCategories.length > 0 &&
+				user.skills.length > 0 ? (
 					<Banner alert={"No jobs to show for your home feed"} />
-					// <div style={myStyle}>No jobs to show for your home feed</div>
 				) : (
-					<Banner alert={"Complete your profile to see jobs on your home feed"} />
+					// <div style={myStyle}>No jobs to show for your home feed</div>
+					<Banner
+						alert={"Complete your profile to see jobs on your home feed"}
+						setIsEditProfileCardClicked={setIsEditProfileCardClicked}
+						buttonText={"Complete Profile"}
+					/>
 					// <div style={myStyle} onClick={openEditProfileModal}>
 					// 	Complete your profile to see jobs on your home feed
 					// </div>
 				)
 			) : user && user.accountType === "employer" ? (
 				user.categories.length > 0 && user.subCategories.length > 0 ? (
-					<div style={myStyle}>No freelancers to show for your home feed</div>
+					// <div style={myStyle}>No freelancers to show for your home feed</div>
+					<Banner alert={"No Freelancers to show for your home feed"} />
 				) : (
-					<div style={myStyle} onClick={openEditProfileModal}>
-						Complete your profile to see freelancers on your home feed
-					</div>
+					// <div style={myStyle} onClick={openEditProfileModal}>
+					// 	Complete your profile to see freelancers on your home feed
+					// </div>
+					<Banner
+						alert={"Complete your profile to see freelancers on your home feed"}
+						setIsEditProfileCardClicked={setIsEditProfileCardClicked}
+						buttonText={"Complete Profile"}
+					/>
 				)
 			) : (
 				<></>

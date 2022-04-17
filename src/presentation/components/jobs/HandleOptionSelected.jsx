@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MinusSmIcon } from "@heroicons/react/solid";
 import { categoriesList } from "../categories/categoriesVariables";
 const HandleOptionSelected = ({ props }) => {
+	const didMountRef = useRef(false);
 	const [skillTyped, setSkillTyped] = useState("");
-	const [optionSelected, setOptionSelected] = useState("");
+	// const [props.optionSelected, props.setOptionSelected] = useState("");
 
 	const handleKeyPressed = (e) => {
 		if (e.key === "Enter") {
@@ -19,6 +20,25 @@ const HandleOptionSelected = ({ props }) => {
 		}
 	};
 
+	useEffect(() => {
+		if (didMountRef.current) {
+			// setCurFreelancenrsList(freelancersListForHomePage);
+			if (props.optionSelected) {
+				props.setMutableObject({
+					...props.mutableObject,
+					[props.columnName]: Array.from(
+						new Set(
+							props.mutableObject[props.columnName].concat(props.optionSelected)
+						)
+					),
+				});
+			}
+
+			// console.log(optionSelected)
+		}
+		didMountRef.current = true;
+	}, [props.optionSelected]);
+
 	const deleteFromSkillsList = (e, skillName) => {
 		e.preventDefault();
 		const array = props.mutableObject[props.columnName];
@@ -28,7 +48,6 @@ const HandleOptionSelected = ({ props }) => {
 			[props.columnName]: array,
 		});
 	};
-	
 
 	// useEffect(() => {}, [props.mutableObject.skills]);
 	return (
@@ -46,13 +65,11 @@ const HandleOptionSelected = ({ props }) => {
 				/> */}
 				<select
 					name="category"
-					value={optionSelected}
-					onChange={(e) => setOptionSelected(e.target.value)}
+					value={props.optionSelected}
+					onChange={(e) => props.setOptionSelected(e.target.value)}
 					className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 				>
-					<option value="" disabled>
-						Select
-					</option>
+					<option value="" disabled>Select</option>
 					{categoriesList.map((category, idx) => (
 						<option key={idx} value={category}>
 							{category}

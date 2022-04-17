@@ -16,6 +16,8 @@ import {
 import HandleSkills from "../../components/profile/HandleSkills";
 import ImageHandler from "../../utils/ImageHandler";
 import { setFreelancersListForHomeFeed } from "../../../application/redux/action/employerActions";
+import HandleOptionSelected from "../../components/jobs/HandleOptionSelected";
+import HandleSubOptionSelected from "../../components/jobs/HandleSubOptionSelected";
 
 function EditProfileModal({ setIsEditProfileCardClicked }) {
 	const [open, setOpen] = useState(true);
@@ -24,6 +26,7 @@ function EditProfileModal({ setIsEditProfileCardClicked }) {
 	const [payPeriod, setPayPeriod] = useState("hr");
 	const [skillsList, setSkillsList] = useState([]);
 	const cancelButtonRef = useRef(null);
+	const [optionSelected, setOptionSelected] = useState("");
 
 	const profile = useSelector((state) => state.profileReducer.profile);
 	const dispatch = useDispatch();
@@ -347,11 +350,20 @@ function EditProfileModal({ setIsEditProfileCardClicked }) {
 															>
 																Categories
 															</label>
-															<HandleSkills
+															{/* <HandleSkills
 																props={{
 																	mutableObject: editProfile,
 																	setMutableObject: setEditProfile,
 																	field: "categories",
+																}}
+															/> */}
+															<HandleOptionSelected
+																props={{
+																	mutableObject: editProfile,
+																	setMutableObject: setEditProfile,
+																	columnName: "categories",
+																	optionSelected: optionSelected,
+																	setOptionSelected: setOptionSelected,
 																}}
 															/>
 														</>
@@ -362,11 +374,21 @@ function EditProfileModal({ setIsEditProfileCardClicked }) {
 															>
 																Sub-Categories
 															</label>
-															<HandleSkills
+															{/* <HandleSkills
 																props={{
 																	mutableObject: editProfile,
 																	setMutableObject: setEditProfile,
 																	field: "subCategories",
+																}}
+															/> */}
+															<HandleSubOptionSelected
+																props={{
+																	mutableObject: editProfile,
+																	setMutableObject: setEditProfile,
+
+																	columnName: "subCategories",
+																	keyName: "categories",
+																	optionSelected: optionSelected,
 																}}
 															/>
 														</>

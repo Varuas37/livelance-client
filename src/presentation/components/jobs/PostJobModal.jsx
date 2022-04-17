@@ -330,7 +330,7 @@ function PostJobModal() {
 													>
 														Skills
 													</label>
-													<HandleOptionSelected
+													<HandleJobSkillsList
 														props={{
 															mutableObject: postFreelance,
 															setMutableObject: setPostFreelance,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	setAppliedFreelanceList,
@@ -6,8 +6,11 @@ import {
 } from "../../../application/redux/action/freelanceActions";
 import GenericBrowseJob from "../../components/jobs/GenericBrowseJob";
 import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import JobsNavigation from "../../components/jobs/JobsNavigation";
 
 const Applied = () => {
+	const [curFreelanceList, setCurFreelanceList] = useState([]);
+
 	const appliedFreelanceList = useSelector(
 		(state) => state.freelanceReducer.appliedFreelanceList
 	);
@@ -17,14 +20,29 @@ const Applied = () => {
 		dispatch(setFreelanceListByStatus("Applied"));
 	}, []);
 
+	useEffect(() => {
+		if (appliedFreelanceList) {
+			setCurFreelanceList(appliedFreelanceList);
+		}
+	}, [appliedFreelanceList]);
+
 	return (
 		<>
-			{appliedFreelanceList.length > 0 ? (
-				<GenericBrowseJob
-					props={{ dataList: appliedFreelanceList, myJobType: "applied" }}
+			{appliedFreelanceList ? (
+				<SearchAndProfileAvatar
+					universalDataList={appliedFreelanceList}
+					dataList={curFreelanceList}
+					setDataList={setCurFreelanceList}
+					accountType={"freelancer"}
 				/>
 			) : (
 				<SearchAndProfileAvatar />
+			)}
+			<JobsNavigation />
+			{curFreelanceList && (
+				<GenericBrowseJob
+					props={{ dataList: curFreelanceList, myJobType: "applied" }}
+				/>
 			)}
 		</>
 	);

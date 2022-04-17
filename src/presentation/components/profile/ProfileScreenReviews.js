@@ -4,7 +4,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { setCandidateIdListByStatus } from "../../../application/redux/action/employerActions";
-import { setFreelanceIdListByStatus } from "../../../application/redux/action/freelanceActions";
+import {
+	setFreelanceIdListByStatus,
+	setFreelanceIdListByStatusForReview,
+} from "../../../application/redux/action/freelanceActions";
 import {
 	setReviews,
 	setReviewsData,
@@ -23,17 +26,17 @@ function ProfileScreenReviews({ id }) {
 	const dispatch = useDispatch();
 
 	const reviewsData = useSelector((state) => state.profileReducer.reviewsData);
-	const acceptedFreelanceIdList = useSelector(
-		(state) => state.freelanceReducer.acceptedFreelanceIdList
+	const acceptedFreelanceIdListForReview = useSelector(
+		(state) => state.freelanceReducer.acceptedFreelanceIdListForReview
 	);
 
-	console.log(acceptedFreelanceIdList);
+	// console.log(acceptedFreelanceIdListForReview)
 	let { state } = useLocation();
 
 	const user = useSelector((state) => state.authReducer.user);
 	useEffect(() => {
 		if (user && user.accountType === "freelancer") {
-			dispatch(setFreelanceIdListByStatus("Accepted"));
+			dispatch(setFreelanceIdListByStatusForReview("Accepted"));
 		} else if (user && user.accountType === "employer") {
 		}
 	}, [user]);
@@ -49,9 +52,10 @@ function ProfileScreenReviews({ id }) {
 				<div className="lg:col-span-4">
 					{reviewsData && <ReviewsStatistics reviewsData={reviewsData} />}
 
-					{acceptedFreelanceIdList && acceptedFreelanceIdList.includes(id) && (
-						<ShareYourThoughts />
-					)}
+					{acceptedFreelanceIdListForReview &&
+						acceptedFreelanceIdListForReview.includes(id) && (
+							<ShareYourThoughts />
+						)}
 
 					{state && state.reviewMode === "editable" && <ShareYourThoughts />}
 				</div>

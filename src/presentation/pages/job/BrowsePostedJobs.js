@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { setPostedFreelanceList } from "../../../application/redux/action/freelanceActions";
 import PostedJobCard from "../../components/jobs/employer/PostedJobCard";
+import SearchAndProfileAvatar from "../../components/appheader/SearchAndProfileAvatar";
+import PostJob from "../../components/jobs/PostJob";
 
 const BrowsePostedJobs = () => {
 	const dispatch = useDispatch();
@@ -10,14 +12,28 @@ const BrowsePostedJobs = () => {
 		dispatch(setPostedFreelanceList());
 	}, []);
 
+	const [curList, setCurList] = useState([]);
+
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const postedFreelanceList = useSelector(
 		(state) => state.freelanceReducer.postedFreelanceList
 	);
 
+	useEffect(() => {
+		if (postedFreelanceList) {
+			setCurList(postedFreelanceList);
+		}
+	}, [postedFreelanceList]);
 	return (
 		<>
 			<div className="h-screen">
+				<SearchAndProfileAvatar
+					universalDataList={postedFreelanceList}
+					dataList={curList}
+					setDataList={setCurList}
+					accountType={"employer"}
+				/>
+				<PostJob />
 				<Transition.Root show={sidebarOpen} as={Fragment}>
 					<Dialog
 						as="div"
@@ -39,8 +55,8 @@ const BrowsePostedJobs = () => {
 									<ul role="list" className="space-y-3 mt-5 mb-5">
 										{/* For the list of Jobs Map the JobCard Here */}
 										<div className="bg-white  overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
-											{postedFreelanceList &&
-												postedFreelanceList.map((eachFreelance, idx) => {
+											{curList &&
+												curList.map((eachFreelance, idx) => {
 													return (
 														<PostedJobCard key={idx} data={eachFreelance} />
 													);
