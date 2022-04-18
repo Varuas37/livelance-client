@@ -430,7 +430,7 @@ function LandingPage() {
 									</span>
 								</h1>
 								<p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-									Livelance is where employers can hire freelancers for jobs
+									Livelance is where employers hire freelancers for jobs
 									that cannot be done over the internet.
 								</p>
 								<div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">

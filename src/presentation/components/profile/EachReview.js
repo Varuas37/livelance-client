@@ -40,7 +40,7 @@ const EachReview = ({ review }) => {
 				<div className="ml-4">
 					<h4 className="text-sm font-bold text-gray-900">
 						{author && author.firstName && author.firstName}{" "}
-						{author && author.lastName && author.firstName}
+						{author && author.lastName && author.lastName}
 					</h4>
 					<div className="mt-1 flex items-center">
 						{[0, 1, 2, 3, 4].map((rating) => (
