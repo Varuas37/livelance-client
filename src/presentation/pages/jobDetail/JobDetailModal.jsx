@@ -23,6 +23,8 @@ function JobDetailModal({
 		setIsReadMoreClicked((isReadMoreClicked) => !isReadMoreClicked);
 	};
 
+	const user = useSelector((state) => state.authReducer.user);
+
 	const dispatch = useDispatch();
 	const applyJob = async () => {
 		const response = await dispatch(applyToJob(selectedFreelance._id));
@@ -146,11 +148,13 @@ function JobDetailModal({
 												</svg>
 												<span>
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy.firstName &&
-														selectedFreelance.postedBy.firstName}{" "}
+													selectedFreelance.postedBy.firstName
+														? selectedFreelance.postedBy.firstName
+														: "Rafal"}{" "}
 													{selectedFreelance.postedBy &&
-														selectedFreelance.postedBy.lastName &&
-														selectedFreelance.postedBy.lastName}
+													selectedFreelance.postedBy.lastName
+														? selectedFreelance.postedBy.lastName
+														: "Tatsuya"}
 												</span>
 											</div>
 											<div className="font-light text-gray-600 flex flex-row space-x-1">
@@ -216,7 +220,9 @@ function JobDetailModal({
 									</div>
 								</div>
 								<div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
-									{isAppliedJob ? (
+									{user && user.accountType === "employer" ? (
+										<></>
+									) : isAppliedJob ? (
 										<button
 											type="button"
 											className="inline-flex items-center px-4 py-2 border border-4px-solid-black text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

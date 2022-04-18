@@ -94,9 +94,9 @@ function FreelancerHomeFeed() {
 																appliedFreelanceIdList.Applied
 															}
 															savedFreelanceIdList={savedFreelanceIdList.Saved}
-															// offeredFreelanceIdList={
-															// 	offeredFreelanceIdList.Offered
-															// }
+															offeredFreelanceIdList={
+																offeredFreelanceIdList.Offered
+															}
 															deniedFreelanceIdList={
 																deniedFreelanceIdList.Denied
 															}

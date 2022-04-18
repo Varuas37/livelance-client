@@ -426,17 +426,16 @@ function LandingPage() {
 								<h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
 									<span className="block text-white">LiveLance</span>
 									<span className="block text-indigo-200">
-										For All Your Livelihood Connecting Us together
+										A World of Non-Remote Freelancing
 									</span>
 								</h1>
 								<p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-									Livelance is empowering community of local people with various
-									skills. Thousands of people are finding jobs and allocating
-									jobs here.
+									Livelance is where employers can hire freelancers for jobs
+									that cannot be done over the internet.
 								</p>
 								<div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
 									<div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-										<a
+										{/* <a
 											href="#"
 											className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8"
 										>
@@ -447,7 +446,7 @@ function LandingPage() {
 											className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-500 bg-opacity-60 hover:bg-opacity-70 sm:px-8"
 										>
 											Post a Job
-										</a>
+										</a> */}
 									</div>
 								</div>
 							</div>
@@ -510,18 +509,17 @@ function LandingPage() {
 											Stay on top with your work
 										</h2>
 										<p className="mt-4 text-lg text-gray-500">
-											Livelance connects you direcly with a freelance worker
-											near your area. We have inbuilt chat system which allows
-											for better communication between the employer and the
-											employee.
+											Livelance connects you direcly with a freelancer near your
+											area. We have an in-built chat system for better
+											communication between the employers and the freelancers.
 										</p>
 										<div className="mt-6">
-											<a
-												href="#"
+											<Link
+												to="/signup"
 												className="inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700"
 											>
 												Get started
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>
@@ -531,7 +529,7 @@ function LandingPage() {
 											<p className="text-base text-gray-500">
 												&ldquo;With the change and growth of technology, we want
 												to build the most realiable website that will inspire,
-												empower and connect our communities together and assist
+												empower, and connect our communities together and assist
 												each individual to live healthy and better life. &rdquo;
 											</p>
 										</div>
@@ -586,12 +584,12 @@ function LandingPage() {
 											Freelancers with low reviews are removed.
 										</p>
 										<div className="mt-6">
-											<a
-												href="#"
+											<Link
+												to="/signup"
 												className="inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700"
 											>
 												Get started
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>
@@ -702,18 +700,18 @@ function LandingPage() {
 							</span>
 						</h2>
 						<div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-							<a
+							{/* <a
 								href="#"
 								className="flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700"
 							>
 								Learn more
-							</a>
-							<a
-								href="#"
+							</a> */}
+							<Link
+								to="/signup"
 								className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-800 bg-indigo-50 hover:bg-indigo-100"
 							>
 								Get started
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -724,7 +722,7 @@ function LandingPage() {
 					Footer
 				</h2>
 				<div className="max-w-7xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:pt-24 lg:px-8">
-					<div className="xl:grid xl:grid-cols-3 xl:gap-8">
+					{/* <div className="xl:grid xl:grid-cols-3 xl:gap-8">
 						<div className="grid grid-cols-2 gap-8 xl:col-span-2">
 							<div className="md:grid md:grid-cols-2 md:gap-8">
 								<div>
@@ -783,13 +781,13 @@ function LandingPage() {
 								<div className="mt-12 md:mt-0">
 									<h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase"></h3>
 									<ul role="list" className="mt-4 space-y-4">
-										{/* {footerNavigation.legal.map((item) => (
+										{footerNavigation.legal.map((item) => (
                                             <li key={item.name}>
                                                 <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
                                                     {item.name}
                                                 </a>
                                             </li>
-                                        ))} */}
+                                        ))}
 									</ul>
 								</div>
 							</div>
@@ -825,9 +823,9 @@ function LandingPage() {
 								</div>
 							</form>
 						</div>
-					</div>
-					<div className="mt-12 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between lg:mt-16">
-						<div className="flex space-x-6 md:order-2">
+					</div> */}
+					<div className="border-t border-gray-200 md:flex md:items-center md:justify-between">
+						{/* <div className="flex space-x-6 md:order-2">
 							{footerNavigation.social.map((item) => (
 								<a
 									key={item.name}
@@ -838,8 +836,8 @@ function LandingPage() {
 									<item.icon className="h-6 w-6" aria-hidden="true" />
 								</a>
 							))}
-						</div>
-						<p className="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+						</div> */}
+						<p className="text-base text-gray-400 md:mt-0 md:order-1">
 							&copy; 2022 Livelance, Inc. All rights reserved.
 						</p>
 					</div>
