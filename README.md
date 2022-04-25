@@ -10,3 +10,12 @@ Getting Started:
 5. Start the client ```npm start```
 
 Please contact us if you have any issues running the client.
+
+**Login Info:**
+**Employer** Login Info: 
+username: itsemployer@gmail.com
+password: livelance
+
+**Freelancer** Login Info:
+username: itsfreelancer@gmail.com
+password: livelance
