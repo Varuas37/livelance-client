@@ -11,7 +11,8 @@ Getting Started:
 
 Please contact us if you have any issues running the client.
 
-**Login Info:**
+**Login Info**
+
 **Employer** Login Info: 
 username: itsemployer@gmail.com
 password: livelance
